@@ -15,10 +15,10 @@ import java.util.Map;
 public class Hamper extends SelectFood{
     private HashMap<String, Integer> calorieNeeds = new HashMap<>();
     private HashMap<String, Integer> wasteAmount;
-    private ArrayList<Integer> hamperFoods;
-    private HashMap<Integer, Object> avaliableFoods = new HashMap<>();
+    private HashMap<Integer, HashMap<String, Integer>> hamperFoods;
+    private HashMap<Integer, HashMap<String, Integer>> avaliableFoods = new HashMap<>();
 
-    public Hamper(HashMap<String, Integer> calorieNeeds, HashMap<Integer, Object> avaliableFoods){
+    public Hamper(HashMap<String, Integer> calorieNeeds, HashMap<Integer, HashMap<String, Integer>> avaliableFoods){
         this.calorieNeeds.putAll(calorieNeeds);
         this.avaliableFoods.putAll(avaliableFoods);
         this.hamperFoods = calculateFoods(this.calorieNeeds, this.avaliableFoods);
@@ -29,7 +29,7 @@ public class Hamper extends SelectFood{
         return this.wasteAmount;
     }
 
-    public ArrayList<Integer> getFoodQuantities(){
+    public HashMap<Integer, HashMap<String, Integer>> getFoodQuantities(){
         return this.hamperFoods;
     }
 

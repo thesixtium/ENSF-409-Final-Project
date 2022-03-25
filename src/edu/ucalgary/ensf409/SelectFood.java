@@ -2,7 +2,7 @@
  * @author Aleksander Berezowski
  * @author Dani ???
  * @author Philippa Madill
- * @version 1.3
+ * @version 1.4
  * @since 1.0
  */
 
@@ -21,7 +21,7 @@ public class SelectFood {
      *              calories, and their id.
      * @return An ArrayList of Integers containing each food's ID number
      */
-    public static ArrayList<Integer> calculateFoods(HashMap<String, Integer> needs, HashMap<Integer, Object> availableFoods){
+    public static HashMap<Integer, HashMap<String, Integer>> calculateFoods(HashMap<String, Integer> needs, HashMap<Integer, HashMap<String, Integer>> availableFoods){
 
     }
 
@@ -36,7 +36,16 @@ public class SelectFood {
      *              - protein
      *              - other
      */
-    public static HashMap<String, Integer> calculateWaste(ArrayList<Integer> foods, HashMap<String, Integer> needs){
-
+    public static HashMap<String, Integer> calculateWaste(HashMap<Integer, HashMap<String, Integer>> foods, HashMap<String, Integer> needs){
+        HashMap<String, Integer> returnMap = new HashMap<>();
+        String[] foodTypes = {"fv", "grain", "protein", "other"};
+        for(String i : foodTypes){
+            int j = 0;
+            for(HashMap<String, Integer> k : foods.values()){
+                j += k.get(i);
+            }
+            returnMap.put(i, j);
+        }
+        return returnMap;
     }
 }
