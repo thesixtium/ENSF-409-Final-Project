@@ -1,6 +1,6 @@
 /**
  * @author Aleksander Berezowski
- * @author Dani ???
+ * @author Danielle Jourdain
  * @author Philippa Madill
  * @version 1.4
  * @since 1.0
@@ -19,7 +19,7 @@ public class SelectFood {
      *              fv, grains, protein, other.
      * @param availableFoods A hashmap of all the available foods, their
      *              calories, and their id.
-     * @return An ArrayList of Integers containing each food's ID number
+     * @return An HashMap of Integers containing each food's ID number
      */
     public static HashMap<Integer, HashMap<String, Integer>> calculateFoods(HashMap<String, Integer> needs, HashMap<Integer, HashMap<String, Integer>> availableFoods){
 
