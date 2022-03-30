@@ -12,8 +12,8 @@ import static org.junit.Assert.*;
 import java.io.File;
 
 public class OrderFormTest {
-    int[] goodFamily = {1, 1, 1, 1};
-    int[] badFamily = {1, 0, 3};
+    String[][] goodFamily = {"1", "1", "1", "1"};
+    String[][] badFamily = {"1", "0", "3"};
     private RequestForm goodRequest = new RequestForm(goodFamily);
     private RequestForm badRequest = new RequestForm(badFamily);
 
