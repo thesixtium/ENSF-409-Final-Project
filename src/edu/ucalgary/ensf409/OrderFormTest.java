@@ -12,8 +12,10 @@ import static org.junit.Assert.*;
 import java.io.File;
 
 public class OrderFormTest {
-    private RequestForm goodRequest = new RequestForm();
-    private RequestForm badRequest = new RequestForm();
+    int[] goodFamily = {1, 1, 1, 1};
+    int[] badFamily = {1, 0, 3};
+    private RequestForm goodRequest = new RequestForm(goodFamily);
+    private RequestForm badRequest = new RequestForm(badFamily);
 
     /**
      * OrderForm(RequestForm) is called with valid data.
@@ -27,11 +29,22 @@ public class OrderFormTest {
     }
 
     /**
+     * OrderForm(RequestForm) is called with an invalid family.
+     * The constructor should not create an OrderForm object
+     */
+    @Test 
+    public void testConstructorBad() {
+        OrderForm form = new OrderForm(badRequest);
+
+        assertNull(form, "OrderForm created a form for a bad RequestForm object");
+    }
+
+    /**
      * Create an OrderForm objext, then call the createForm method. Check if a file was created in the working directory
      */
     @Test
     public void testCreateFormWithUnsuccessfulHamper() {
-        OrderForm form = new OrderForm(badRequest);
+        OrderForm form = new OrderForm(goodRequest);
         form.createForm("testFile.txt");
 
         File file = new File("testFile.txt");
