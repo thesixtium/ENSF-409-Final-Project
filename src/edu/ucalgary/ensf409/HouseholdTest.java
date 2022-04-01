@@ -19,7 +19,7 @@ public class HouseholdTest {
 
     @Test
     public void testHouseholdInit(){
-        assertNotEquals("Initialzed object is null", testObj, null);
+        assertNotEquals("Initialized object is null", testObj, null);
     }
 
     @Test

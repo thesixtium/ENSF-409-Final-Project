@@ -1,6 +1,6 @@
 /**
  * @author Philippa Madill
- * @version 1.0
+ * @version 1.3
  * @since 1.0
  */
 
@@ -15,10 +15,19 @@ public class SelectFoodTest{
 	
 	@Test
 	public void testNotEnoughFoodException(){
-		/*
-		calculateFoods, set the Hashmap to have a negative value or an absurdly high
-		value. Check if the NotEnoughFoodException is thrown
-		*/
+		
+		Hamper testHamper1 = new Hamper({60000, 3000, 99999, 1000000})
+		boolean testResult = false;
+		try{
+			testHamper1.calculateFoods()
+			}
+		catch(NotEnoughFoodException e){
+			testResult = true;
+		}
+		catch(Exception e){
+			assertTrue("NotEnoughFoodException was not thrown despite unobtainable calorie values.", testResult);
+		}
+		
 	}
 	
 	@Test
