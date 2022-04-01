@@ -1,6 +1,6 @@
 /**
  * @author Danielle Jourdain
- * @version 1.0
+ * @version 1.6
  * @since 1.0
  */
 
