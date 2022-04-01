@@ -106,8 +106,7 @@ public class RequestFormTest{
 		public void testSetFoodValues(){
 		var newFoodValue = 500;
 		//Check if a food with a value of 500 is already in the database. 
-		//Will it throw and error that this food already exists?
-		//Honestly kind of confused as to what this actually does?
+		//Will it throw an error that this food already exists with different other values?
 	}
 	
 	@Test
