@@ -9,7 +9,6 @@
 package edu.ucalgary.ensf409;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -128,5 +127,27 @@ public class SelectFood {
         }
 
         return -1;
+    }
+
+    public HashMap<String, Integer> calculateWaste(HashMap<Integer, FoodData> foods, FoodNeeds needs){
+        int grains = 0;
+        int protein = 0;
+        int fv = 0;
+        int other = 0;
+        HashMap<String, Integer> returnMap = new HashMap<>();
+
+        for (Integer i : foods.keySet()){
+            grains += foods.get(i).getGrain();
+            protein += foods.get(i).getProtein();
+            fv += foods.get(i).getFv();
+            other += foods.get(i).getOther();
+        }
+
+        returnMap.put("grain", grains - needs.getGrainCalories());
+        returnMap.put("fv", fv - needs.getFvCalories());
+        returnMap.put("other", other - needs.getOtherCalories());
+        returnMap.put("protein", protein - needs.getProteinCalories());
+
+        return returnMap;
     }
 }
