@@ -8,7 +8,9 @@
 
 package edu.ucalgary.ensf409;
 
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class OrderForm {
@@ -22,11 +24,18 @@ public class OrderForm {
      */
     public OrderForm(RequestForm formInfo) {
         this.ORDER = formInfo;
+        this.filename = "orderForm";
+        File testFile = new File(this.filename + ".txt");
+        int count = 1;
+        while(testFile.isFile()) {
+            this.filename = this.filename + 1;
+            testFile = new File(this.filename + ".txt");
+            count++;
+        }
+        this.filename = this.filename + ".txt";
     }
 
     public void createForm(String filename) {
-        this.filename = filename;
-
         StringBuilder formResult = new StringBuilder();
         formResult.append("The Peanut Butter Scenario Food Bank\nHamper Order Form\n\n");
         formResult.append("Name:\nDate:\n");
@@ -43,10 +52,23 @@ public class OrderForm {
             counter++;
         }
 
-        formResult.append("\n");
+        ArrayList<Hampers> hampers = this.ORDER.getHampers();
+        Iterator<Hamper> hamperIter = hampers.iterator();
+        counter = 1;
+        while(hamperIter.hasNext()) {
+            result.append("Hamper " + counter + " items:\n");
+            Hamper tempHamper = hamperIter.next();
+            
+            if(tempHamper.getEnoughFood()) {
+                result.append(successfulHamperCreation(tempHamper));
+            }
+            else {
+                result.append(unsuccessfulHamperCreation(tempHamper));
+            }
+            formResult.append("\n\n");
+        }
 
-        counter = 0;
-        ArrayList<Hamper> hampers = this.Order.getHampers();
+        writeToFile(formResult.toString());
     }
 
     private String countHousehold(Household house) {
@@ -56,9 +78,10 @@ public class OrderForm {
 
         while(famIter.hasNext()) {
             Object person = famIter.next();
-            String type = person.getClass().getName();
+            String type = person.getClass().getName();  //gives "edu.ucalgary.ensf409.classname"
             //get the string representation of the class of the person object
             type = type.replaceAll("edu.ucalgary.ensf409", "");
+            //remove front of string
 
             if(type.equals("AdultFemale")) {
                 values[0]++;
@@ -134,20 +157,34 @@ public class OrderForm {
         writeToFile(formResult.toString(), filename);
         //write the result to the a text file
     }
+    */
 
     private String successfulHamperCreation(Hamper hamper) {
         StringBuilder result = new StringBuilder();
-        HashMap<Integer, HashMap<String, Integer>> foodQuantities = hamper.getFoodQuantities();
-        
-        return null;
+        HashMap<Integer, FoodData> foods = hamper.getFoodQuantities();
+
+        for(Map.Entry<Integer, FoodData> entry: foods.entrySet()) {
+            int id = entry.getKey();
+            String foodName = entry.getValue().getName();
+            result.append(id + "\t" + foodName + "\n");
+        }
+
+        return result.toString();
     }
 
     private String unsuccessfulHamperCreation(Hamper hamper) {
-        return null;
+        StringBuilder result = new StringBuilder();
+
+        return result.toString();
     }
 
-    private void writeToFile(String message, String filename) {
-        
+    private void writeToFile(String message) {
+        try {
+            FileWriter writer = new FileWriter(filename);
+            writer.write(message);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    */
 }
