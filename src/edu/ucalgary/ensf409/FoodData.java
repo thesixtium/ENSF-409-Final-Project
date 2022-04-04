@@ -10,12 +10,14 @@ package edu.ucalgary.ensf409;
 
 public class FoodData {
     private int fv, grain, protein, other;
+    private String name;
 
-    public FoodData(){
+    public FoodData(String name){
         this.fv = 0;
         this.grain = 0;
         this.protein = 0;
         this.other = 0;
+        this.name = name;
     }
 
     public void setFV(int i){
@@ -49,4 +51,13 @@ public class FoodData {
     public int getOther(){
         return this.other;
     }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public int getSum(){
+        return this.fv + this.grain + this.protein + this.other;
+    }
+
 }

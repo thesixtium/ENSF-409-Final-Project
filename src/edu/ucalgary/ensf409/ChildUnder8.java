@@ -8,5 +8,5 @@
 
 package edu.ucalgary.ensf409;
 
-public class ChildUnder8 {
+public class ChildUnder8 extends FoodNeeds{
 }
