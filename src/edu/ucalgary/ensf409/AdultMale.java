@@ -8,5 +8,5 @@
 
 package edu.ucalgary.ensf409;
 
-public class AdultMale {
+public class AdultMale extends FoodNeeds{
 }
