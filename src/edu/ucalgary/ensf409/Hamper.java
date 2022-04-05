@@ -16,7 +16,7 @@ public class Hamper extends SelectFood{
     private HashMap<Integer, FoodData> hamperFoods;
     private HashMap<Integer, FoodData> avaliableFoods = new HashMap<>();
 
-    public Hamper(FoodNeeds calorieNeeds, HashMap<Integer, FoodData> avaliableFoods){
+    public Hamper(FoodNeeds calorieNeeds, HashMap<Integer, FoodData> avaliableFoods) throws NotEnoughFoodException{
         this.calorieNeeds = calorieNeeds;
         this.avaliableFoods.putAll(avaliableFoods);
 

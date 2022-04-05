@@ -9,4 +9,12 @@
 package edu.ucalgary.ensf409;
 
 public class NotEnoughFoodException extends Exception{
+    String type;
+    NotEnoughFoodException(String type){
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
 }

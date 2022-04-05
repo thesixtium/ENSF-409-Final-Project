@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class SelectFood {
 
-    public HashMap<Integer, FoodData> calculateFoods(HashMap<Integer, FoodData> foods, FoodNeeds needs){
+    public HashMap<Integer, FoodData> calculateFoods(HashMap<Integer, FoodData> foods, FoodNeeds needs) throws NotEnoughFoodException {
         String[] foodTypes = {"fv", "grain", "protein", "other"};
         HashMap<Integer, FoodData> returnFoods = new HashMap<>();
         while(!needs.isSatisfied()){
@@ -33,7 +33,7 @@ public class SelectFood {
     }
 
     private int mostEfficientFood(HashMap<Integer, FoodData> currentReturnFoods, HashMap<Integer, FoodData> foods,
-                                  FoodNeeds needs, String currentlyWorkingOn){
+                                  FoodNeeds needs, String currentlyWorkingOn) throws NotEnoughFoodException {
         int currentFoodCalories;
         ArrayList<FoodData> sortedFoods = new ArrayList<>(foods.values());
         int returnValue = 0;
@@ -50,7 +50,9 @@ public class SelectFood {
                     return o1.getFv() < o2.getFv() ? -1 : 1;
                 }
             });
-
+            if (sortedFoods.get(returnValue).getFv() == 0){
+                throw new NotEnoughFoodException("fv");
+            }
             while(sortedFoods.get(returnValue).getFv() > currentFoodCalories){
                 returnValue++;
                 if (sortedFoods.get(returnValue).getFv() == 0){
@@ -70,7 +72,9 @@ public class SelectFood {
                     return o1.getGrain() < o2.getGrain() ? -1 : 1;
                 }
             });
-
+            if (sortedFoods.get(returnValue).getGrain() == 0){
+                throw new NotEnoughFoodException("grain");
+            }
             while(sortedFoods.get(returnValue).getGrain() > currentFoodCalories){
                 returnValue++;
                 if (sortedFoods.get(returnValue).getGrain() == 0){
@@ -90,7 +94,9 @@ public class SelectFood {
                     return o1.getFv() < o2.getFv() ? -1 : 1;
                 }
             });
-
+            if (sortedFoods.get(returnValue).getProtein() == 0){
+                throw new NotEnoughFoodException("protein");
+            }
             while(sortedFoods.get(returnValue).getProtein() > currentFoodCalories){
                 returnValue++;
                 if (sortedFoods.get(returnValue).getProtein() == 0){
@@ -110,7 +116,9 @@ public class SelectFood {
                     return o1.getFv() < o2.getFv() ? -1 : 1;
                 }
             });
-
+            if (sortedFoods.get(returnValue).getOther() == 0){
+                throw new NotEnoughFoodException("other");
+            }
             while(sortedFoods.get(returnValue).getOther() > currentFoodCalories){
                 returnValue++;
                 if (sortedFoods.get(returnValue).getOther() == 0){
