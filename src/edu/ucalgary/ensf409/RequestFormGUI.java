@@ -180,5 +180,14 @@ public static void main(String[] args){
 		requestForm.close();
 	}
 
+	public ArrayList<Hamper> getHampers() {
+        Iterator<Household> iter = h.iterator();
+        ArrayList<Hamper> result = new ArrayList<>();
+        while(iter.hasNext()) {
+            Household i = iter.next();
+            result.add(i.getFamilyHamper());
+        }
 
+        return result;
+    }
 }
