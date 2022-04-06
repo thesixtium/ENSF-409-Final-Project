@@ -10,8 +10,10 @@ package edu.ucalgary.ensf409;
 
 public class NotEnoughFoodException extends Exception{
     String type;
-    NotEnoughFoodException(String type){
+    int amount;
+    NotEnoughFoodException(String type, int amount){
         this.type = type;
+        this.amount = amount;
     }
 
     public String getType() {
