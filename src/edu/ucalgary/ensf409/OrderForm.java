@@ -2,7 +2,7 @@
  * @author Aleksander Berezowski
  * @author Danielle Jourdain
  * @author Philippa Madill
- * @version 1.5
+ * @version 1.7
  * @since 1.0
  */
 
@@ -87,7 +87,7 @@ public class OrderForm {
 
 
         formResult.delete(formResult.length() - 2, formResult.length());
-        //remove the extra newline character
+        //remove the extra newline characters, then write the contents to the file
         writeToFile(formResult.toString());
     }
 
@@ -137,53 +137,13 @@ public class OrderForm {
         if(values[3] != 0) {
             result.append(values[3] + " Child under 8, ");
         }
-        //if there is at one member of each type add it to a StringBuilder
+        //if there is at least one member of each type add it to a StringBuilder
 
         result.delete(result.length() - 2, result.length());
+        //delete the comma and space at the end of the line
+
         return result.toString();
     }
-/*
-    public void createForm(String filename) {
-        StringBuilder formResult = new StringBuilder();
-        formResult.append("The Peanut Butter Scenario Food Bank\nHamper Order Form\n\n");
-        formResult.append("Name:\nDate:\n");
-        formResult.append("Original Request:\n");
-        //add the header info to the result string
-
-        ArrayList<Household> households = this.ORDER.getHouseholds();
-        for(int i = 0; i < households.size(); i++) {
-            formResult.append("Hamper " + i + ":\t");
-            formResult.append(households.get(i).toString() + "\n");
-            //add each household to the form
-        }
-        formResult.append("\n");
-
-        ArrayList<Hamper> hampers = this.ORDER.getHampers();
-        Iterator<Hamper> hamperIter = hampers.iterator();
-        //get all of the hampers for this order, and begin to iterate over it
-
-        while(hamperIter.hasNext()) {
-            Hamper tempHamper = hamperIter.next();
-            //get the next Hamper in the list
-
-            HashMap<String, Integer> shortBy = tempHamper.getShortBy();
-            //get the calories the hamper is short by. if there is enough 
-            //food, this HashMap should be null
-
-            if(shortBy == null) {
-                formResult.append(successfulHamperCreation(tempHamper));
-                //if there is enough food, add the food to the form
-            }
-            else {
-                formResult.append(unsuccessfulHamperCreation(tempHamper));
-                //if there isn't enough, display how much the bank is short by
-            }
-        }
-
-        writeToFile(formResult.toString(), filename);
-        //write the result to the a text file
-    }
-    */
 
     /**
      * This method creates a string contiaining the info for a hamper that was
@@ -196,9 +156,11 @@ public class OrderForm {
         HashMap<Integer, FoodData> foods = hamper.getFoodQuantities();
 
         for(Map.Entry<Integer, FoodData> entry: foods.entrySet()) {
+            //iterate through the HashMap of the foods
             int id = entry.getKey();
             String foodName = entry.getValue().getName();
             result.append(id + "\t" + foodName + "\n");
+            //add the food ID number and food name to the result
         }
 
         return result.toString();
@@ -212,6 +174,20 @@ public class OrderForm {
      */
     private String unsuccessfulHamperCreation(Hamper hamper) {
         StringBuilder result = new StringBuilder();
+        FoodData shortBy = hamper.getShortBy();
+
+        result.append("Unable to create a hamper. Short by " + shortBy.getSum() + " calories.\n");
+        
+        int fvShort = shortBy.getFv() / shortBy.getSum() * 100;
+        int grainShort = shortBy.getGrain() / shortBy.getSum() * 100;
+        int proteinShort = shortBy.getProtein() / shortBy.getSum() * 100;
+        int otherShort = shortBy.getOther() / shortBy.getSum() * 100;
+        //calculate the percentage of overall calories each type is short by
+
+        result.append("\t" + fvShort + "% of missing calories must be Fruits/Veggies.\n");
+        result.append("\t" + grainShort + "% of missing calories must be Grain.\n");
+        result.append("\t" + proteinShort + "% of missing calories must be Protein.\n");
+        result.append("\t" + otherShort + "% of missing calories must be Other.");
 
         return result.toString();
     }
