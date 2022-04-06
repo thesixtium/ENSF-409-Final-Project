@@ -142,19 +142,19 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		If any inputs are negative or contain non numerical inputs, they are invalid.
 		*/
 		boolean allInputValid = true;
-		if(households[numHouseholds][0]<0 || femaleInput.getText().contains([^-0-9\/]+)){
+		if(households[numHouseholds][0]<0 || femaleInput.getText().contains("[^-0-9\/]+")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, femaleInput.getText() + " is an invalid amount of Adult Females.")
 		}
-		if(households[numHouseholds][1]<0 || maleInput.getText().contains([^-0-9\/]+)){
+		if(households[numHouseholds][1]<0 || maleInput.getText().contains("[^-0-9\/]+")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, maleInput.getText() + " is an invalid amount of Adult Males.")
 		}
-		if(households[numHouseholds][2]<0 || over8Input.getText().contains([^-0-9\/]+)){
+		if(households[numHouseholds][2]<0 || over8Input.getText().contains("[^-0-9\/]+")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, over8Input.getText() + " is an invalid amount of Children Over 8.")
 		}
-		if(households[numHouseholds][3]<0 || under8Input.getText().contains([^-0-9\/]+)){
+		if(households[numHouseholds][3]<0 || under8Input.getText().contains("[^-0-9\/]+")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, under8Input.getText() + " is an invalid amount of Children Under 8.")
 		}
@@ -168,15 +168,13 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		return this.numHouseholds;
 	}
 	
-	
-public void setClientValues(){
-	
-}
 public static void main(String[] args){
 		EventQueue.invokeLater(() -> {
 			new GUIRequestForm().setVisible(true);
 		});
-		
+		RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/inventory","student","ensf" );
+		requestForm.initializeConnection();
+		requestForm.close();
 	}
 
 
