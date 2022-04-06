@@ -2,7 +2,7 @@
  * @author Aleksander Berezowski
  * @author Danielle Jourdain
  * @author Philippa Madill
- * @version 1.0
+ * @version 1.2
  * @since 1.0
  */
 
@@ -10,8 +10,9 @@ package edu.ucalgary.ensf409;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
-public class RequestForm extends JFrame implements ActionListener, MouseListener {
+public class RequestFormGUI extends JFrame implements ActionListener, MouseListener {
 	private int[][] households;
 	private int numHouseholds = 1;
 	
@@ -36,6 +37,11 @@ public class RequestForm extends JFrame implements ActionListener, MouseListener
 	}
 	
 	public void setupGUI(){
+		/*
+		Make the GUI to accept the amount of clients 
+		can create multiple households by hitting the "Add household" button
+		or create an order form by hitting the "Create order form" button
+		*/
 		instructions = new JLabel("Enter quantity of each type of client. Enter '0' if unapplicable");
 		femaleLabel = new JLabel("Adult Females:");
 		maleLabel = new JLabel ("Adult Males:");
@@ -97,9 +103,12 @@ public class RequestForm extends JFrame implements ActionListener, MouseListener
 		if(validateInput()){
 		if (event.getSource().equals(makeOrderForm)){
 			createOrderForm();
+			Household household = new Household(households);
 			JOptionPane.showMessageDialog(this, "Order Form Created as \n" + OrderForm.filename);
 		}
 		if (event.getSource().equals(addhousehold)){
+			//resets the inputs to accept new ones after storing the old ones
+			//increases number of households by one
 			setNumHouseholds(numHouseholds+1);
 			femaleInput.setText("");
 			maleInput.setText("");
@@ -129,6 +138,9 @@ public class RequestForm extends JFrame implements ActionListener, MouseListener
         
     }
 	private boolean validateInput(){
+		/*
+		If any inputs are negative or contain non numerical inputs, they are invalid.
+		*/
 		boolean allInputValid = true;
 		if(households[numHouseholds][0]<0 || femaleInput.getText().contains([^-0-9\/]+)){
 			allInputValid = false;
@@ -156,10 +168,16 @@ public class RequestForm extends JFrame implements ActionListener, MouseListener
 		return this.numHouseholds;
 	}
 	
-	public static void main(String[] args){
+	
+public void setClientValues(){
+	
+}
+public static void main(String[] args){
 		EventQueue.invokeLater(() -> {
 			new GUIRequestForm().setVisible(true);
 		});
 		
 	}
+
+
 }
