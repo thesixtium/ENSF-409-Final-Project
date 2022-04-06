@@ -205,4 +205,12 @@ public class OrderForm {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Getter method for filename variable.
+     * @return value of filename
+     */
+    public String getFilename() {
+        return this.filename;
+    }
 }

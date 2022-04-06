@@ -102,9 +102,10 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		households[numHouseholds-1][3] = Integer.parseInt(under8Input.getText());
 		if(validateInput()){
 		if (event.getSource().equals(makeOrderForm)){
-			createOrderForm();
+			OrderForm form = new OrderForm();
+			form.createOrderForm();
 			Household household = new Household(households);
-			JOptionPane.showMessageDialog(this, "Order Form Created as \n" + OrderForm.filename);
+			JOptionPane.showMessageDialog(this, "Order Form Created as \n" + form.getFilename());
 		}
 		if (event.getSource().equals(addhousehold)){
 			//resets the inputs to accept new ones after storing the old ones
