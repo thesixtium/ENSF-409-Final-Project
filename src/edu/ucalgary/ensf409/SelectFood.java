@@ -15,7 +15,7 @@ import java.util.List;
 
 public class SelectFood {
 
-    public HashMap<Integer, FoodData> calculateFoods(HashMap<Integer, FoodData> foods, FoodNeeds needs) throws NotEnoughFoodException {
+    public HashMap<Integer, FoodData> calculateFoods(HashMap<Integer, FoodData> foods, HouseholdNeeds needs) throws NotEnoughFoodException {
         String[] foodTypes = {"fv", "grain", "protein", "other"};
         HashMap<Integer, FoodData> returnFoods = new HashMap<>();
         while(!needs.isSatisfied()){
@@ -34,7 +34,7 @@ public class SelectFood {
     }
 
     private int mostEfficientFood(HashMap<Integer, FoodData> currentReturnFoods, HashMap<Integer, FoodData> foods,
-                                  FoodNeeds needs, String currentlyWorkingOn) throws NotEnoughFoodException {
+                                  HouseholdNeeds needs, String currentlyWorkingOn) throws NotEnoughFoodException {
         int currentFoodCalories;
         ArrayList<FoodData> sortedFoods = new ArrayList<>(foods.values());
         int returnValue = 0;
@@ -52,7 +52,7 @@ public class SelectFood {
                 }
             });
             if (sortedFoods.get(returnValue).getFv() == 0){
-                throw new NotEnoughFoodException("fv");
+                throw new NotEnoughFoodException("fv", currentFoodCalories);
             }
             while(sortedFoods.get(returnValue).getFv() > currentFoodCalories){
                 returnValue++;
@@ -74,7 +74,7 @@ public class SelectFood {
                 }
             });
             if (sortedFoods.get(returnValue).getGrain() == 0){
-                throw new NotEnoughFoodException("grain");
+                throw new NotEnoughFoodException("grain", currentFoodCalories);
             }
             while(sortedFoods.get(returnValue).getGrain() > currentFoodCalories){
                 returnValue++;
@@ -92,11 +92,11 @@ public class SelectFood {
                             return 0;
                         else
                             return o1.getSum() < o2.getSum() ? -1 : 1;
-                    return o1.getFv() < o2.getFv() ? -1 : 1;
+                    return o1.getProtein() < o2.getProtein() ? -1 : 1;
                 }
             });
             if (sortedFoods.get(returnValue).getProtein() == 0){
-                throw new NotEnoughFoodException("protein");
+                throw new NotEnoughFoodException("protein", currentFoodCalories);
             }
             while(sortedFoods.get(returnValue).getProtein() > currentFoodCalories){
                 returnValue++;
@@ -114,11 +114,11 @@ public class SelectFood {
                             return 0;
                         else
                             return o1.getSum() < o2.getSum() ? -1 : 1;
-                    return o1.getFv() < o2.getFv() ? -1 : 1;
+                    return o1.getOther() < o2.getOther() ? -1 : 1;
                 }
             });
             if (sortedFoods.get(returnValue).getOther() == 0){
-                throw new NotEnoughFoodException("other");
+                throw new NotEnoughFoodException("other", currentFoodCalories);
             }
             while(sortedFoods.get(returnValue).getOther() > currentFoodCalories){
                 returnValue++;
@@ -138,7 +138,7 @@ public class SelectFood {
         return -1;
     }
 
-    public HashMap<String, Integer> calculateWaste(HashMap<Integer, FoodData> foods, FoodNeeds needs){
+    public HashMap<String, Integer> calculateWaste(HashMap<Integer, FoodData> foods, HouseholdNeeds needs){
         int grains = 0;
         int protein = 0;
         int fv = 0;

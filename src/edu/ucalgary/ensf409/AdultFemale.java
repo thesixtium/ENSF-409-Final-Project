@@ -8,12 +8,6 @@
 
 package edu.ucalgary.ensf409;
 
-<<<<<<< Updated upstream
-public class AdultFemale extends FoodNeeds{
-=======
-public class AdultFemale {
-    public AdultFemale() {
+public class AdultFemale extends FoodNeeds {
 
-    }
->>>>>>> Stashed changes
 }

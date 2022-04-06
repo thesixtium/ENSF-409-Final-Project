@@ -11,16 +11,32 @@ package edu.ucalgary.ensf409;
 import java.util.HashMap;
 
 public class Hamper extends SelectFood{
-    private FoodNeeds calorieNeeds;
+    private HouseholdNeeds calorieNeeds;
+    private FoodData shortBy = null;
     private HashMap<String, Integer> wasteAmount;
     private HashMap<Integer, FoodData> hamperFoods;
     private HashMap<Integer, FoodData> avaliableFoods = new HashMap<>();
+    private boolean enoughFood = true;
 
-    public Hamper(FoodNeeds calorieNeeds, HashMap<Integer, FoodData> avaliableFoods) throws NotEnoughFoodException{
+    public Hamper(HouseholdNeeds calorieNeeds, HashMap<Integer, FoodData> avaliableFoods) {
         this.calorieNeeds = calorieNeeds;
         this.avaliableFoods.putAll(avaliableFoods);
 
-        this.hamperFoods = calculateFoods(this.avaliableFoods, this.calorieNeeds);
+        try {
+            this.hamperFoods = calculateFoods(this.avaliableFoods, this.calorieNeeds);
+        } catch (NotEnoughFoodException e){
+            enoughFood = false;
+            this.shortBy = new FoodData("Short By");
+            if(e.type.equals("fv"))
+                this.shortBy.setFV(e.amount);
+            else if(e.type.equals("protein"))
+                this.shortBy.setProtein(e.amount);
+            else if(e.type.equals("grain"))
+                this.shortBy.setGrain(e.amount);
+            else
+                this.shortBy.setOther(e.amount);
+        }
+
         this.wasteAmount = calculateWaste(this.hamperFoods, this.calorieNeeds);
     }
 
@@ -32,7 +48,11 @@ public class Hamper extends SelectFood{
         return this.hamperFoods;
     }
 
-    public FoodNeeds getCalorieNeeds() {
+    public HouseholdNeeds getCalorieNeeds() {
         return this.calorieNeeds;
+    }
+
+    public boolean getEnoughFood(){
+        return this.enoughFood;
     }
 }
