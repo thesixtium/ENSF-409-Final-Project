@@ -15,6 +15,7 @@ import java.util.*;
 public class RequestFormGUI extends JFrame implements ActionListener, MouseListener {
 	private int[][] households;
 	private int numHouseholds = 1;
+	private Household household;
 	
 	private JLabel instructions;
 	private JLabel femaleLabel;
@@ -26,6 +27,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	private JTextField maleInput;
 	private JTextField over8Input;
 	private JTextField under8Input;
+	
 	
 	
 	public GUIRequestForm(){
@@ -103,7 +105,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		if(validateInput()){
 		if (event.getSource().equals(makeOrderForm)){
 			createOrderForm();
-			Household household = new Household(households);
+			household = new Household(households);
 			JOptionPane.showMessageDialog(this, "Order Form Created as \n" + OrderForm.filename);
 		}
 		if (event.getSource().equals(addhousehold)){
