@@ -25,7 +25,7 @@ public class OrderFormTest {
     public void testConstructor() {
         OrderForm form = new OrderForm(goodRequest);
 
-        assertNotNull(form, "OrderForm constructor did not correctly create an OrderForm object.");
+        assertNotNull("OrderForm constructor did not correctly create an OrderForm object.", form);
     }
 
     /**
@@ -36,7 +36,7 @@ public class OrderFormTest {
     public void testConstructorBad() {
         OrderForm form = new OrderForm(badRequest);
 
-        assertNull(form, "OrderForm created a form for a bad RequestForm object");
+        assertNull("OrderForm created a form for a bad RequestForm object", form);
     }
 
     /**
@@ -45,10 +45,26 @@ public class OrderFormTest {
     @Test
     public void testCreateFormWithUnsuccessfulHamper() {
         OrderForm form = new OrderForm(goodRequest);
-        form.createForm("testFile.txt");
 
-        File file = new File("testFile.txt");
-        boolean result = file.isFile();
+        String fileName = "orderForm";
+        File testFile = new File(fileName + ".txt");
+        int count = 1;
+
+        while(!testFile.isFile()) {
+            fileName = fileName + Integer.toString(count);
+            testFile = new File(fileName + ".txt");
+            count++;
+            //iterate through possible filenames until the first unused one is found
+        }
+
+        form.createForm();
+        //create the order form
+
+        boolean result = false;
+        if(testFile.isFile()) {
+            result = true;
+            //check if a file was created with the correct name in the working directory
+        }
 
         assertTrue("createForm did not create a file in the working directory.", result);
     }

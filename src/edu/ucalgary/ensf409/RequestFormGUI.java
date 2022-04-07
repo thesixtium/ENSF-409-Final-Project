@@ -105,7 +105,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		if(validateInput()){
 		if (event.getSource().equals(makeOrderForm)){
 			OrderForm form = new OrderForm();
-			form.createOrderForm();
+			form.createForm();
 			Household household = new Household(households);
 			JOptionPane.showMessageDialog(this, "Order Form Created as \n" + form.getFilename());
 		}

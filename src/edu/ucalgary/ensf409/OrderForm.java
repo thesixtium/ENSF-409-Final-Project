@@ -8,9 +8,7 @@
 
 package edu.ucalgary.ensf409;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class OrderForm {
@@ -49,7 +47,7 @@ public class OrderForm {
     public void createForm() {
         StringBuilder formResult = new StringBuilder();
         formResult.append("The Peanut Butter Scenario Food Bank\nHamper Order Form\n\n");
-        formResult.append("Name:\nDate:\n");
+        formResult.append("Name:\nDate:\n\n");
         formResult.append("Original Request:\n");
         //add the header info to the result string
 
@@ -66,20 +64,20 @@ public class OrderForm {
             counter++;
         }
 
-        ArrayList<Hampers> hampers = this.ORDER.getHampers();
+        ArrayList<Hamper> hampers = this.ORDER.getHampers();
         Iterator<Hamper> hamperIter = hampers.iterator();
         counter = 1;
         while(hamperIter.hasNext()) {
             //iterate through the hampers 
-            result.append("Hamper " + counter + " items:\n");
+            formResult.append("Hamper " + counter + " items:\n");
             Hamper tempHamper = hamperIter.next();
             
             if(tempHamper.getEnoughFood()) {
-                result.append(successfulHamperCreation(tempHamper));
+                formResult.append(successfulHamperCreation(tempHamper));
                 //if the hamper creation was successful, add that info to the result
             }
             else {
-                result.append(unsuccessfulHamperCreation(tempHamper));
+                formResult.append(unsuccessfulHamperCreation(tempHamper));
                 //otherwise add what the hamper was short by to the result
             }
             formResult.append("\n\n");
