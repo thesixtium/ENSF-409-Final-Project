@@ -9,7 +9,7 @@
 package edu.ucalgary.ensf409;
 
 import java.sql.*;
-import java.util.*
+import java.util.*;
 
 public class RequestFormDatabase{
 	public final String DBURL;
@@ -45,36 +45,56 @@ public class RequestFormDatabase{
 		return this.PASSWORD;
 	}
 	
-	/*public int selectAllGrainNeeds(String tableName){
-		
-	}
-	
-	public int selectAllFVNeeds(String tableName){
-		
-	}
-	
-	public int selectAllProteinNeeds(String tableName){
-		
-	}
-	
-	public int selectAllOtherNeeds(String tableName){
-		
-	}
-	
-	public int selectAllCalorieNeeds(String tableName){
-		
-	}*/
-	
 	public HashMap<String, HashMap<String, Integer>> setClientValues(String tableName){
-		HashMap<String, HashMap<String, Integer>> clientValues = new HashMap<String, HashMap<String, Integer>>;
-		
+		HashMap<String, HashMap<String, Integer>> clientValues = new HashMap<String, HashMap<String, Integer>>();
+		HashMap<String, Integer> temp = new HashMap<String, Integer>();
 		try{
 			Statement myStmt = dbConnect.createStatement();
 			results = myStmt.executeQuery("SELECT * FROM " + tableName);
 			while(results.next()){
-				clientValues.put(results.getString("Client"));
+				temp.put("Grains", results.getInt("WholeGrains"));
+				temp.put("FV", results.getInt("FruitVeggies"));
+				temp.put("Protein", results.getInt("Protein"));
+				temp.put("Other", results.getInt("Other"));
+				temp.put("Calories", results.getInt("Calories"));
+				clientValues.put(results.getString("Client"), temp);
 			}
+			myStmt.close();
+		}catch(SQLException ex){
+			ex.printStackTrace();
 		}
+		return clientValues;
 	}
 	
+	public HashMap<String, HashMap<String, Integer>> setFoodValues(String tableName){
+		HashMap<String, HashMap<String, Integer>> foodValues = new HashMap<String, HashMap<String, Integer>>;
+		HashMap<String, Integer> temp = new HashMap<String, Integer>;
+		try{
+			Statement myStmt = dbConnect.createStatement();
+			results = myStmt.executeQuery("SELECT * FROM " + tableName);
+			while(results.next()){
+				temp.put("Grains", results.getInt("GrainContent"));
+				temp.put("FV", results.getInt("FVContent"));
+				temp.put("Protein", results.getInt("ProContent"));
+				temp.put("Other", results.getInt("Other"));
+				temp.put("Calories", results.getInt("Calories"));
+				foodValues.put(results.getString("Name"), temp);
+			}
+			myStmt.close();
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return foodValues;
+	}
+	
+	  public void close() {
+
+        try {
+            results.close();
+            dbConnect.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

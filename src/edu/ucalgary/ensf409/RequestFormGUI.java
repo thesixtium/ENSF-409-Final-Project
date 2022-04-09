@@ -15,6 +15,7 @@ import java.util.*;
 public class RequestFormGUI extends JFrame implements ActionListener, MouseListener {
 	private int[][] households;
 	private int numHouseholds = 1;
+	private Household household;
 	
 	private JLabel instructions;
 	private JLabel femaleLabel;
@@ -26,6 +27,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	private JTextField maleInput;
 	private JTextField over8Input;
 	private JTextField under8Input;
+	
 	
 	
 	public GUIRequestForm(){
@@ -102,9 +104,10 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		households[numHouseholds-1][3] = Integer.parseInt(under8Input.getText());
 		if(validateInput()){
 		if (event.getSource().equals(makeOrderForm)){
-			createOrderForm();
+			OrderForm form = new OrderForm();
+			form.createForm();
 			Household household = new Household(households);
-			JOptionPane.showMessageDialog(this, "Order Form Created as \n" + OrderForm.filename);
+			JOptionPane.showMessageDialog(this, "Order Form Created as \n" + form.getFilename());
 		}
 		if (event.getSource().equals(addhousehold)){
 			//resets the inputs to accept new ones after storing the old ones
@@ -142,19 +145,19 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		If any inputs are negative or contain non numerical inputs, they are invalid.
 		*/
 		boolean allInputValid = true;
-		if(households[numHouseholds][0]<0 || femaleInput.getText().contains([^-0-9\/]+)){
+		if(households[numHouseholds][0]<0 || femaleInput.getText().contains("[^-0-9\/]+")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, femaleInput.getText() + " is an invalid amount of Adult Females.")
 		}
-		if(households[numHouseholds][1]<0 || maleInput.getText().contains([^-0-9\/]+)){
+		if(households[numHouseholds][1]<0 || maleInput.getText().contains("[^-0-9\/]+")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, maleInput.getText() + " is an invalid amount of Adult Males.")
 		}
-		if(households[numHouseholds][2]<0 || over8Input.getText().contains([^-0-9\/]+)){
+		if(households[numHouseholds][2]<0 || over8Input.getText().contains("[^-0-9\/]+")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, over8Input.getText() + " is an invalid amount of Children Over 8.")
 		}
-		if(households[numHouseholds][3]<0 || under8Input.getText().contains([^-0-9\/]+)){
+		if(households[numHouseholds][3]<0 || under8Input.getText().contains("[^-0-9\/]+")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, under8Input.getText() + " is an invalid amount of Children Under 8.")
 		}
@@ -168,16 +171,23 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		return this.numHouseholds;
 	}
 	
-	
-public void setClientValues(){
-	
-}
 public static void main(String[] args){
 		EventQueue.invokeLater(() -> {
 			new GUIRequestForm().setVisible(true);
 		});
-		
+		RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/inventory","student","ensf" );
+		requestForm.initializeConnection();
+		requestForm.close();
 	}
 
+	public ArrayList<Hamper> getHampers() {
+        Iterator<Household> iter = h.iterator();
+        ArrayList<Hamper> result = new ArrayList<>();
+        while(iter.hasNext()) {
+            Household i = iter.next();
+            result.add(i.getFamilyHamper());
+        }
 
+        return result;
+    }
 }

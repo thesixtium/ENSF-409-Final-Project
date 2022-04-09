@@ -55,4 +55,8 @@ public class Hamper extends SelectFood{
     public boolean getEnoughFood(){
         return this.enoughFood;
     }
+
+    public FoodData getShortBy() {
+        return this.shortBy;
+    }
 }
