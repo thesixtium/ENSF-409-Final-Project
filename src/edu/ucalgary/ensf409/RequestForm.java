@@ -7,7 +7,7 @@
  */
 
 package edu.ucalgary.ensf409;
-
+import java.util.*;
 import java.util.ArrayList;
 
 public class RequestForm {

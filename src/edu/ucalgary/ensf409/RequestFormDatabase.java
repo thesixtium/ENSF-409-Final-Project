@@ -15,7 +15,8 @@ public class RequestFormDatabase{
 	public final String DBURL;
 	public final String USERNAME;
 	public final String PASSWORD;
-	
+	public static HashMap<String, HashMap<String, Integer>> clientValues;
+	public static HashMap<String, HashMap<String, Integer>> foodValues
 	private Connection dbConnect;
 	private ResultSet results;
 	
@@ -45,8 +46,12 @@ public class RequestFormDatabase{
 		return this.PASSWORD;
 	}
 	
-	public HashMap<String, HashMap<String, Integer>> setClientValues(String tableName){
-		HashMap<String, HashMap<String, Integer>> clientValues = new HashMap<String, HashMap<String, Integer>>();
+	public HashMap<String, HashMap<String, Integer>> getClientValues(){
+		return this.clientValues;
+	}
+	
+	public void setClientValues(String tableName){
+		clientValues = new HashMap<String, HashMap<String, Integer>>();
 		HashMap<String, Integer> temp = new HashMap<String, Integer>();
 		try{
 			Statement myStmt = dbConnect.createStatement();
@@ -63,11 +68,13 @@ public class RequestFormDatabase{
 		}catch(SQLException ex){
 			ex.printStackTrace();
 		}
-		return clientValues;
 	}
 	
-	public HashMap<String, HashMap<String, Integer>> setFoodValues(String tableName){
-		HashMap<String, HashMap<String, Integer>> foodValues = new HashMap<String, HashMap<String, Integer>>;
+	public HashMap<String, HashMap<String, Integer>> getFoodValues(){
+		return this.foodValues;
+	}
+	public void setFoodValues(String tableName){
+		foodValues = new HashMap<String, HashMap<String, Integer>>;
 		HashMap<String, Integer> temp = new HashMap<String, Integer>;
 		try{
 			Statement myStmt = dbConnect.createStatement();
@@ -84,7 +91,6 @@ public class RequestFormDatabase{
 		}catch(SQLException ex){
 			ex.printStackTrace();
 		}
-		return foodValues;
 	}
 	
 	  public void close() {
