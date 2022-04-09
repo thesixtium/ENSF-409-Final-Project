@@ -6,24 +6,21 @@
 
 package edu.ucalgary.ensf409;
 
+import java.util.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.io.File;
 
 public class OrderFormTest {
-    String[][] goodFamily = {"1", "1", "1", "1"};
-    String[][] badFamily = {"1", "0", "3"};
-    private RequestForm goodRequest = new RequestForm(goodFamily);
-    private RequestForm badRequest = new RequestForm(badFamily);
-
     /**
      * OrderForm(RequestForm) is called with valid data.
      * The constructor creates an OrderForm object that is not null.
      */
     @Test
     public void testConstructor() {
-        OrderForm form = new OrderForm(goodRequest);
+        RequestForm request = new RequestForm(goodRequest());
+        OrderForm form = new OrderForm(request);
 
         assertNotNull("OrderForm constructor did not correctly create an OrderForm object.", form);
     }
@@ -34,9 +31,16 @@ public class OrderFormTest {
      */
     @Test 
     public void testConstructorBad() {
-        OrderForm form = new OrderForm(badRequest);
+        boolean result = false;
+        try {
+            RequestForm form = new RequestForm(badRequest());
+            OrderForm orderForm = new OrderForm(form);
+        }
+        catch (IllegalArgumentException e) {
+            result = true;
+        }
 
-        assertNull("OrderForm created a form for a bad RequestForm object", form);
+        assertTrue("OrderForm created an object with an invalid RequestForm", result);
     }
 
     /**
@@ -44,7 +48,8 @@ public class OrderFormTest {
      */
     @Test
     public void testCreateFormWithUnsuccessfulHamper() {
-        OrderForm form = new OrderForm(goodRequest);
+        RequestForm request = new RequestForm(goodRequest());
+        OrderForm form = new OrderForm(request);
 
         String fileName = "orderForm";
         File testFile = new File(fileName + ".txt");
@@ -67,5 +72,19 @@ public class OrderFormTest {
         }
 
         assertTrue("createForm did not create a file in the working directory.", result);
+    }
+
+    public ArrayList<int[]> goodRequest() {
+        int[] family = {1, 1, 1, 1};
+        ArrayList<int[]> result = new ArrayList<>();
+        result.add(family);
+        return result;
+    }
+
+    public ArrayList<int[]> badRequest() {
+        int[] family = {1, 1, 1};
+        ArrayList<int[]> result = new ArrayList<>();
+        result.add(family);
+        return result;
     }
 }

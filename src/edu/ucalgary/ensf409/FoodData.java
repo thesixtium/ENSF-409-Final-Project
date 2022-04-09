@@ -12,7 +12,15 @@ public class FoodData {
     private int fv, grain, protein, other;
     private String name;
 
-    public FoodData(String name){
+    public FoodData(String name, int fv, int grain, int protein, int other){
+        this.fv = fv;
+        this.grain = grain;
+        this.protein = protein;
+        this.other = other;
+        this.name = name;
+    }
+
+    public FoodData(String name) {
         this.fv = 0;
         this.grain = 0;
         this.protein = 0;

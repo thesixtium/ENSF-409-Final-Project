@@ -8,7 +8,7 @@
 
 package edu.ucalgary.ensf409;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class RequestForm {
     private int numHouseholds;
@@ -19,49 +19,60 @@ public class RequestForm {
      * through an ArrayList of int arrays.
      * @param families An ArrayList<int[]> where each int[] has length 4 with values
      * corresponding to the number of each type of person in the family.
+     * @throws IllegalArgumentException thrown if one of the families is invalid
      */
-    public RequestForm(ArrayList<int[]> families) {
+    public RequestForm(ArrayList<int[]> families) throws IllegalArgumentException {
         this.numHouseholds = families.size();
         //set the number of households from the number of families.
 
+        ArrayList<Household> temp = new ArrayList<>();
+
         for(int[] item: families) {
-            ArrayList<Object> family = new ArrayList<>();
+            if(item.length != 4) {
+                throw new IllegalArgumentException("Family array must have 4 values");
+            }
+            
+            ArrayList<String> family = new ArrayList<>();
             //create a new ArrayList to hold the current family.
 
             if(item[0] != 0) {
                 //if there is a number other than 0 in the first index, add the
                     //appropriate number of adult females
                 for(int i = 0; i < item[0]; i++) {
-                    family.add(new AdultFemale());
+                    family.add("Adult Female");
                 }
             }
             if(item[1] != 0) {
                 //if there is a number other than 0 in the second index, add the
                     //appropriate number of adult males
                 for(int i = 0; i < item[1]; i++) {
-                    family.add(new AdultMale());
+                    family.add("Adult Male");
                 }
             }
             if(item[2] != 0) {
                 //if there is a number other than 0 in the third index, add the
                     //appropriate number of children over 8
                 for(int i = 0; i < item[2]; i++) {
-                    family.add(new ChildOver8());
+                    family.add("Child Over 8");
                 }
             }
             if(item[3] != 0) {
                 //if there is a number other than 0 in the fourth index, add the
                     //appropriate number of children under 8
                 for(int i = 0; i < item[3]; i++) {
-                    family.add(new ChildUnder8());
+                    family.add("Child Under 8");
                 }
             }
 
-            Household newHouse = new Household(family);
+            HashMap<String, HashMap<String, Integer>> clientData = RequestFormDatabase.getClientValues();
+            HashMap<Integer, FoodData> foodValues = RequestFormDatabase.getFoodValues();
+            Household newHouse = new Household(clientData, family, foodValues);
             //create a household from the new family
-            this.households.add(newHouse);
+            temp.add(newHouse);
             //add the new household to the list of households
         }
+
+        this.HOUSEHOLDS = temp;
     }
 
     /**
