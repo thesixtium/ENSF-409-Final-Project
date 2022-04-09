@@ -47,7 +47,7 @@ public class SelectFood {
                         if(o1.getSum() == o2.getSum())
                             return 0;
                         else
-                            return o1.getSum() < o2.getSum() ? -1 : 1;
+                            return o1.getSum() > o2.getSum() ? -1 : 1;
                     return o1.getFv() < o2.getFv() ? -1 : 1;
                 }
             });
@@ -69,7 +69,7 @@ public class SelectFood {
                         if(o1.getSum() == o2.getSum())
                             return 0;
                         else
-                            return o1.getSum() < o2.getSum() ? -1 : 1;
+                            return o1.getSum() > o2.getSum() ? -1 : 1;
                     return o1.getGrain() < o2.getGrain() ? -1 : 1;
                 }
             });
@@ -91,7 +91,7 @@ public class SelectFood {
                         if(o1.getSum() == o2.getSum())
                             return 0;
                         else
-                            return o1.getSum() < o2.getSum() ? -1 : 1;
+                            return o1.getSum() > o2.getSum() ? -1 : 1;
                     return o1.getProtein() < o2.getProtein() ? -1 : 1;
                 }
             });
@@ -113,7 +113,7 @@ public class SelectFood {
                         if(o1.getSum() == o2.getSum())
                             return 0;
                         else
-                            return o1.getSum() < o2.getSum() ? -1 : 1;
+                            return o1.getSum() > o2.getSum() ? -1 : 1;
                     return o1.getOther() < o2.getOther() ? -1 : 1;
                 }
             });
