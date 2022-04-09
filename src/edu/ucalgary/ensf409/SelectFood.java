@@ -24,35 +24,63 @@ public class SelectFood {
      * @param needs Is a HouseholdNeeds object that contains the calorie
      *              needs for an entire household.
      * @return A hashmap that contains the foods' integer primary key
-     * @throws NotEnoughFoodException
+     * @throws NotEnoughFoodException if not enough food exists
      */
     public HashMap<Integer, FoodData> calculateFoods(HashMap<Integer, FoodData> foods, HouseholdNeeds needs) throws NotEnoughFoodException {
         String[] foodTypes = {"fv", "grain", "protein", "other"};
         HashMap<Integer, FoodData> returnFoods = new HashMap<>();
+
+        // Main algorithm, iterates through food types while checking the best food for that
+        // specific food group. Finishes when the needs are satisfied
         while(!needs.isSatisfied()){
             for (String type : foodTypes){
+                // Figure out the best food to add to the hamper
                 Integer foodToAdd = mostEfficientFood(returnFoods, foods, needs, type);
+
+                // Add food to return foods that are in the hamper
                 returnFoods.put(foodToAdd, foods.get(foodToAdd));
+
+                // Update household needs
                 needs.changeFvCalories(-1 * foods.get(foodToAdd).getFv());
                 needs.changeGrainCalories(-1 * foods.get(foodToAdd).getGrain());
                 needs.changeProteinCalories(-1 * foods.get(foodToAdd).getProtein());
                 needs.changeOtherCalories(-1 * foods.get(foodToAdd).getOther());
+
+                // Remove food from available foods
                 foods.remove(foodToAdd);
             }
         }
-
         return returnFoods;
     }
 
+    /**
+     * Helper method to find the most efficient food to add to the hamper
+     * @param currentReturnFoods
+     * @param foods Is a hashmap with a key of the identifying integer of
+     *              a food (this should be the primary key from the initial
+     *              SQL table) and the value is a FoodData object, which
+     *              stores all needed values that we could want for a
+     *              specific food.
+     * @param needs Is a HouseholdNeeds object that contains the calorie
+     *              needs for an entire household.
+     * @param currentlyWorkingOn
+     * @return
+     * @throws NotEnoughFoodException
+     */
     private int mostEfficientFood(HashMap<Integer, FoodData> currentReturnFoods, HashMap<Integer, FoodData> foods,
                                   HouseholdNeeds needs, String currentlyWorkingOn) throws NotEnoughFoodException {
         int currentFoodCalories;
         ArrayList<FoodData> sortedFoods = new ArrayList<>(foods.values());
         int returnValue = 0;
 
+        // Determines which category currently working on
         if(currentlyWorkingOn.equals("fv")){
+            // Get the calorie values for the current category
             currentFoodCalories = needs.getFvCalories();
+            // Sort the foods based on the current category as primary, and the inverse of
+            // total calories in a food as secondary
             sortedFoods.sort(new Comparator<FoodData>() {
+                // Comparator logic
                 public int compare(FoodData o1, FoodData o2) {
                     if (o1.getFv() == o2.getFv())
                         if(o1.getSum() == o2.getSum())
@@ -62,9 +90,14 @@ public class SelectFood {
                     return o1.getFv() < o2.getFv() ? -1 : 1;
                 }
             });
+            // If the first food (ie the top food) has 0 for the category, then know
+            // there is no more food
             if (sortedFoods.get(returnValue).getFv() == 0){
                 throw new NotEnoughFoodException("fv", currentFoodCalories);
             }
+            // Select the food with the highest value that is under the needed calories, unless
+            // there is no value under the needed calories, then selects the least food to
+            // add
             while(sortedFoods.get(returnValue).getFv() > currentFoodCalories){
                 returnValue++;
                 if (sortedFoods.get(returnValue).getFv() == 0){
@@ -149,6 +182,17 @@ public class SelectFood {
         return -1;
     }
 
+    /**
+     * Calculate and return the waste calories
+     * @param foods Is a hashmap with a key of the identifying integer of
+     *              a food (this should be the primary key from the initial
+     *              SQL table) and the value is a FoodData object, which
+     *              stores all needed values that we could want for a
+     *              specific food.
+     * @param needs Is a HouseholdNeeds object that contains the calorie
+     *              needs for an entire household.
+     * @return
+     */
     public HashMap<String, Integer> calculateWaste(HashMap<Integer, FoodData> foods, HouseholdNeeds needs){
         int grains = 0;
         int protein = 0;
@@ -156,6 +200,7 @@ public class SelectFood {
         int other = 0;
         HashMap<String, Integer> returnMap = new HashMap<>();
 
+        // Calculate total values for each food category
         for (Integer i : foods.keySet()){
             grains += foods.get(i).getGrain();
             protein += foods.get(i).getProtein();
@@ -163,6 +208,7 @@ public class SelectFood {
             other += foods.get(i).getOther();
         }
 
+        // Assemble the return hashmap
         returnMap.put("grain", grains - needs.getGrainCalories());
         returnMap.put("fv", fv - needs.getFvCalories());
         returnMap.put("other", other - needs.getOtherCalories());
