@@ -2,13 +2,12 @@
  * @author Aleksander Berezowski
  * @author Danielle Jourdain
  * @author Philippa Madill
- * @version 1.1
+ * @version 1.4
  * @since 1.0
  */
 
 package edu.ucalgary.ensf409;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Household {
@@ -78,5 +77,14 @@ public class Household {
                 returnNeeds.changeOtherCalories(ChildUnder8.getOtherCalories());
             }
         }
+        return returnNeeds;
+    }
+
+    public Hamper getFamilyHamper() {
+        return familyHamper;
+    }
+
+    public String[] getFamilyList() {
+        return familyList;
     }
 }
