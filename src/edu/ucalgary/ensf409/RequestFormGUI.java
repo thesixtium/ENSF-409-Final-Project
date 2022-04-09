@@ -118,7 +118,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 			RequestForm families = new RequestForm(households);
 			}
 			catch(IllegalArgumentException e){
-				throw new IllegalArgumentException("One of the entered households did not contain valid inputs.")
+				throw new IllegalArgumentException("One of the entered households did not contain valid inputs.");
 			}
 			OrderForm form  = new OrderForm();
 			form.createOrderForm();
