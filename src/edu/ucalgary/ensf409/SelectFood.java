@@ -11,10 +11,21 @@ package edu.ucalgary.ensf409;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 
 public class SelectFood {
 
+    /**
+     * Method to calculate the foods that should be in a hamper
+     * @param foods Is a hashmap with a key of the identifying integer of
+     *              a food (this should be the primary key from the initial
+     *              SQL table) and the value is a FoodData object, which
+     *              stores all needed values that we could want for a
+     *              specific food.
+     * @param needs Is a HouseholdNeeds object that contains the calorie
+     *              needs for an entire household.
+     * @return A hashmap that contains the foods' integer primary key
+     * @throws NotEnoughFoodException
+     */
     public HashMap<Integer, FoodData> calculateFoods(HashMap<Integer, FoodData> foods, HouseholdNeeds needs) throws NotEnoughFoodException {
         String[] foodTypes = {"fv", "grain", "protein", "other"};
         HashMap<Integer, FoodData> returnFoods = new HashMap<>();
