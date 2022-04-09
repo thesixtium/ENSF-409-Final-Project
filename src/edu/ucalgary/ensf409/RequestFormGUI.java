@@ -13,7 +13,7 @@ import java.awt.*;
 import java.util.*;
 
 public class RequestFormGUI extends JFrame implements ActionListener, MouseListener {
-	private ArrayList<int> households;
+	private ArrayList<int[]> households;
 	private int numHouseholds = 1;
 	private Household household;
 	
@@ -30,7 +30,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	
 	
 	
-	public GUIRequestForm(){
+	public RequestFormGUI(){
 		super("Create a request form for one or more households");
 		setupGUI();
 		setSize(400, 400);
@@ -98,7 +98,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		//to send the household[][] to Household the stop accepting inputs and 
 		//if add household is pressed I want it to do this then numHouseholds+=1
 		//and continue accepting inputs.
-		int[] tempHousehold = new int[4]
+		int[] tempHousehold = new int[4];
 		tempHousehold[0] = Integer.parseInt(femaleInput.getText());
 		tempHousehold[1] = Integer.parseInt(maleInput.getText());
 		tempHousehold[2] = Integer.parseInt(over8Input.getText());
@@ -150,21 +150,21 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		If any inputs are negative or contain non numerical inputs, they are invalid.
 		*/
 		boolean allInputValid = true;
-		if(households.get(numHouseholds-1)[0]<0 || femaleInput.getText().contains("[^-0-9\/]+")){
+		if(households.get(numHouseholds-1)[0]<0 || femaleInput.getText().contains("^[0-9]+$")){
 			allInputValid = false;
-			JOptionPane.showMessageDialog(this, femaleInput.getText() + " is an invalid amount of Adult Females.")
+			JOptionPane.showMessageDialog(this, femaleInput.getText() + " is an invalid amount of Adult Females.");
 		}
-		if(households.get(numHouseholds-1)[1]<0 || maleInput.getText().contains("[^-0-9\/]+")){
+		if(households.get(numHouseholds-1)[1]<0 || maleInput.getText().contains("^[0-9]+$")){
 			allInputValid = false;
-			JOptionPane.showMessageDialog(this, maleInput.getText() + " is an invalid amount of Adult Males.")
+			JOptionPane.showMessageDialog(this, maleInput.getText() + " is an invalid amount of Adult Males.");
 		}
-		if(households.get(numHouseholds-1)[2]<0 || over8Input.getText().contains("[^-0-9\/]+")){
+		if(households.get(numHouseholds-1)[2]<0 || over8Input.getText().contains("^[0-9]+$")){
 			allInputValid = false;
-			JOptionPane.showMessageDialog(this, over8Input.getText() + " is an invalid amount of Children Over 8.")
+			JOptionPane.showMessageDialog(this, over8Input.getText() + " is an invalid amount of Children Over 8.");
 		}
-		if(households.get(numHouseholds-1)[3]<0 || under8Input.getText().contains("[^-0-9\/]+")){
+		if(households.get(numHouseholds-1)[3]<0 || under8Input.getText().contains("^[0-9]+$")){
 			allInputValid = false;
-			JOptionPane.showMessageDialog(this, under8Input.getText() + " is an invalid amount of Children Under 8.")
+			JOptionPane.showMessageDialog(this, under8Input.getText() + " is an invalid amount of Children Under 8.");
 		}
 		return allInputValid;
 	}
