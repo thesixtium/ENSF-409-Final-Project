@@ -83,6 +83,7 @@ public class SelectFood {
                 // Comparator logic
                 public int compare(FoodData o1, FoodData o2) {
                     if (o1.getFv() == o2.getFv())
+                        // Solves the peanut butter scenario
                         if(o1.getSum() == o2.getSum())
                             return 0;
                         else

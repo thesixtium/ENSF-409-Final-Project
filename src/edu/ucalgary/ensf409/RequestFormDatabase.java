@@ -51,7 +51,7 @@ public class RequestFormDatabase{
 	}
 	
 	public void setClientValues(String tableName){
-		clientValues = new HashMap<String, FoodData>();
+		clientValues = new HashMap<String, HashMap<String, Integer>>();
 		FoodData temp = new FoodData();
 		try{
 			Statement myStmt = dbConnect.createStatement();
