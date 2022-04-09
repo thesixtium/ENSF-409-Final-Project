@@ -8,6 +8,7 @@
 
 package edu.ucalgary.ensf409;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Household {
@@ -30,12 +31,12 @@ public class Household {
      *                       specific food.
      */
     public Household(HashMap<String, HashMap<String, Integer>> clientData,
-                     String[] familyList,
+                     ArrayList<String> familyList,
                      HashMap<Integer, FoodData> availableFoods){
         initializeClients(clientData);
 
         // Set the internal variables
-        this.familyList = familyList;
+        this.familyList = familyList.toArray(new String[0]);
         this.familyHamper = new Hamper(calculateNeeds(), availableFoods);
     }
 
