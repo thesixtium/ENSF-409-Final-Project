@@ -13,7 +13,7 @@ import java.awt.*;
 import java.util.*;
 
 public class RequestFormGUI extends JFrame implements ActionListener, MouseListener {
-	private int[][] households;
+	private ArrayList<int> households;
 	private int numHouseholds = 1;
 	private Household household;
 	
@@ -98,15 +98,20 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		//to send the household[][] to Household the stop accepting inputs and 
 		//if add household is pressed I want it to do this then numHouseholds+=1
 		//and continue accepting inputs.
-		households[numHouseholds-1][0] = Integer.parseInt(femaleInput.getText());
+		int[] tempHousehold = new int[4]
+		tempHousehold[0] = Integer.parseInt(femaleInput.getText());
+		tempHousehold[1] = Integer.parseInt(maleInput.getText());
+		tempHousehold[2] = Integer.parseInt(over8Input.getText());
+		tempHousehold[3] = Integer.parseInt(under8Input.getText());
+		/*households[numHouseholds-1][0] = Integer.parseInt(femaleInput.getText());
 		households[numHouseholds-1][1] = Integer.parseInt(maleInput.getText());
 		households[numHouseholds-1][2] = Integer.parseInt(over8Input.getText());
-		households[numHouseholds-1][3] = Integer.parseInt(under8Input.getText());
+		households[numHouseholds-1][3] = Integer.parseInt(under8Input.getText());*/
+		households.add(tempHousehold);
 		if(validateInput()){
 		if (event.getSource().equals(makeOrderForm)){
-			OrderForm form = new OrderForm();
-			form.createForm();
-			Household household = new Household(households);
+			RequestForm families = new RequestForm(households);
+			//Household household = new Household(households);
 			JOptionPane.showMessageDialog(this, "Order Form Created as \n" + form.getFilename());
 		}
 		if (event.getSource().equals(addhousehold)){
@@ -145,26 +150,26 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		If any inputs are negative or contain non numerical inputs, they are invalid.
 		*/
 		boolean allInputValid = true;
-		if(households[numHouseholds][0]<0 || femaleInput.getText().contains("[^-0-9\/]+")){
+		if(households.get(numHouseholds-1)[0]<0 || femaleInput.getText().contains("[^-0-9\/]+")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, femaleInput.getText() + " is an invalid amount of Adult Females.")
 		}
-		if(households[numHouseholds][1]<0 || maleInput.getText().contains("[^-0-9\/]+")){
+		if(households.get(numHouseholds-1)[1]<0 || maleInput.getText().contains("[^-0-9\/]+")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, maleInput.getText() + " is an invalid amount of Adult Males.")
 		}
-		if(households[numHouseholds][2]<0 || over8Input.getText().contains("[^-0-9\/]+")){
+		if(households.get(numHouseholds-1)[2]<0 || over8Input.getText().contains("[^-0-9\/]+")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, over8Input.getText() + " is an invalid amount of Children Over 8.")
 		}
-		if(households[numHouseholds][3]<0 || under8Input.getText().contains("[^-0-9\/]+")){
+		if(households.get(numHouseholds-1)[3]<0 || under8Input.getText().contains("[^-0-9\/]+")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, under8Input.getText() + " is an invalid amount of Children Under 8.")
 		}
 		return allInputValid;
 	}
 	private void setNumHouseholds(int number){
-		numHouseholds = number;
+		this.numHouseholds = number;
 	}
 	
 	private int getNumHouseholds(){
@@ -172,11 +177,11 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	}
 	
 public static void main(String[] args){
+		RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/inventory","student","ensf" );
+		requestForm.initializeConnection();
 		EventQueue.invokeLater(() -> {
 			new GUIRequestForm().setVisible(true);
 		});
-		RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/inventory","student","ensf" );
-		requestForm.initializeConnection();
 		requestForm.close();
 	}
 
