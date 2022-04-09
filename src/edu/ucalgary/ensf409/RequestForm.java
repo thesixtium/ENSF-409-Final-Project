@@ -25,6 +25,8 @@ public class RequestForm {
         this.numHouseholds = families.size();
         //set the number of households from the number of families.
 
+        ArrayList<Household> temp = new ArrayList<>();
+
         for(int[] item: families) {
             if(item.length != 4) {
                 throw new IllegalArgumentException("Family array must have 4 values");
@@ -66,9 +68,11 @@ public class RequestForm {
             HashMap<Integer, FoodData> foodValues = RequestFormDatabase.getFoodValues();
             Household newHouse = new Household(clientData, family, foodValues);
             //create a household from the new family
-            this.households.add(newHouse);
+            temp.add(newHouse);
             //add the new household to the list of households
         }
+
+        this.HOUSEHOLDS = temp;
     }
 
     /**
