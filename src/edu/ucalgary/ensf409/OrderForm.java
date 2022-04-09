@@ -96,13 +96,11 @@ public class OrderForm {
      */
     private String countHousehold(Household house) {
         int[] values = new int[4];
-        ArrayList<Object> family = house.getFamily();
-        Iterator<Object> famIter = family.iterator();
+        String[] family = house.getFamilyList();
 
-        while(famIter.hasNext()) {
+        for(String a: family) {
             //iterate through the family/
-            Object person = famIter.next();
-            String type = person.getClass().getName();  //gives "edu.ucalgary.ensf409.classname"
+            String type = a.getClass().getName();  //gives "edu.ucalgary.ensf409.classname"
             //get the string representation of the class of the person object
             type = type.replaceAll("edu.ucalgary.ensf409", "");
             //remove front of string
