@@ -98,7 +98,13 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		//to send the household[][] to Household the stop accepting inputs and 
 		//if add household is pressed I want it to do this then numHouseholds+=1
 		//and continue accepting inputs.
+<<<<<<< Updated upstream
 		int[] tempHousehold = new int[4];
+=======
+		int[] tempHousehold = new int[4]
+		//pass the entered data into an int array so it can be added to an array list and then 
+		//RequestForm can create a Household object
+>>>>>>> Stashed changes
 		tempHousehold[0] = Integer.parseInt(femaleInput.getText());
 		tempHousehold[1] = Integer.parseInt(maleInput.getText());
 		tempHousehold[2] = Integer.parseInt(over8Input.getText());
@@ -111,6 +117,9 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		if(validateInput()){
 		if (event.getSource().equals(makeOrderForm)){
 			RequestForm families = new RequestForm(households);
+			OrderForm form  = new OrderForm();
+			form.createOrderForm();
+			
 			//Household household = new Household(households);
 			JOptionPane.showMessageDialog(this, "Order Form Created as \n" + form.getFilename());
 		}
@@ -195,4 +204,8 @@ public static void main(String[] args){
 
         return result;
     }
+	
+	public OrderForm createOrderForm(){
+		
+	}
 }

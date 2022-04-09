@@ -64,14 +64,6 @@ public class RequestForm {
         }
     }
 
-    public void setFoodValues() {
-        //database stuff
-    }
-
-    public void setClientValues() {
-        //database stuff
-    }
-
     /**
      * This method gets a list of all the hampers that will be created for the RequestForm
      * and returns it in the form of an ArrayList.
