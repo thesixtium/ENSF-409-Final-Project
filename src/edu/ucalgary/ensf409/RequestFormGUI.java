@@ -162,19 +162,19 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		If any inputs are negative or contain non numerical inputs, they are invalid.
 		*/
 		boolean allInputValid = true;
-		if(households.get(numHouseholds-1)[0]<0 || households.get(numHouseholds-1)[0] == null || femaleInput.getText().contains("^[0-9]+$")){
+		if(households.get(numHouseholds-1)[0]<0  || femaleInput.getText().contains("^[0-9]+$")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, femaleInput.getText() + " is an invalid amount of Adult Females.");
 		}
-		if(households.get(numHouseholds-1)[1]<0 || households.get(numHouseholds-1)[1] == null || maleInput.getText().contains("^[0-9]+$")){
+		if(households.get(numHouseholds-1)[1]<0  || maleInput.getText().contains("^[0-9]+$")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, maleInput.getText() + " is an invalid amount of Adult Males.");
 		}
-		if(households.get(numHouseholds-1)[2]<0 || households.get(numHouseholds-1)[2] == null || over8Input.getText().contains("^[0-9]+$")){
+		if(households.get(numHouseholds-1)[2]<0  || over8Input.getText().contains("^[0-9]+$")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, over8Input.getText() + " is an invalid amount of Children Over 8.");
 		}
-		if(households.get(numHouseholds-1)[3]<0 || households.get(numHouseholds-1)[3] == null || under8Input.getText().contains("^[0-9]+$")){
+		if(households.get(numHouseholds-1)[3]<0 || under8Input.getText().contains("^[0-9]+$")){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, under8Input.getText() + " is an invalid amount of Children Under 8.");
 		}
