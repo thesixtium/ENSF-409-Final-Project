@@ -52,11 +52,8 @@ public class RequestFormDatabase{
 	
 	public void setClientValues(String tableName){
 		clientValues = new HashMap<String, HashMap<String, Integer>>();
-<<<<<<< Updated upstream
-		FoodData temp = new FoodData();
-=======
+
 		HashMap<String, Integer> temp = new HashMap<String, Integer>();
->>>>>>> Stashed changes
 		try{
 			Statement myStmt = dbConnect.createStatement();
 			results = myStmt.executeQuery("SELECT * FROM " + tableName);
@@ -95,6 +92,21 @@ public class RequestFormDatabase{
 		}catch(SQLException ex){
 			ex.printStackTrace();
 		}
+	}
+	
+	public void removeFood(int key){
+		
+		 try {
+            String query = "DELETE FROM AVAILABLE_FOOD WHERE ItemID = ?";
+            PreparedStatement myStmt = dbConnect.prepareStatement(query);
+            myStmt.setString(1, key);
+
+            myStmt.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+		
 	}
 	
 	  public void close() {
