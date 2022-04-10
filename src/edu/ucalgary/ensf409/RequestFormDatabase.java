@@ -52,16 +52,20 @@ public class RequestFormDatabase{
 	
 	public void setClientValues(String tableName){
 		clientValues = new HashMap<String, HashMap<String, Integer>>();
+<<<<<<< Updated upstream
 		FoodData temp = new FoodData();
+=======
+		HashMap<String, Integer> temp = new HashMap<String, Integer>();
+>>>>>>> Stashed changes
 		try{
 			Statement myStmt = dbConnect.createStatement();
 			results = myStmt.executeQuery("SELECT * FROM " + tableName);
 			while(results.next()){
-				temp.put("Grains", results.getInt("WholeGrains"));
-				temp.put("FV", results.getInt("FruitVeggies"));
-				temp.put("Protein", results.getInt("Protein"));
-				temp.put("Other", results.getInt("Other"));
-				temp.put("Calories", results.getInt("Calories"));
+				temp.put("grain", results.getInt("WholeGrains"));
+				temp.put("fv", results.getInt("FruitVeggies"));
+				temp.put("protein", results.getInt("Protein"));
+				temp.put("other", results.getInt("Other"));
+				temp.put("calories", results.getInt("Calories"));
 				clientValues.put(results.getString("Client"), temp);
 			}
 			myStmt.close();
@@ -80,11 +84,11 @@ public class RequestFormDatabase{
 			Statement myStmt = dbConnect.createStatement();
 			results = myStmt.executeQuery("SELECT * FROM " + tableName);
 			while(results.next()){
-				temp.put("Grains", results.getInt("GrainContent"));
-				temp.put("FV", results.getInt("FVContent"));
-				temp.put("Protein", results.getInt("ProContent"));
-				temp.put("Other", results.getInt("Other"));
-				temp.put("Calories", results.getInt("Calories"));
+				temp.put("grain", results.getInt("GrainContent"));
+				temp.put("fv", results.getInt("FVContent"));
+				temp.put("protein", results.getInt("ProContent"));
+				temp.put("other", results.getInt("Other"));
+				temp.put("calories", results.getInt("Calories"));
 				foodValues.put(results.getString("Name"), temp);
 			}
 			myStmt.close();
