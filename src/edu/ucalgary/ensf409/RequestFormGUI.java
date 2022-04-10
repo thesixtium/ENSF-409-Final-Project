@@ -37,13 +37,14 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
-	
-	public void setupGUI(){
-		/*
+	/**
 		Make the GUI to accept the amount of clients 
 		can create multiple households by hitting the "Add household" button
 		or create an order form by hitting the "Create order form" button
 		*/
+	
+	public void setupGUI(){
+		
 		instructions = new JLabel("Enter quantity of each type of client. Enter '0' if unapplicable");
 		femaleLabel = new JLabel("Adult Females:");
 		maleLabel = new JLabel ("Adult Males:");
@@ -93,24 +94,28 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 				
 	}
 	
+	/**
+	This method is triggered when a button is pressed. Once a button is pressed by the user, 
+	the values the user entered into the text fields of the GUI are saved into an ArrayList
+	of int[]. 
+	validateInput() is then called to ensure the saved inputs are valid.
+	If the user pressed the "Create order form" button, a new RequestForm object will be 
+	created using the saved information and a new OrderForm object will also be created.
+	If the user pressed the "Add household" button, the text fields will be cleared and
+	the number of households iterated so the new information entered does not overwrite 
+	that which was previously entered.
+	
+	@param event	A button was pushed; either "Create order form" or "Add household".
+					There are different outcomes depending on the source of the event.
+	*/
+	
 	public void actionPerformed(ActionEvent event){
-		//I want this to happen either way, but if create order form is pressed I want it 
-		//to send the household[][] to Household the stop accepting inputs and 
-		//if add household is pressed I want it to do this then numHouseholds+=1
-		//and continue accepting inputs.
 		int[] tempHousehold = new int[4];
-
-		//pass the entered data into an int array so it can be added to an array list and then 
-		//RequestForm can create a Household object
 
 		tempHousehold[0] = Integer.parseInt(femaleInput.getText());
 		tempHousehold[1] = Integer.parseInt(maleInput.getText());
 		tempHousehold[2] = Integer.parseInt(over8Input.getText());
 		tempHousehold[3] = Integer.parseInt(under8Input.getText());
-		/*households[numHouseholds-1][0] = Integer.parseInt(femaleInput.getText());
-		households[numHouseholds-1][1] = Integer.parseInt(maleInput.getText());
-		households[numHouseholds-1][2] = Integer.parseInt(over8Input.getText());
-		households[numHouseholds-1][3] = Integer.parseInt(under8Input.getText());*/
 		households.add(tempHousehold);
 		if(validateInput()){
 		if (event.getSource().equals(makeOrderForm)){
@@ -123,12 +128,9 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 			OrderForm form  = new OrderForm();
 			form.createOrderForm();
 			
-			//Household household = new Household(households);
 			JOptionPane.showMessageDialog(this, "Order Form Created as \n" + form.getFilename());
 		}
 		if (event.getSource().equals(addhousehold)){
-			//resets the inputs to accept new ones after storing the old ones
-			//increases number of households by one
 			setNumHouseholds(numHouseholds+1);
 			femaleInput.setText("");
 			maleInput.setText("");
@@ -157,10 +159,18 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
     public void mouseReleased(MouseEvent event){
         
     }
-	private boolean validateInput(){
-		/*
-		If any inputs are negative or contain non numerical inputs, they are invalid.
+	
+	/**
+	This method checks if any of the user inputs were invalid (negative or non-numerical).
+	If an input is invalid, the user will be told that the quantity of client type they 
+	entered is invalid and allInputValid is set to false.
+	
+	@return allInputValid	A boolean indicating if the entered quantity of clients is 
+							valid or not.
 		*/
+	
+	private boolean validateInput(){
+		
 		boolean allInputValid = true;
 		if(households.get(numHouseholds-1)[0]<0  || femaleInput.getText().contains("^[0-9]+$")){
 			allInputValid = false;
@@ -180,22 +190,34 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		}
 		return allInputValid;
 	}
+	
+	/**
+	This method sets the number of households that the user has entered. Used in 
+	iteration should multiple households be entered.
+	
+	@param number 	an integer representing the number that numHouseholds will 
+					be set to. Normally numHouseholds+=1.
+	*/
+	
 	private void setNumHouseholds(int number){
-		this.numHouseholds = number;
+		numHouseholds = number;
 	}
+	
+	/**
+	This method retreives the number of households that were entered by the 
+	user so it can be used by other classes.
+	
+	@return this.numHouseholds	an integer representing the quantity of households 
+								for the associated request.
+	*/
 	
 	private int getNumHouseholds(){
 		return this.numHouseholds;
 	}
-	
-public static void main(String[] args){
-		RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/inventory","student","ensf" );
-		requestForm.initializeConnection();
-		EventQueue.invokeLater(() -> {
-			new GUIRequestForm().setVisible(true);
-		});
-		requestForm.close();
-	}
+
+/**
+@return result 	an ArrayList of Hamper objects.
+*/
 
 	public ArrayList<Hamper> getHampers() {
         Iterator<Household> iter = h.iterator();
@@ -207,4 +229,13 @@ public static void main(String[] args){
 
         return result;
     }
+	
+public static void main(String[] args){
+		RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/inventory","student","ensf" );
+		requestForm.initializeConnection();
+		EventQueue.invokeLater(() -> {
+			new GUIRequestForm().setVisible(true);
+		});
+		requestForm.close();
+	}
 }
