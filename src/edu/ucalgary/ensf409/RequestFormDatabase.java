@@ -2,7 +2,7 @@
  * @author Aleksander Berezowski
  * @author Danielle Jourdain
  * @author Philippa Madill
- * @version 1.0
+ * @version 1.4
  * @since 1.0
  */
 
@@ -16,7 +16,7 @@ public class RequestFormDatabase{
 	public final String USERNAME;
 	public final String PASSWORD;
 	public static HashMap<String, HashMap<String, Integer>> clientValues;
-	public static HashMap<String, FoodData> foodValues;
+	public static HashMap<Integer, FoodData> foodValues;
 	private Connection dbConnect;
 	private ResultSet results;
 	
@@ -31,9 +31,9 @@ public class RequestFormDatabase{
 	public void initializeConnection(){
 		try{
 			dbConnect = DriverManager.getConnection(getDburl(), getUsername(), getPassword());
-			} catch (SQLException e){
-				e.printStackTrace();
-			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
 	}
 	
 	String getDburl(){
@@ -105,17 +105,31 @@ public class RequestFormDatabase{
 	*/
 	public void setFoodValues(){
 		foodValues = new HashMap<Integer, FoodData>();
-		FoodData temp = new FoodData<>();
+		//FoodData temp = new FoodData<>();
 		try{
 			Statement myStmt = dbConnect.createStatement();
 			results = myStmt.executeQuery("SELECT * FROM AVAILABLE_FOOD");
 			while(results.next()){
+				int calories = results.getInt("Calories");
+				int grainVal = results.getInt("GrainContent") / calories;
+				int fvVal = results.getInt("FVContent") / calories;
+				int proteinVal = results.getInt("ProContent") / calories;
+				int otherVal = results.getInt("Other") / calories;
+				String name = results.getString("Name");
+				int idNum = results.getInt("ItemID");
+
+				FoodData temp = new FoodData(name, fvVal, grainVal, proteinVal, otherVal);
+				foodValues.put(idNum, temp);
+
+
+				/*
 				temp.put("grain", results.getInt("GrainContent"));
 				temp.put("fv", results.getInt("FVContent"));
 				temp.put("protein", results.getInt("ProContent"));
 				temp.put("other", results.getInt("Other"));
 				temp.put("calories", results.getInt("Calories"));
 				foodValues.put(results.getString("Name"), temp);
+				*/
 			}
 			myStmt.close();
 		}catch(SQLException ex){
@@ -136,7 +150,7 @@ public class RequestFormDatabase{
 		 try {
             String query = "DELETE FROM AVAILABLE_FOOD WHERE ItemID = ?";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
-            myStmt.setString(1, key);
+            myStmt.setString(1, Integer.toString(key));
 
             myStmt.close();
 
@@ -147,11 +161,10 @@ public class RequestFormDatabase{
 	}
 	
 	/**
-	This method closes the connection to the database.
-	*/
+	 * This method closes the connection to the database.
+	 */
 	
 	  public void close() {
-
         try {
             results.close();
             dbConnect.close();

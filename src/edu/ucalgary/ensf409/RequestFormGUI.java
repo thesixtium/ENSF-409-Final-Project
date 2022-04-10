@@ -8,8 +8,11 @@
 
 package edu.ucalgary.ensf409;
 
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.*;
+import java.awt.FlowLayout;
 import java.util.*;
 
 public class RequestFormGUI extends JFrame implements ActionListener, MouseListener {
@@ -27,6 +30,9 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	private JTextField maleInput;
 	private JTextField over8Input;
 	private JTextField under8Input;
+
+	private JButton makeOrderForm;
+	private JButton addHousehold;
 	
 	
 	
@@ -61,17 +67,17 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		under8Input.addMouseListener(this);
 		over8Input.addMouseListener(this);
 		
-		JButton makeOrderForm = new JButton("Create order form");
+		makeOrderForm = new JButton("Create order form");
 		makeOrderForm.addActionListener(this);
 		
-		JButton addHousehold = new JButton("Add household");
+		addHousehold = new JButton("Add household");
 		addHousehold.addActionListener(this);
 		
 		JPanel headerPanel = new JPanel();
 		headerPanel.setLayout(new FlowLayout());
 		
 		JPanel clientPanel = new JPanel();
-		clientPanel.setLayout(new FLowLayout());
+		clientPanel.setLayout(new FlowLayout());
 		
 		JPanel choicePanel = new JPanel();
 		choicePanel.setLayout(new FlowLayout());
@@ -117,20 +123,21 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		tempHousehold[2] = Integer.parseInt(over8Input.getText());
 		tempHousehold[3] = Integer.parseInt(under8Input.getText());
 		households.add(tempHousehold);
+		RequestForm families;
 		if(validateInput()){
 		if (event.getSource().equals(makeOrderForm)){
 			try{
-			RequestForm families = new RequestForm(households);
+			families = new RequestForm(households);
 			}
 			catch(IllegalArgumentException e){
 				throw new IllegalArgumentException("One of the entered households did not contain valid inputs.");
 			}
-			OrderForm form  = new OrderForm();
-			form.createOrderForm();
+			OrderForm form  = new OrderForm(families);
+			form.createForm();
 			
 			JOptionPane.showMessageDialog(this, "Order Form Created as \n" + form.getFilename());
 		}
-		if (event.getSource().equals(addhousehold)){
+		if (event.getSource().equals(addHousehold)){
 			setNumHouseholds(numHouseholds+1);
 			femaleInput.setText("");
 			maleInput.setText("");
@@ -219,6 +226,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 @return result 	an ArrayList of Hamper objects.
 */
 
+	/* I THINK THIS METHOD MIGHT BE OBSOLETE BC OF THE THIRD REQUESTFORM CLASS
 	public ArrayList<Hamper> getHampers() {
         Iterator<Household> iter = h.iterator();
         ArrayList<Hamper> result = new ArrayList<>();
@@ -229,13 +237,16 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 
         return result;
     }
+	*/
 	
 public static void main(String[] args){
-		RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/inventory","student","ensf" );
+		RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/FOOD_INVENTORY","student","ensf" );
 		requestForm.initializeConnection();
 		EventQueue.invokeLater(() -> {
-			new GUIRequestForm().setVisible(true);
+			new RequestFormGUI().setVisible(true);
 		});
+		requestForm.setFoodValues();
+		requestForm.setClientValues();
 		requestForm.close();
 	}
 }
