@@ -27,7 +27,7 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
  */
 
-package instrumentation;
+package lib.src.build.java.instrumentation;
 
 import java.util.Collection;
 
