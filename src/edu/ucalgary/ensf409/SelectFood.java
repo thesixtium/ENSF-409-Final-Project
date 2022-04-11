@@ -39,10 +39,12 @@ public class SelectFood {
                 System.out.println(" C O U N T: " + count++);
                 System.out.println("Foods available:");
                 for(Integer i: foods.keySet())
-                    System.out.println("\t- " + i);
+                    System.out.print(i + ", ");
+                System.out.println();
                 System.out.println("Foods using:");
                 for(Integer i: returnFoods.keySet())
-                    System.out.println("\t- " + i);
+                    System.out.print(i + ", ");
+                System.out.println();
                 System.out.println("Old Needs:");
                 System.out.println("\tFV:\t"+needs.getFvCalories());
                 System.out.println("\tGrain:\t"+needs.getGrainCalories());
@@ -50,18 +52,27 @@ public class SelectFood {
                 System.out.println("\tOther:\t"+needs.getOtherCalories());
 
                 // Figure out the best food to add to the hamper
-                Integer foodToAdd = mostEfficientFood(returnFoods, foods, needs, type);
+                FoodData foodToAdd = mostEfficientFood(returnFoods, foods, needs, type);
+                Integer key = 0;
+                for(Integer i: foods.keySet())
+                    if(foods.get(i) == foodToAdd)
+                        key = i;
 
                 // Add food to return foods that are in the hamper
-                returnFoods.put(foodToAdd, foods.get(foodToAdd));
+                returnFoods.put(key, foodToAdd);
 
-                System.out.println("Food To Add:\t"+foodToAdd);
+                System.out.println("Food To Add:\t"+foodToAdd.getName());
+                System.out.println("\t- FV:" + foodToAdd.getFv());
+                System.out.println("\t- GR:" + foodToAdd.getGrain());
+                System.out.println("\t- PR:" + foodToAdd.getProtein());
+                System.out.println("\t- OT:" + foodToAdd.getOther());
+
 
                 // Update household needs
-                needs.changeFvCalories(-1 * foods.get(foodToAdd).getFv());
-                needs.changeGrainCalories(-1 * foods.get(foodToAdd).getGrain());
-                needs.changeProteinCalories(-1 * foods.get(foodToAdd).getProtein());
-                needs.changeOtherCalories(-1 * foods.get(foodToAdd).getOther());
+                needs.changeFvCalories(-1 * foodToAdd.getFv());
+                needs.changeGrainCalories(-1 * foodToAdd.getGrain());
+                needs.changeProteinCalories(-1 * foodToAdd.getProtein());
+                needs.changeOtherCalories(-1 * foodToAdd.getOther());
                 System.out.println("New Needs:");
                 System.out.println("\tFV:\t"+needs.getFvCalories());
                 System.out.println("\tGrain:\t"+needs.getGrainCalories());
@@ -69,7 +80,8 @@ public class SelectFood {
                 System.out.println("\tOther:\t"+needs.getOtherCalories());
 
                 // Remove food from available foods
-                foods.remove(foodToAdd);
+
+                foods.remove(key);
             }
         }
 
@@ -92,7 +104,7 @@ public class SelectFood {
      * @return
      * @throws NotEnoughFoodException
      */
-    private int mostEfficientFood(HashMap<Integer, FoodData> currentReturnFoods, HashMap<Integer, FoodData> foods,
+    private FoodData mostEfficientFood(HashMap<Integer, FoodData> currentReturnFoods, HashMap<Integer, FoodData> foods,
                                   HouseholdNeeds needs, String currentlyWorkingOn) throws NotEnoughFoodException {
         System.out.println("\tmostEfficientFood");
         int currentFoodCalories;
@@ -115,19 +127,13 @@ public class SelectFood {
                         if(o1.getSum() == o2.getSum())
                             return 0;
                         else
-                            return o1.getSum() > o2.getSum() ? -1 : 1;
-                    return o1.getFv() < o2.getFv() ? -1 : 1;
+                            return o1.getSum() < o2.getSum() ? -1 : 1;
+                    return o1.getFv() > o2.getFv() ? -1 : 1;
                 }
             });
-            for(FoodData i : sortedFoods)
-                System.out.println("\t\t" + i.getName() + ": " + i.getFv());
             System.out.println("\tComparator made");
             // If the first food (ie the top food) has 0 for the category, then know
             // there is no more food
-            if (sortedFoods.get(returnValue).getFv() == 0){
-                throw new NotEnoughFoodException("fv", currentFoodCalories);
-            }
-            System.out.println("\tThere is enough food");
             // Select the food with the highest value that is under the needed calories, unless
             // there is no value under the needed calories, then selects the least food to
             // add
@@ -149,17 +155,10 @@ public class SelectFood {
                         if(o1.getSum() == o2.getSum())
                             return 0;
                         else
-                            return o1.getSum() > o2.getSum() ? -1 : 1;
-                    return o1.getGrain() < o2.getGrain() ? -1 : 1;
+                            return o1.getSum() < o2.getSum() ? -1 : 1;
+                    return o1.getGrain() > o2.getGrain() ? -1 : 1;
                 }
             });
-            for(FoodData i : sortedFoods)
-                System.out.println("\t\t" + i.getName() + ": " + i.getGrain());
-            System.out.println("\tComparator made");
-            if (sortedFoods.get(returnValue).getGrain() == 0){
-                throw new NotEnoughFoodException("grain", currentFoodCalories);
-            }
-            System.out.println("\tThere is enough food");
             // Select the food with the highest value that is under the needed calories, unless
             // there is no value under the needed calories, then selects the least food to
             // add
@@ -181,17 +180,10 @@ public class SelectFood {
                         if(o1.getSum() == o2.getSum())
                             return 0;
                         else
-                            return o1.getSum() > o2.getSum() ? -1 : 1;
-                    return o1.getProtein() < o2.getProtein() ? -1 : 1;
+                            return o1.getSum() < o2.getSum() ? -1 : 1;
+                    return o1.getProtein() > o2.getProtein() ? -1 : 1;
                 }
             });
-            for(FoodData i : sortedFoods)
-                System.out.println("\t\t" + i.getName() + ": " + i.getProtein());
-            System.out.println("\tComparator made");
-            if (sortedFoods.get(returnValue).getProtein() == 0){
-                throw new NotEnoughFoodException("protein", currentFoodCalories);
-            }
-            System.out.println("\tThere is enough food");
             // Select the food with the highest value that is under the needed calories, unless
             // there is no value under the needed calories, then selects the least food to
             // add
@@ -213,17 +205,15 @@ public class SelectFood {
                         if(o1.getSum() == o2.getSum())
                             return 0;
                         else
-                            return o1.getSum() > o2.getSum() ? -1 : 1;
-                    return o1.getOther() < o2.getOther() ? -1 : 1;
+                            return o1.getSum() < o2.getSum() ? -1 : 1;
+                    return o1.getOther() > o2.getOther() ? -1 : 1;
                 }
             });
-            for(FoodData i : sortedFoods)
-                System.out.println("\t\t" + i.getName() + ": " + i.getOther());
-            System.out.println("\tComparator made");
+            // If the first food (ie the top food) has 0 for the category, then know
+            // there is no more food
             if (sortedFoods.get(returnValue).getOther() == 0){
                 throw new NotEnoughFoodException("other", currentFoodCalories);
             }
-            System.out.println("\tThere is enough food");
             // Select the food with the highest value that is under the needed calories, unless
             // there is no value under the needed calories, then selects the least food to
             // add
@@ -234,16 +224,8 @@ public class SelectFood {
                     break;
                 }
             }
-            System.out.println("\tReturn value: " + returnValue);
         }
-
-        for (Integer i : currentReturnFoods.keySet()){
-            if (sortedFoods.get(returnValue) == currentReturnFoods.get(i)){
-                return i;
-            }
-        }
-
-        throw new RuntimeException("Food not found in list");
+        return sortedFoods.get(returnValue);
     }
 
     /**
