@@ -264,6 +264,12 @@ public class SelectFood {
         int other = 0;
         HashMap<String, Integer> returnMap = new HashMap<>();
 
+        if(needs == null)
+            System.out.println("Needs is null");
+
+        if(foods == null)
+            System.out.println("Foods is null");
+
         // Calculate total values for each food category
         for (Integer i : foods.keySet()){
             grains += foods.get(i).getGrain();
