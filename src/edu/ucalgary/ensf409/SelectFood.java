@@ -33,13 +33,20 @@ public class SelectFood {
         // Main algorithm, iterates through food types while checking the best food for that
         // specific food group. Finishes when the needs are satisfied
         while(!needs.isSatisfied()){
-            System.out.println();
-            System.out.println("Needs:");
-            System.out.println("\tFV:\t"+needs.getFvCalories());
-            System.out.println("\tGrain:\t"+needs.getGrainCalories());
-            System.out.println("\tProtein:\t"+needs.getProteinCalories());
-            System.out.println("\tOther:\t"+needs.getOtherCalories());
             for (String type : foodTypes){
+                System.out.println();
+                System.out.println("Foods available:");
+                for(Integer i: foods.keySet())
+                    System.out.println("\t- " + i);
+                System.out.println("Foods using:");
+                for(Integer i: returnFoods.keySet())
+                    System.out.println("\t- " + i);
+                System.out.println("Needs:");
+                System.out.println("\tFV:\t"+needs.getFvCalories());
+                System.out.println("\tGrain:\t"+needs.getGrainCalories());
+                System.out.println("\tProtein: "+needs.getProteinCalories());
+                System.out.println("\tOther:\t"+needs.getOtherCalories());
+
                 // Figure out the best food to add to the hamper
                 Integer foodToAdd = mostEfficientFood(returnFoods, foods, needs, type);
 
@@ -54,16 +61,12 @@ public class SelectFood {
                 needs.changeProteinCalories(-1 * foods.get(foodToAdd).getProtein());
                 needs.changeOtherCalories(-1 * foods.get(foodToAdd).getOther());
 
-                System.out.println("Needs:");
-                System.out.println("\tFV:\t"+needs.getFvCalories());
-                System.out.println("\tGrain:\t"+needs.getGrainCalories());
-                System.out.println("\tProtein:\t"+needs.getProteinCalories());
-                System.out.println("\tOther:\t"+needs.getOtherCalories());
-
                 // Remove food from available foods
                 foods.remove(foodToAdd);
             }
         }
+
+        System.out.println("Returning");
 
         return returnFoods;
     }
