@@ -139,6 +139,12 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 			form.createForm();
 			
 			JOptionPane.showMessageDialog(this, "Order Form Created as \n" + form.getFilename());
+			households.clear();
+			numHouseholds = 1;
+			femaleInput.setText("");
+			maleInput.setText("");
+			over8Input.setText("");
+			under8Input.setText("");
 		}
 		if (event.getSource().equals(addHousehold)){
 			setNumHouseholds(numHouseholds+1);
