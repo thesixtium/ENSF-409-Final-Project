@@ -53,7 +53,7 @@ public class OrderForm {
 
         ArrayList<Household> households = this.ORDER.getHouseholds();
         Iterator<Household> houseIter = households.iterator();
-        int counter = 0;
+        int counter = 1;
         while(houseIter.hasNext()) {
             //iterate through the households, printing the info about each
             //on a new line
@@ -81,6 +81,7 @@ public class OrderForm {
                 //otherwise add what the hamper was short by to the result
             }
             formResult.append("\n\n");
+			counter++;
         }
 
 
