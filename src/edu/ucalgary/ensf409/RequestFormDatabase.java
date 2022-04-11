@@ -111,10 +111,10 @@ public class RequestFormDatabase{
 			results = myStmt.executeQuery("SELECT * FROM AVAILABLE_FOOD");
 			while(results.next()){
 				int calories = results.getInt("Calories");
-				int grainVal = ((double) (results.getInt("GrainContent") / 100)) / calories;
-				int fvVal = ((double) (results.getInt("FVContent") / 100)) / calories;
-				int proteinVal = ((double) (results.getInt("ProContent") / 100)) / calories;
-				int otherVal = ((double) (results.getInt("Other") / 100)) / calories;
+				int grainVal = results.getInt("GrainContent") * calories / 100;
+				int fvVal = results.getInt("FVContent") * calories / 100;
+				int proteinVal = results.getInt("ProContent") * calories / 100;
+				int otherVal = results.getInt("Other") * calories / 100;
 				String name = results.getString("Name");
 				int idNum = results.getInt("ItemID");
 

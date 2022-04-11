@@ -41,7 +41,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		setupGUI();
 		setSize(400, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		this.households = new ArrayList<>();
 	}
 	/**
 		Make the GUI to accept the amount of clients 

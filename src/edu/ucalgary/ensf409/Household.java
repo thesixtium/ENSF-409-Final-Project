@@ -51,32 +51,33 @@ public class Household {
      */
     private void initializeClients(HashMap<String, HashMap<String, Integer>> clientData){
         HashMap<String, Integer> client = clientData.get("Adult Male");
-        AdultMale.setTotalCalories(client.get("Total Calories"));
-        AdultMale.setFvPercent(client.get("FV Percent"));
-        AdultMale.setGrainPercent(client.get("Grain Percent"));
-        AdultMale.setProteinPercent(client.get("Protein Percent"));
-        AdultMale.setOtherPercent(client.get("Other Percent"));
+
+        AdultMale.setTotalCalories(client.get("calories"));
+        AdultMale.setFvPercent(client.get("fv"));
+        AdultMale.setGrainPercent(client.get("grain"));
+        AdultMale.setProteinPercent(client.get("protein"));
+        AdultMale.setOtherPercent(client.get("other"));
 
         client = clientData.get("Adult Female");
-        AdultFemale.setTotalCalories(client.get("Total Calories"));
-        AdultFemale.setFvPercent(client.get("FV Percent"));
-        AdultFemale.setGrainPercent(client.get("Grain Percent"));
-        AdultFemale.setProteinPercent(client.get("Protein Percent"));
-        AdultFemale.setOtherPercent(client.get("Other Percent"));
+        AdultFemale.setTotalCalories(client.get("calories"));
+        AdultFemale.setFvPercent(client.get("fv"));
+        AdultFemale.setGrainPercent(client.get("grain"));
+        AdultFemale.setProteinPercent(client.get("protein"));
+        AdultFemale.setOtherPercent(client.get("other"));
 
-        client = clientData.get("Child Over 8");
-        ChildOver8.setTotalCalories(client.get("Total Calories"));
-        ChildOver8.setFvPercent(client.get("FV Percent"));
-        ChildOver8.setGrainPercent(client.get("Grain Percent"));
-        ChildOver8.setProteinPercent(client.get("Protein Percent"));
-        ChildOver8.setOtherPercent(client.get("Other Percent"));
+        client = clientData.get("Child over 8");
+        ChildOver8.setTotalCalories(client.get("calories"));
+        ChildOver8.setFvPercent(client.get("fv"));
+        ChildOver8.setGrainPercent(client.get("grain"));
+        ChildOver8.setProteinPercent(client.get("protein"));
+        ChildOver8.setOtherPercent(client.get("other"));
 
-        client = clientData.get("Child Under 8");
-        ChildUnder8.setTotalCalories(client.get("Total Calories"));
-        ChildUnder8.setFvPercent(client.get("FV Percent"));
-        ChildUnder8.setGrainPercent(client.get("Grain Percent"));
-        ChildUnder8.setProteinPercent(client.get("Protein Percent"));
-        ChildUnder8.setOtherPercent(client.get("Other Percent"));
+        client = clientData.get("Child under 8");
+        ChildUnder8.setTotalCalories(client.get("calories"));
+        ChildUnder8.setFvPercent(client.get("fv"));
+        ChildUnder8.setGrainPercent(client.get("grain"));
+        ChildUnder8.setProteinPercent(client.get("protein"));
+        ChildUnder8.setOtherPercent(client.get("other"));
     }
 
     /**
