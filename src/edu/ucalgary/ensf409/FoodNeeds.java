@@ -18,10 +18,10 @@ public class FoodNeeds {
     }
 
     private static void calculateCalories(){
-        fvCalories = (int) (fvPercent * totalCalories);
-        grainCalories = (int) (grainPercent * totalCalories);
-        proteinCalories = (int) (proteinPercent * totalCalories);
-        otherCalories = (int) (otherPercent * totalCalories);
+        fvCalories = (int) (fvPercent * totalCalories * 0.01);
+        grainCalories = (int) (grainPercent * totalCalories * 0.01);
+        proteinCalories = (int) (proteinPercent * totalCalories * 0.01);
+        otherCalories = (int) (otherPercent * totalCalories * 0.01);
     }
 
     public static void setTotalCalories(int i){
