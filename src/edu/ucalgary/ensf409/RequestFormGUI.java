@@ -13,6 +13,7 @@ import java.awt.EventQueue;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.util.*;
 
 public class RequestFormGUI extends JFrame implements ActionListener, MouseListener {
@@ -20,6 +21,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	private int numHouseholds = 1;
 	private Household household;
 	
+	private JLabel foodBankName;
 	private JLabel instructions;
 	private JLabel femaleLabel;
 	private JLabel maleLabel;
@@ -37,9 +39,9 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	
 	
 	public RequestFormGUI(){
-		super("Create a request form for one or more households");
+		super("Welcome to the Peanut Butter Scenario Foodbank!");
 		setupGUI();
-		setSize(400, 400);
+		setSize(550, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.households = new ArrayList<>();
 	}
@@ -51,7 +53,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	
 	public void setupGUI(){
 		
-		instructions = new JLabel("Enter quantity of each type of client. Enter '0' if unapplicable");
+		instructions = new JLabel("Enter quantity of each type of client. Enter '0' if unapplicable.");
 		femaleLabel = new JLabel("Adult Females:");
 		maleLabel = new JLabel ("Adult Males:");
 		over8Label = new JLabel("Children Over 8:");
@@ -70,7 +72,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		makeOrderForm = new JButton("Create order form");
 		makeOrderForm.addActionListener(this);
 		
-		addHousehold = new JButton("Add household");
+		addHousehold = new JButton("Add another household");
 		addHousehold.addActionListener(this);
 		
 		JPanel headerPanel = new JPanel();
@@ -82,6 +84,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		JPanel choicePanel = new JPanel();
 		choicePanel.setLayout(new FlowLayout());
 		
+		//welcomePanel.add(foodBankName);
 		headerPanel.add(instructions);
 		clientPanel.add(femaleLabel);
 		clientPanel.add(femaleInput);
