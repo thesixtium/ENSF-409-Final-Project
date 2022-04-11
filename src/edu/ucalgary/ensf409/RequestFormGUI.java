@@ -10,6 +10,10 @@ package edu.ucalgary.ensf409;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.*;
 
 public class RequestFormGUI extends JFrame implements ActionListener, MouseListener {
@@ -71,7 +75,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		headerPanel.setLayout(new FlowLayout());
 		
 		JPanel clientPanel = new JPanel();
-		clientPanel.setLayout(new FLowLayout());
+		clientPanel.setLayout(new FlowLayout());
 		
 		JPanel choicePanel = new JPanel();
 		choicePanel.setLayout(new FlowLayout());

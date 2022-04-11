@@ -4,6 +4,7 @@
  * @since 1.0
  */
 
+
 package edu.ucalgary.ensf409;
 
 import org.junit.*;
@@ -39,7 +40,7 @@ public class RequestFormTest{
         assertEquals("Incorrect information stored/returned for number of children over 8", expectedChildOver8, actualChildOver8);
         assertEquals("Incorrect information stored/returned for number of children under 8", expectedChildUnder8, actualChildUnder8);
 		*/
-		assertNotNull(requestForm, "Did not correctly create a RequestForm object.")
+		assertNotNull(requestForm, "Did not correctly create a RequestForm object.");
 	}
 	
 	@Test 
@@ -47,7 +48,7 @@ public class RequestFormTest{
 		//I think this might actually be GUI conditions tests not unit tests?
 		boolean testResult = false;
 		try{
-			RequestForm form = new RequestForm(invalidHousehold1)
+			RequestForm form = new RequestForm(invalidHousehold1);
 			}
 		catch(IllegalArgumentException e){
 			testResult = true;
@@ -61,7 +62,7 @@ public class RequestFormTest{
 			//Again, might be the GUI's problem
 		boolean testResult = false;
 		try{
-			RequestForm form = new RequestForm(invalidHousehold2)
+			RequestForm form = new RequestForm(invalidHousehold2);
 			}
 		catch(IllegalArgumentException e){
 			testResult = true;
