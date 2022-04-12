@@ -19,19 +19,14 @@ public class RequestForm {
      * through an ArrayList of int arrays.
      * @param families An ArrayList<int[]> where each int[] has length 4 with values
      * corresponding to the number of each type of person in the family.
-     * @throws IllegalArgumentException thrown if one of the families is invalid
      */
-    public RequestForm(ArrayList<int[]> families) throws IllegalArgumentException {
+    public RequestForm(ArrayList<int[]> families) {
         this.numHouseholds = families.size();
         //set the number of households from the number of families.
 
         ArrayList<Household> temp = new ArrayList<>();
 
         for(int[] item: families) {
-            if(item.length != 4) {
-                throw new IllegalArgumentException("Family array must have 4 values");
-            }
-            
             ArrayList<String> family = new ArrayList<>();
             //create a new ArrayList to hold the current family.
 

@@ -30,11 +30,9 @@ public class OrderForm {
         String temp = this.filename;
 
         while(testFile.isFile()) {
-            System.out.println(testFile.toString());
             //if the File orderForm.txt already exists, see if orderForm1.txt exists
             //if that exists, try orderForm2.txt, and so on until a valid filename is found
             temp = this.filename + Integer.toString(count);
-            System.out.println(temp);
             testFile = new File(temp + ".txt");
             count++;
         }
@@ -133,8 +131,10 @@ public class OrderForm {
         }
         //if there is at least one member of each type add it to a StringBuilder
 
-        result.delete(result.length() - 2, result.length());
-        //delete the comma and space at the end of the line
+        if(result.length() >= 2) {
+            result.delete(result.length() - 2, result.length());
+            //delete the comma and space at the end of the line
+        }
 
         return result.toString();
     }
