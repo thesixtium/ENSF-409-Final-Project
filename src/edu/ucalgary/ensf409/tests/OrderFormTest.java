@@ -4,9 +4,13 @@
  * @since 1.0
  */
 
-package edu.ucalgary.ensf409;
+package edu.ucalgary.ensf409.tests;
 
 import java.util.*;
+
+import edu.ucalgary.ensf409.OrderForm;
+import edu.ucalgary.ensf409.RequestForm;
+import edu.ucalgary.ensf409.RequestFormDatabase;
 import org.junit.*;
 import static org.junit.Assert.*;
 

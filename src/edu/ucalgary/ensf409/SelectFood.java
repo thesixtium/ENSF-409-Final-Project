@@ -34,7 +34,6 @@ public class SelectFood {
 
         // Main algorithm, iterates through food types while checking the best food for that
         // specific food group. Finishes when the needs are satisfied
-        int count = 0;
         while(!needs.isSatisfied()){
             for (String type : foodTypes){
                 if(needs.getFvCalories() <= 0 && type.equals("fv"))
@@ -66,27 +65,6 @@ public class SelectFood {
 
                 // Remove food from available foods
                 foods.remove(key);
-            }
-        }
-
-        HashMap<String, Integer> waste;
-        Integer remove = -1;
-        boolean flag = true;
-        while(flag) {
-            waste = calculateWaste(returnFoods, wasteNeeds);
-            for (Integer i : returnFoods.keySet()) {
-                if (returnFoods.get(i).getFv() < waste.get("fv") &&
-                        returnFoods.get(i).getGrain() < waste.get("grain") &&
-                        returnFoods.get(i).getProtein() < waste.get("protein") &&
-                        returnFoods.get(i).getOther() < waste.get("other"))
-                    remove = i;
-                break;
-            }
-            if(remove != -1){
-                returnFoods.remove(remove);
-                remove = -1;
-            } else {
-                flag = false;
             }
         }
 
