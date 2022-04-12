@@ -11,6 +11,7 @@ package edu.ucalgary.ensf409;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class SelectFood {
 
@@ -29,27 +30,21 @@ public class SelectFood {
     public HashMap<Integer, FoodData> calculateFoods(HashMap<Integer, FoodData> foods, HouseholdNeeds needs) throws NotEnoughFoodException {
         String[] foodTypes = {"fv", "grain", "protein", "other"};
         HashMap<Integer, FoodData> returnFoods = new HashMap<>();
+        HouseholdNeeds wasteNeeds = needs;
 
         // Main algorithm, iterates through food types while checking the best food for that
         // specific food group. Finishes when the needs are satisfied
         int count = 0;
         while(!needs.isSatisfied()){
             for (String type : foodTypes){
-                System.out.println();
-                System.out.println(" C O U N T: " + count++);
-                System.out.println("Foods available:");
-                for(Integer i: foods.keySet())
-                    System.out.print(i + ", ");
-                System.out.println();
-                System.out.println("Foods using:");
-                for(Integer i: returnFoods.keySet())
-                    System.out.print(i + ", ");
-                System.out.println();
-                System.out.println("Old Needs:");
-                System.out.println("\tFV:\t"+needs.getFvCalories());
-                System.out.println("\tGrain:\t"+needs.getGrainCalories());
-                System.out.println("\tProtein: "+needs.getProteinCalories());
-                System.out.println("\tOther:\t"+needs.getOtherCalories());
+                if(needs.getFvCalories() <= 0 && type.equals("fv"))
+                    continue;
+                if(needs.getGrainCalories() <= 0 && type.equals("grain"))
+                    continue;
+                if(needs.getProteinCalories() <= 0 && type.equals("protein"))
+                    continue;
+                if(needs.getOtherCalories() <= 0 && type.equals("other"))
+                    continue;
 
                 // Figure out the best food to add to the hamper
                 FoodData foodToAdd = mostEfficientFood(returnFoods, foods, needs, type);
@@ -61,11 +56,6 @@ public class SelectFood {
                 // Add food to return foods that are in the hamper
                 returnFoods.put(key, foodToAdd);
 
-                System.out.println("Food To Add:\t"+foodToAdd.getName());
-                System.out.println("\t- FV:" + foodToAdd.getFv());
-                System.out.println("\t- GR:" + foodToAdd.getGrain());
-                System.out.println("\t- PR:" + foodToAdd.getProtein());
-                System.out.println("\t- OT:" + foodToAdd.getOther());
 
 
                 // Update household needs
@@ -73,19 +63,32 @@ public class SelectFood {
                 needs.changeGrainCalories(-1 * foodToAdd.getGrain());
                 needs.changeProteinCalories(-1 * foodToAdd.getProtein());
                 needs.changeOtherCalories(-1 * foodToAdd.getOther());
-                System.out.println("New Needs:");
-                System.out.println("\tFV:\t"+needs.getFvCalories());
-                System.out.println("\tGrain:\t"+needs.getGrainCalories());
-                System.out.println("\tProtein: "+needs.getProteinCalories());
-                System.out.println("\tOther:\t"+needs.getOtherCalories());
 
                 // Remove food from available foods
-
                 foods.remove(key);
             }
         }
 
-        System.out.println("Returning");
+        HashMap<String, Integer> waste;
+        Integer remove = -1;
+        boolean flag = true;
+        while(flag) {
+            waste = calculateWaste(returnFoods, wasteNeeds);
+            for (Integer i : returnFoods.keySet()) {
+                if (returnFoods.get(i).getFv() < waste.get("fv") &&
+                        returnFoods.get(i).getGrain() < waste.get("grain") &&
+                        returnFoods.get(i).getProtein() < waste.get("protein") &&
+                        returnFoods.get(i).getOther() < waste.get("other"))
+                    remove = i;
+                break;
+            }
+            if(remove != -1){
+                returnFoods.remove(remove);
+                remove = -1;
+            } else {
+                flag = false;
+            }
+        }
 
         return returnFoods;
     }
@@ -106,17 +109,14 @@ public class SelectFood {
      */
     private FoodData mostEfficientFood(HashMap<Integer, FoodData> currentReturnFoods, HashMap<Integer, FoodData> foods,
                                   HouseholdNeeds needs, String currentlyWorkingOn) throws NotEnoughFoodException {
-        System.out.println("\tmostEfficientFood");
         int currentFoodCalories;
         ArrayList<FoodData> sortedFoods = new ArrayList<>(foods.values());
         int returnValue = 0;
 
         // Determines which category currently working on
         if(currentlyWorkingOn.equals("fv")){
-            System.out.println("\tWorking on FV");
             // Get the calorie values for the current category
             currentFoodCalories = needs.getFvCalories();
-            System.out.println("\tCurrent Calories: " + currentFoodCalories);
             // Sort the foods based on the current category as primary, and the inverse of
             // total calories in a food as secondary
             sortedFoods.sort(new Comparator<FoodData>() {
@@ -131,7 +131,6 @@ public class SelectFood {
                     return o1.getFv() > o2.getFv() ? -1 : 1;
                 }
             });
-            System.out.println("\tComparator made");
             // If the first food (ie the top food) has 0 for the category, then know
             // there is no more food
             // Select the food with the highest value that is under the needed calories, unless
@@ -144,11 +143,8 @@ public class SelectFood {
                     break;
                 }
             }
-            System.out.println("\tReturn value: " + returnValue);
         } else if(currentlyWorkingOn.equals("grain")){
-            System.out.println("\tWorking on Grain");
             currentFoodCalories = needs.getGrainCalories();
-            System.out.println("\tCurrent Calories: " + currentFoodCalories);
             sortedFoods.sort(new Comparator<FoodData>() {
                 public int compare(FoodData o1, FoodData o2) {
                     if (o1.getGrain() == o2.getGrain())
@@ -169,11 +165,8 @@ public class SelectFood {
                     break;
                 }
             }
-            System.out.println("\tReturn value: " + returnValue);
         } else if(currentlyWorkingOn.equals("protein")){
-            System.out.println("\tWorking on Protein");
             currentFoodCalories = needs.getProteinCalories();
-            System.out.println("\tCurrent Calories: " + currentFoodCalories);
             sortedFoods.sort(new Comparator<FoodData>() {
                 public int compare(FoodData o1, FoodData o2) {
                     if (o1.getProtein() == o2.getProtein())
@@ -194,11 +187,8 @@ public class SelectFood {
                     break;
                 }
             }
-            System.out.println("\tReturn value: " + returnValue);
         } else {
-            System.out.println("\tWorking on other");
             currentFoodCalories = needs.getOtherCalories();
-            System.out.println("\tCurrent Calories: " + currentFoodCalories);
             sortedFoods.sort(new Comparator<FoodData>() {
                 public int compare(FoodData o1, FoodData o2) {
                     if (o1.getOther() == o2.getOther())
@@ -225,6 +215,7 @@ public class SelectFood {
                 }
             }
         }
+
         return sortedFoods.get(returnValue);
     }
 
@@ -259,11 +250,6 @@ public class SelectFood {
         returnMap.put("fv", fv - needs.getFvCalories());
         returnMap.put("other", other - needs.getOtherCalories());
         returnMap.put("protein", protein - needs.getProteinCalories());
-
-        System.out.println("GR Waste: " + (grains - needs.getGrainCalories()));
-        System.out.println("FV Waste: " + (fv - needs.getFvCalories()));
-        System.out.println("PR Waste: " + (protein - needs.getProteinCalories()));
-        System.out.println("OT Waste: " + (other - needs.getOtherCalories()));
 
         return returnMap;
     }

@@ -39,6 +39,13 @@ public class Hamper extends SelectFood{
         try {
             this.hamperFoods = calculateFoods(this.availableFoods, this.calorieNeeds);
         } catch (NotEnoughFoodException e){
+            /*
+
+            WEEEEEEEEEEEE NEEEEEEED TO DO SOMETHING WITH THIIIIIIIIIIIIS
+
+
+
+             */
             System.out.println("Not enough food exception thrown");
             enoughFood = false;
             this.shortBy = new FoodData("Short By");
