@@ -246,12 +246,6 @@ public class SelectFood {
         int other = 0;
         HashMap<String, Integer> returnMap = new HashMap<>();
 
-        if(needs == null)
-            System.out.println("Needs is null");
-
-        if(foods == null)
-            System.out.println("Foods is null");
-
         // Calculate total values for each food category
         for (Integer i : foods.keySet()){
             grains += foods.get(i).getGrain();
@@ -265,6 +259,11 @@ public class SelectFood {
         returnMap.put("fv", fv - needs.getFvCalories());
         returnMap.put("other", other - needs.getOtherCalories());
         returnMap.put("protein", protein - needs.getProteinCalories());
+
+        System.out.println("GR Waste: " + (grains - needs.getGrainCalories()));
+        System.out.println("FV Waste: " + (fv - needs.getFvCalories()));
+        System.out.println("PR Waste: " + (protein - needs.getProteinCalories()));
+        System.out.println("OT Waste: " + (other - needs.getOtherCalories()));
 
         return returnMap;
     }
