@@ -8,14 +8,61 @@ package edu.ucalgary.ensf409;
 
 import org.junit.*;
 import static org.junit.Assert.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class HamperTest {
+
+    @Test
+    public void testConstructor() {
+
+    }
+
+
+    @Test 
+    public void testGetFoodQuantities() {
+
+    }
+
+
+    @Test   
+    public void testGetWaste() {
+
+    }
+
+
+    @Test   
+    public void testGetCalorieNeeds() {
+
+    }
+
+    @Test   
+    public void testGetShortByEnoughFood() {
+
+    }
+
+
+    @Test  
+    public void testGetShortByNotEnoughFood() {
+
+    }
+
+
+    @Test 
+    public void testGetAvailableFoods() {
+
+    }
+
+    @BeforeClass
+    public void setup() {
+
+    }
+
+    /*
     private int[] calorieValues = {100, 200, 300, 400};
     
-    /**
+    /*
      * Hamper(int[]) is called to create a Hamper object.
-     */
+     
     @Test
     public void testConstructor() {
         Hamper test = new Hamper(calorieValues);
@@ -25,7 +72,7 @@ public class HamperTest {
 
     /**
      * Test that the getCalorieNeeds method returns an integer array
-     */
+     
     @Test
     public void testGetFoodQuantities() {
         Hamper test = new Hamper(calorieValues);
@@ -36,7 +83,7 @@ public class HamperTest {
 
     /**
      * Test that getWaste method returns an integer array
-     */
+     
     @Test
     public void testGetWaste() {
         Hamper test = new Hamper(calorieValues);
@@ -47,7 +94,7 @@ public class HamperTest {
 
     /**
      * Test that getFoodQuantities returns an ArrayList of integers
-     */
+     
     @Test
     public void testGetCalorieNeeds() {
         Hamper test = new Hamper(calorieValues);
@@ -55,4 +102,5 @@ public class HamperTest {
 
         assertNotNull(result, "getCalorieNeeds did not return a value.");
     }
+    */
 }
