@@ -2,24 +2,23 @@
  * @author Aleksander Berezowski
  * @author Danielle Jourdain
  * @author Philippa Madill
- * @version 1.2
+ * @version 1.7
  * @since 1.0
  */
 
 package edu.ucalgary.ensf409;
 
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.util.*;
 
 public class RequestFormGUI extends JFrame implements ActionListener, MouseListener {
 	private ArrayList<int[]> households;
 	private int numHouseholds = 1;
-	private Household household;
 	
 	private JLabel instructions;
 	private JLabel femaleLabel;
@@ -31,15 +30,18 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	private JTextField maleInput;
 	private JTextField over8Input;
 	private JTextField under8Input;
+
+	private JButton makeOrderForm;
+	private JButton addHousehold;
 	
 	
 	
 	public RequestFormGUI(){
-		super("Create a request form for one or more households");
+		super("Welcome to the Peanut Butter Scenario Foodbank!");
 		setupGUI();
-		setSize(400, 400);
+		setSize(550, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		this.households = new ArrayList<>();
 	}
 	/**
 		Make the GUI to accept the amount of clients 
@@ -49,7 +51,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	
 	public void setupGUI(){
 		
-		instructions = new JLabel("Enter quantity of each type of client. Enter '0' if unapplicable");
+		instructions = new JLabel("Enter quantity of each type of client. Enter '0' if unapplicable.");
 		femaleLabel = new JLabel("Adult Females:");
 		maleLabel = new JLabel ("Adult Males:");
 		over8Label = new JLabel("Children Over 8:");
@@ -65,10 +67,10 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		under8Input.addMouseListener(this);
 		over8Input.addMouseListener(this);
 		
-		JButton makeOrderForm = new JButton("Create order form");
+		makeOrderForm = new JButton("Create order form");
 		makeOrderForm.addActionListener(this);
 		
-		JButton addHousehold = new JButton("Add household");
+		addHousehold = new JButton("Add another household");
 		addHousehold.addActionListener(this);
 		
 		JPanel headerPanel = new JPanel();
@@ -116,53 +118,62 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	public void actionPerformed(ActionEvent event){
 		int[] tempHousehold = new int[4];
 
-		tempHousehold[0] = Integer.parseInt(femaleInput.getText());
-		tempHousehold[1] = Integer.parseInt(maleInput.getText());
-		tempHousehold[2] = Integer.parseInt(over8Input.getText());
-		tempHousehold[3] = Integer.parseInt(under8Input.getText());
-		households.add(tempHousehold);
-		if(validateInput()){
-		if (event.getSource().equals(makeOrderForm)){
-			try{
-			RequestForm families = new RequestForm(households);
-			}
-			catch(IllegalArgumentException e){
-				throw new IllegalArgumentException("One of the entered households did not contain valid inputs.");
-			}
-			OrderForm form  = new OrderForm();
-			form.createOrderForm();
-			
-			JOptionPane.showMessageDialog(this, "Order Form Created as \n" + form.getFilename());
-		}
-		if (event.getSource().equals(addhousehold)){
-			setNumHouseholds(numHouseholds+1);
+		try {
+			tempHousehold[0] = Integer.parseInt(femaleInput.getText());
+			tempHousehold[1] = Integer.parseInt(maleInput.getText());
+			tempHousehold[2] = Integer.parseInt(over8Input.getText());
+			tempHousehold[3] = Integer.parseInt(under8Input.getText());
+			//read the integer values in the fields into the tempHousehold array
+				//if any of the values are not numbers, a NumberFormatException will be thrown
+		} catch (NumberFormatException e) {
+			//if the exception is thrown, show an error popup, and clear the fields
+			JOptionPane.showMessageDialog(this, "One or more of the values entered was not a number");
 			femaleInput.setText("");
 			maleInput.setText("");
 			over8Input.setText("");
 			under8Input.setText("");
+			return;
 		}
+
+		households.add(tempHousehold);
+
+		if(validateInput()){
+			if (event.getSource().equals(makeOrderForm)){
+				RequestForm families = new RequestForm(households);
+				OrderForm form  = new OrderForm(families);
+				form.createForm();
+				
+				JOptionPane.showMessageDialog(this, "Order Form Created as \n" + form.getFilename());
+				households.clear();
+				numHouseholds = 1;
+				femaleInput.setText("");
+				maleInput.setText("");
+				over8Input.setText("");
+				under8Input.setText("");
+			}
+			if (event.getSource().equals(addHousehold)){
+				setNumHouseholds(numHouseholds+1);
+				femaleInput.setText("");
+				maleInput.setText("");
+				over8Input.setText("");
+				under8Input.setText("");
+			}
+		}
+		else {
+			households.remove(numHouseholds - 1);
+			//if the household to be added was invalid, remove it from the ArrayList
 		}
 	}
 	
-	public void mouseClicked(MouseEvent event){
-		
-	}
+	public void mouseClicked(MouseEvent event) {}
 	
-	 public void mouseEntered(MouseEvent event){
-        
-    }
+	public void mouseEntered(MouseEvent event) {}
 
-    public void mouseExited(MouseEvent event){
-        
-    }
+    public void mouseExited(MouseEvent event) {}
 
-    public void mousePressed(MouseEvent event){
-        
-    }
+    public void mousePressed(MouseEvent event) {}
 
-    public void mouseReleased(MouseEvent event){
-        
-    }
+    public void mouseReleased(MouseEvent event) {}
 	
 	/**
 	This method checks if any of the user inputs were invalid (negative or non-numerical).
@@ -171,27 +182,31 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	
 	@return allInputValid	A boolean indicating if the entered quantity of clients is 
 							valid or not.
-		*/
-	
-	private boolean validateInput(){
-		
+	*/
+	private boolean validateInput() {
 		boolean allInputValid = true;
-		if(households.get(numHouseholds-1)[0]<0  || femaleInput.getText().contains("^[0-9]+$")){
+		if(households.get(numHouseholds-1)[0] < 0){
+			System.out.println(households.get(numHouseholds-1)[0] < 0);
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, femaleInput.getText() + " is an invalid amount of Adult Females.");
+			femaleInput.setText("");
 		}
-		if(households.get(numHouseholds-1)[1]<0  || maleInput.getText().contains("^[0-9]+$")){
+		if(households.get(numHouseholds-1)[1] < 0){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, maleInput.getText() + " is an invalid amount of Adult Males.");
+			maleInput.setText("");
 		}
-		if(households.get(numHouseholds-1)[2]<0  || over8Input.getText().contains("^[0-9]+$")){
+		if(households.get(numHouseholds-1)[2] < 0){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, over8Input.getText() + " is an invalid amount of Children Over 8.");
+			over8Input.setText("");
 		}
-		if(households.get(numHouseholds-1)[3]<0 || under8Input.getText().contains("^[0-9]+$")){
+		if(households.get(numHouseholds-1)[3] < 0){
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, under8Input.getText() + " is an invalid amount of Children Under 8.");
+			under8Input.setText("");
 		}
+
 		return allInputValid;
 	}
 	
@@ -202,7 +217,6 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	@param number 	an integer representing the number that numHouseholds will 
 					be set to. Normally numHouseholds+=1.
 	*/
-	
 	private void setNumHouseholds(int number){
 		numHouseholds = number;
 	}
@@ -214,32 +228,18 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	@return this.numHouseholds	an integer representing the quantity of households 
 								for the associated request.
 	*/
-	
-	private int getNumHouseholds(){
+	public int getNumHouseholds(){
 		return this.numHouseholds;
 	}
-
-/**
-@return result 	an ArrayList of Hamper objects.
-*/
-
-	public ArrayList<Hamper> getHampers() {
-        Iterator<Household> iter = h.iterator();
-        ArrayList<Hamper> result = new ArrayList<>();
-        while(iter.hasNext()) {
-            Household i = iter.next();
-            result.add(i.getFamilyHamper());
-        }
-
-        return result;
-    }
 	
-public static void main(String[] args){
-		RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/inventory","student","ensf" );
+	public static void main(String[] args){
+		RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/FOOD_INVENTORY","student","ensf" );
 		requestForm.initializeConnection();
 		EventQueue.invokeLater(() -> {
-			new GUIRequestForm().setVisible(true);
+			new RequestFormGUI().setVisible(true);
 		});
+		requestForm.setFoodValues();
+		requestForm.setClientValues();
 		requestForm.close();
 	}
 }

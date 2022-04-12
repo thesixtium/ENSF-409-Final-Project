@@ -27,6 +27,13 @@ public class HouseholdNeeds {
         otherCalories = otherCalories + i;
     }
 
+    public void convertToWeekly(){
+        this.fvCalories *= 7;
+        this.grainCalories *= 7;
+        this.proteinCalories *= 7;
+        this.otherCalories *= 7;
+    }
+
     public int getFvCalories(){
         return fvCalories;
     }
@@ -44,13 +51,13 @@ public class HouseholdNeeds {
     }
 
     public boolean isSatisfied(){
-        if (fvCalories != 0){
+        if (fvCalories > 0){
             return false;
-        } else if (grainCalories != 0){
+        } else if (grainCalories > 0){
             return false;
-        } else if (proteinCalories != 0){
+        } else if (proteinCalories > 0){
             return false;
-        } else if (otherCalories != 0){
+        } else if (otherCalories > 0){
             return false;
         }
         return true;

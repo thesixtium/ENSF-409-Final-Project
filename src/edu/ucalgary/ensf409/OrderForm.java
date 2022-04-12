@@ -27,16 +27,17 @@ public class OrderForm {
         this.filename = "orderForm";
         File testFile = new File(this.filename + ".txt");
         int count = 1;
+        String temp = this.filename;
 
         while(testFile.isFile()) {
             //if the File orderForm.txt already exists, see if orderForm1.txt exists
             //if that exists, try orderForm2.txt, and so on until a valid filename is found
-            this.filename = this.filename + Integer.toString(count);
-            testFile = new File(this.filename + ".txt");
+            temp = this.filename + Integer.toString(count);
+            testFile = new File(temp + ".txt");
             count++;
         }
 
-        this.filename = this.filename + ".txt";
+        this.filename = temp + ".txt";
         //set the final filename with the .txt extension
     }
 
@@ -53,7 +54,7 @@ public class OrderForm {
 
         ArrayList<Household> households = this.ORDER.getHouseholds();
         Iterator<Household> houseIter = households.iterator();
-        int counter = 0;
+        int counter = 1;
         while(houseIter.hasNext()) {
             //iterate through the households, printing the info about each
             //on a new line
@@ -69,7 +70,7 @@ public class OrderForm {
         counter = 1;
         while(hamperIter.hasNext()) {
             //iterate through the hampers 
-            formResult.append("Hamper " + counter + " items:\n");
+            formResult.append("\nHamper " + counter + " items:\n");
             Hamper tempHamper = hamperIter.next();
             
             if(tempHamper.getEnoughFood()) {
@@ -80,7 +81,8 @@ public class OrderForm {
                 formResult.append(unsuccessfulHamperCreation(tempHamper));
                 //otherwise add what the hamper was short by to the result
             }
-            formResult.append("\n\n");
+            formResult.append("\n");
+			counter++;
         }
 
 
@@ -99,22 +101,16 @@ public class OrderForm {
         String[] family = house.getFamilyList();
 
         for(String a: family) {
-            //iterate through the family/
-            String type = a.getClass().getName();  //gives "edu.ucalgary.ensf409.classname"
-            //get the string representation of the class of the person object
-            type = type.replaceAll("edu.ucalgary.ensf409", "");
-            //remove front of string
-
-            if(type.equals("AdultFemale")) {
+            if(a.equals("Adult Female")) {
                 values[0]++;
             }
-            else if(type.equals("AdultMale")) {
+            else if(a.equals("Adult Male")) {
                 values[1]++;
             }
-            else if(type.equals("ChildOver8")) {
+            else if(a.equals("Child Over 8")) {
                 values[2]++;
             }
-            else{
+            else if(a.equals("Child Under 8")) {
                 values[3]++;
             }
             //iterate through family and count amount of each type of person
@@ -135,8 +131,10 @@ public class OrderForm {
         }
         //if there is at least one member of each type add it to a StringBuilder
 
-        result.delete(result.length() - 2, result.length());
-        //delete the comma and space at the end of the line
+        if(result.length() >= 2) {
+            result.delete(result.length() - 2, result.length());
+            //delete the comma and space at the end of the line
+        }
 
         return result.toString();
     }

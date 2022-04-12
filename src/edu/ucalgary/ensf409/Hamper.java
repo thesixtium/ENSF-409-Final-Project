@@ -31,12 +31,22 @@ public class Hamper extends SelectFood{
     public Hamper(HouseholdNeeds calorieNeeds, HashMap<Integer, FoodData> availableFoods) {
         this.calorieNeeds = calorieNeeds;
         this.availableFoods.putAll(availableFoods);
+        
+        this.calorieNeeds.convertToWeekly();
 
         // Try to calculate the foods for a Hamper
         // Throws an exception if impossible due to not enough foods
         try {
             this.hamperFoods = calculateFoods(this.availableFoods, this.calorieNeeds);
         } catch (NotEnoughFoodException e){
+            /*
+
+            WEEEEEEEEEEEE NEEEEEEED TO DO SOMETHING WITH THIIIIIIIIIIIIS
+
+
+
+             */
+            System.out.println("Not enough food exception thrown");
             enoughFood = false;
             this.shortBy = new FoodData("Short By");
             if(e.type.equals("fv"))
