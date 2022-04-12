@@ -15,15 +15,11 @@ import java.awt.event.*;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class RequestFormGUI extends JFrame implements ActionListener, MouseListener {
 	private ArrayList<int[]> households;
 	private int numHouseholds = 1;
-	private Household household;
 	
-	private JLabel foodBankName;
 	private JLabel instructions;
 	private JLabel femaleLabel;
 	private JLabel maleLabel;
@@ -86,7 +82,6 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		JPanel choicePanel = new JPanel();
 		choicePanel.setLayout(new FlowLayout());
 		
-		//welcomePanel.add(foodBankName);
 		headerPanel.add(instructions);
 		clientPanel.add(femaleLabel);
 		clientPanel.add(femaleInput);
@@ -233,7 +228,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	@return this.numHouseholds	an integer representing the quantity of households 
 								for the associated request.
 	*/
-	private int getNumHouseholds(){
+	public int getNumHouseholds(){
 		return this.numHouseholds;
 	}
 	
