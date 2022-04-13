@@ -174,8 +174,9 @@ public class OrderForm {
                 .append(shortBy.getAmount())
                 .append(" ")
                 .append(shortBy.getGoodType())
-                .append(" calories.\n");
+                .append(" calories.");
 
+        result.append(" And possibly other categories.\n");
         return result.toString();
     }
 
