@@ -8,10 +8,7 @@
 
 package edu.ucalgary.ensf409;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 public class SelectFood {
 
@@ -30,7 +27,11 @@ public class SelectFood {
     public HashMap<Integer, FoodData> calculateFoods(HashMap<Integer, FoodData> foods, HouseholdNeeds needs) throws NotEnoughFoodException {
         String[] foodTypes = {"fv", "grain", "protein", "other"};
         HashMap<Integer, FoodData> returnFoods = new HashMap<>();
-        HouseholdNeeds wasteNeeds = needs;
+        HouseholdNeeds wasteNeeds = new HouseholdNeeds();
+        wasteNeeds.changeFvCalories(needs.getFvCalories());
+        wasteNeeds.changeGrainCalories(needs.getGrainCalories());
+        wasteNeeds.changeProteinCalories(needs.getProteinCalories());
+        wasteNeeds.changeOtherCalories(needs.getOtherCalories());
 
         // Main algorithm, iterates through food types while checking the best food for that
         // specific food group. Finishes when the needs are satisfied
@@ -81,6 +82,24 @@ public class SelectFood {
                 foods.remove(key);
             }
         }
+
+        /*boolean flag = true;
+        while(flag){
+            Integer remove = -1;
+            HashMap<String, Integer> waste = calculateWaste(returnFoods, wasteNeeds);
+            for(Integer i : returnFoods.keySet()) {
+                if (returnFoods.get(i).getFv() > waste.get("fv") &&
+                        returnFoods.get(i).getGrain() > waste.get("grain") &&
+                        returnFoods.get(i).getProtein() > waste.get("protein") &&
+                        returnFoods.get(i).getOther() > waste.get("other")) {
+                    remove = i;
+                }
+            }
+                if(remove != -1){
+                    returnFoods.remove(remove);
+                } else
+                    flag = false;
+        }*/
 
         return returnFoods;
     }
