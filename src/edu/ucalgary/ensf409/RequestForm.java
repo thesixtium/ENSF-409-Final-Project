@@ -60,7 +60,10 @@ public class RequestForm {
             }
 
             HashMap<String, HashMap<String, Integer>> clientData = RequestFormDatabase.getClientValues();
-            HashMap<Integer, FoodData> foodValues = RequestFormDatabase.getFoodValues();
+            HashMap<Integer, FoodData> foodValues = updateFoodValues();
+            for(Integer i: foodValues.keySet()) {
+                System.out.println(i + "\t" + foodValues.get(i));
+            }
             Household newHouse = new Household(clientData, family, foodValues);
             //create a household from the new family
             temp.add(newHouse);
@@ -68,6 +71,20 @@ public class RequestForm {
         }
 
         this.HOUSEHOLDS = temp;
+    }
+
+    /**
+     * Helper method to get updated food quantities for RequestForm to use.
+     * Creates another database connection and gets the updated data from the table.
+     * @return The food stored in the database as a HashMap of Integers and FoodData objects
+     */
+    private HashMap<Integer, FoodData> updateFoodValues() {
+        RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/FOOD_INVENTORY","student","ensf" );
+		requestForm.initializeConnection();
+		requestForm.setFoodValues();
+		requestForm.setClientValues();
+
+        return RequestFormDatabase.getFoodValues();
     }
 
     /**

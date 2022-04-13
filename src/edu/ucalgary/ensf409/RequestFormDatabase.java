@@ -64,7 +64,6 @@ public class RequestFormDatabase{
 	to retreive the daily needed caloric values of each type of client
 	and sort them accordingly so that these values can be used elsewhere
 	*/
-	
 	public void setClientValues(){
 		clientValues = new HashMap<String, HashMap<String, Integer>>();
 
@@ -120,16 +119,6 @@ public class RequestFormDatabase{
 
 				FoodData temp = new FoodData(name, fvVal, grainVal, proteinVal, otherVal);
 				foodValues.put(idNum, temp);
-
-
-				/*
-				temp.put("grain", results.getInt("GrainContent"));
-				temp.put("fv", results.getInt("FVContent"));
-				temp.put("protein", results.getInt("ProContent"));
-				temp.put("other", results.getInt("Other"));
-				temp.put("calories", results.getInt("Calories"));
-				foodValues.put(results.getString("Name"), temp);
-				*/
 			}
 			myStmt.close();
 		}catch(SQLException ex){
@@ -146,18 +135,18 @@ public class RequestFormDatabase{
 	*/
 	
 	public void removeFood(int key){
-		
-		 try {
-            String query = "DELETE FROM AVAILABLE_FOOD WHERE ItemID = ?";
+		try {
+        	String query = "DELETE FROM AVAILABLE_FOOD WHERE ItemID = ?";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
-            myStmt.setString(1, Integer.toString(key));
+			myStmt.setInt(1, key);
+
+            myStmt.executeUpdate();
 
             myStmt.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-		
 	}
 	
 	/**

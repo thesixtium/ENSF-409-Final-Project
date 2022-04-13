@@ -61,7 +61,29 @@ public class Hamper extends SelectFood{
 
         // Auto-calculate the waste amount so all calcs are done in the constructor
         this.wasteAmount = calculateWaste(this.hamperFoods, this.calorieNeeds);
+        deleteFoods();
     }
+    
+    /**
+     * Helper method to remove food from the database.
+     * Creates a new database connection to remove the food.
+     */
+    private void deleteFoods() {
+        RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/FOOD_INVENTORY","student","ensf" );
+		requestForm.initializeConnection();
+		requestForm.setFoodValues();
+		requestForm.setClientValues();
+        if(this.hamperFoods == null) {
+            return;
+        }
+
+        for(Integer i: this.hamperFoods.keySet()) {
+            requestForm.removeFood(i);
+        }
+
+		requestForm.close();
+    }
+    
 
     /**
      * Getter for the waste amount
