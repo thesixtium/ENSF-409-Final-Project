@@ -64,7 +64,13 @@ public class RequestForm {
             for(Integer i: foodValues.keySet()) {
                 System.out.println(i + "\t" + foodValues.get(i));
             }
-            Household newHouse = new Household(clientData, family, foodValues);
+            Household newHouse;
+            try {
+                newHouse = new Household(clientData, family, foodValues);
+            } catch (NotEnoughFoodException e){
+                newHouse = new Household(e, family);
+            }
+
             //create a household from the new family
             temp.add(newHouse);
             //add the new household to the list of households

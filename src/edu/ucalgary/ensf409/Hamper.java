@@ -17,6 +17,15 @@ public class Hamper extends SelectFood{
     private HashMap<Integer, FoodData> hamperFoods;
     private HashMap<Integer, FoodData> availableFoods = new HashMap<>();
     private boolean enoughFood = true;
+    NotEnoughFoodException exception;
+
+    public Hamper(NotEnoughFoodException exception){
+        this.exception = exception;
+    }
+
+    public NotEnoughFoodException getException() {
+        return this.exception;
+    }
 
     /**
      *
@@ -28,7 +37,7 @@ public class Hamper extends SelectFood{
      *                       stores all needed values that we could want for a
      *                       specific food.
      */
-    public Hamper(HouseholdNeeds calorieNeeds, HashMap<Integer, FoodData> availableFoods) {
+    public Hamper(HouseholdNeeds calorieNeeds, HashMap<Integer, FoodData> availableFoods) throws NotEnoughFoodException {
         this.calorieNeeds = calorieNeeds;
         this.availableFoods.putAll(availableFoods);
         
@@ -36,28 +45,7 @@ public class Hamper extends SelectFood{
 
         // Try to calculate the foods for a Hamper
         // Throws an exception if impossible due to not enough foods
-        try {
-            this.hamperFoods = calculateFoods(this.availableFoods, this.calorieNeeds);
-        } catch (NotEnoughFoodException e){
-            /*
-
-            WEEEEEEEEEEEE NEEEEEEED TO DO SOMETHING WITH THIIIIIIIIIIIIS
-
-
-
-             */
-            System.out.println("Not enough food exception thrown");
-            enoughFood = false;
-            this.shortBy = new FoodData("Short By");
-            if(e.type.equals("fv"))
-                this.shortBy.setFV(e.amount);
-            else if(e.type.equals("protein"))
-                this.shortBy.setProtein(e.amount);
-            else if(e.type.equals("grain"))
-                this.shortBy.setGrain(e.amount);
-            else
-                this.shortBy.setOther(e.amount);
-        }
+        this.hamperFoods = calculateFoods(this.availableFoods, this.calorieNeeds);
 
         // Auto-calculate the waste amount so all calcs are done in the constructor
         this.wasteAmount = calculateWaste(this.hamperFoods, this.calorieNeeds);

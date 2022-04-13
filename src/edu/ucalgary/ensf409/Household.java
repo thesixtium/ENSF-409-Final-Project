@@ -15,6 +15,11 @@ public class Household {
     String[] familyList; // Stores the list of family members in a given household
     Hamper familyHamper; // The hamper that goes to that specific household
 
+    public Household(NotEnoughFoodException exception, ArrayList<String> familyList){
+        this.familyList = familyList.toArray(new String[0]);
+        this.familyHamper = new Hamper(exception);
+    }
+
     /**
      * Constructor for Household class
      * @param clientData Is a hashmap with a String key identifying the client name,
@@ -32,7 +37,7 @@ public class Household {
      */
     public Household(HashMap<String, HashMap<String, Integer>> clientData,
                      ArrayList<String> familyList,
-                     HashMap<Integer, FoodData> availableFoods){
+                     HashMap<Integer, FoodData> availableFoods) throws NotEnoughFoodException {
         initializeClients(clientData);
 
         // Set the internal variables

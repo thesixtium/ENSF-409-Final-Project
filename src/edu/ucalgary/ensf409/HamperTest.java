@@ -17,7 +17,7 @@ public class HamperTest {
      * This tests if the constructor creates a Hamper object as needed
      */
     @Test 
-    public void testConstructor() {
+    public void testConstructor() throws NotEnoughFoodException {
         HouseholdNeeds hn = initHouseholdNeeds();
         HashMap<Integer, FoodData> availableFood = updateFoodValues();
         Hamper hamper = new Hamper(hn, availableFood);
@@ -29,7 +29,7 @@ public class HamperTest {
      * This tests if the getWaste method returns a HashMap of the correct size
      */
     @Test
-    public void testGetWaste() {
+    public void testGetWaste() throws NotEnoughFoodException {
         HouseholdNeeds hn = initHouseholdNeeds();
         HashMap<Integer, FoodData> availableFood = updateFoodValues();
         Hamper hamper = new Hamper(hn, availableFood);
@@ -45,7 +45,7 @@ public class HamperTest {
      * order the tests are run, and how recently the database was reset.
      */
     @Test
-    public void testGetFoodQuantities() {
+    public void testGetFoodQuantities() throws NotEnoughFoodException {
         HouseholdNeeds hn = initHouseholdNeeds();
         HashMap<Integer, FoodData> availableFood = updateFoodValues();
         Hamper hamper = new Hamper(hn, availableFood);
@@ -58,7 +58,7 @@ public class HamperTest {
      * This tests if the getCalorieNeeds method returns the expected HouseholdNeeds object.
      */
     @Test
-    public void testGetCalorieNeeds() {
+    public void testGetCalorieNeeds() throws NotEnoughFoodException {
         HouseholdNeeds hn = initHouseholdNeeds();
         HashMap<Integer, FoodData> availableFood = updateFoodValues();
         Hamper hamper = new Hamper(hn, availableFood);
@@ -72,7 +72,7 @@ public class HamperTest {
      * to create a hamper
      */
     @Test   
-    public void testGetEnoughFood() {
+    public void testGetEnoughFood() throws NotEnoughFoodException {
         HouseholdNeeds hn = initHouseholdNeeds();
         HashMap<Integer, FoodData> availableFood = updateFoodValues();
         Hamper hamper = new Hamper(hn, availableFood);
@@ -86,7 +86,7 @@ public class HamperTest {
      * to create a hamper.
      */
     @Test
-    public void testGetShortBy() {
+    public void testGetShortBy() throws NotEnoughFoodException {
         HouseholdNeeds hn = initHouseholdNeeds();
         HashMap<Integer, FoodData> availableFood = updateFoodValues();
         Hamper hamper = new Hamper(hn, availableFood);
@@ -100,7 +100,7 @@ public class HamperTest {
      * be tested since values are updated after every Hamper creation.
      */
     @Test
-    public void testGetAvailableFoods() {
+    public void testGetAvailableFoods() throws NotEnoughFoodException {
         HouseholdNeeds hn = initHouseholdNeeds();
         HashMap<Integer, FoodData> availableFood = updateFoodValues();
         Hamper hamper = new Hamper(hn, availableFood);

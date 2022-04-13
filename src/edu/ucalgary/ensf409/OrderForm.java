@@ -73,7 +73,7 @@ public class OrderForm {
             formResult.append("\nHamper " + counter + " items:\n");
             Hamper tempHamper = hamperIter.next();
             
-            if(tempHamper.getEnoughFood()) {
+            if(tempHamper.getException() == null) {
                 formResult.append(successfulHamperCreation(tempHamper));
                 //if the hamper creation was successful, add that info to the result
             }
@@ -168,20 +168,13 @@ public class OrderForm {
      */
     private String unsuccessfulHamperCreation(Hamper hamper) {
         StringBuilder result = new StringBuilder();
-        FoodData shortBy = hamper.getShortBy();
+        NotEnoughFoodException shortBy = hamper.getException();
 
-        result.append("Unable to create a hamper. Short by " + shortBy.getSum() + " calories.\n");
-        
-        int fvShort = shortBy.getFv() / shortBy.getSum() * 100;
-        int grainShort = shortBy.getGrain() / shortBy.getSum() * 100;
-        int proteinShort = shortBy.getProtein() / shortBy.getSum() * 100;
-        int otherShort = shortBy.getOther() / shortBy.getSum() * 100;
-        //calculate the percentage of overall calories each type is short by
-
-        result.append("\t" + fvShort + "% of missing calories must be Fruits/Veggies.\n");
-        result.append("\t" + grainShort + "% of missing calories must be Grain.\n");
-        result.append("\t" + proteinShort + "% of missing calories must be Protein.\n");
-        result.append("\t" + otherShort + "% of missing calories must be Other.");
+        result.append("Unable to create a hamper. Short by at least ")
+                .append(shortBy.getAmount())
+                .append(" ")
+                .append(shortBy.getGoodType())
+                .append(".\n");
 
         return result.toString();
     }
