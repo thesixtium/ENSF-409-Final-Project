@@ -127,7 +127,8 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 				//if any of the values are not numbers, a NumberFormatException will be thrown
 		} catch (NumberFormatException e) {
 			//if the exception is thrown, show an error popup, and clear the fields
-			JOptionPane.showMessageDialog(this, "One or more of the values entered was not a number");
+			JOptionPane.showMessageDialog(this,
+					"One or more of the values entered was either not a number or too big to be an Integer");
 			femaleInput.setText("");
 			maleInput.setText("");
 			over8Input.setText("");
@@ -143,7 +144,11 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 				OrderForm form  = new OrderForm(families);
 				form.createForm();
 				
-				JOptionPane.showMessageDialog(this, "Order Form Created as \n" + form.getFilename());
+				JOptionPane.showMessageDialog(this, "Order Form created as \n"
+						+ form.getFilename()
+						+ "\n"
+						+ "\n"
+						+ "Close this program for it to appear.");
 				households.clear();
 				numHouseholds = 1;
 				femaleInput.setText("");
