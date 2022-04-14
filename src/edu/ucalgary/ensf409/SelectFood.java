@@ -142,6 +142,10 @@ public class SelectFood {
                     return o1.getFv() > o2.getFv() ? -1 : 1;
                 }
             });
+
+            if(sortedFoods.size() == 0) {
+                throw new NotEnoughFoodException("fv", currentFoodCalories);
+            }
             // If the first food (ie the top food) has 0 for the category, then know
             // there is no more food
             // Select the food with the highest value that is under the needed calories, unless
@@ -166,6 +170,11 @@ public class SelectFood {
                     return o1.getGrain() > o2.getGrain() ? -1 : 1;
                 }
             });
+
+            if(sortedFoods.size() == 0) {
+                throw new NotEnoughFoodException("grain", currentFoodCalories);
+            }
+
             // Select the food with the highest value that is under the needed calories, unless
             // there is no value under the needed calories, then selects the least food to
             // add
@@ -188,6 +197,11 @@ public class SelectFood {
                     return o1.getProtein() > o2.getProtein() ? -1 : 1;
                 }
             });
+
+            if(sortedFoods.size() == 0) {
+                throw new NotEnoughFoodException("protein", currentFoodCalories);
+            }
+
             // Select the food with the highest value that is under the needed calories, unless
             // there is no value under the needed calories, then selects the least food to
             // add
