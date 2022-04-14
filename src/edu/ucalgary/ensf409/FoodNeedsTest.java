@@ -3,7 +3,6 @@ package edu.ucalgary.ensf409;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class FoodNeedsTest {
 
@@ -121,7 +120,7 @@ public class FoodNeedsTest {
     @Test
     public void testIsSatisfied2() {
         FoodNeeds.setTotalCalories(0);
-        
+
         boolean expectedValue = true;
         boolean actualValue = FoodNeeds.isSatisfied();
 
