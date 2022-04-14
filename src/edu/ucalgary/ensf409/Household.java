@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Household {
-    String[] familyList; // Stores the list of family members in a given household
-    Hamper familyHamper; // The hamper that goes to that specific household
+    private String[] familyList; // Stores the list of family members in a given household
+    private Hamper familyHamper; // The hamper that goes to that specific household
 
     public Household(NotEnoughFoodException exception, ArrayList<String> familyList){
         this.familyList = familyList.toArray(new String[0]);
