@@ -187,7 +187,6 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	private boolean validateInput() {
 		boolean allInputValid = true;
 		if(households.get(numHouseholds-1)[0] < 0){
-			System.out.println(households.get(numHouseholds-1)[0] < 0);
 			allInputValid = false;
 			JOptionPane.showMessageDialog(this, femaleInput.getText() + " is an invalid amount of Adult Females.");
 			femaleInput.setText("");
