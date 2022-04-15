@@ -13,7 +13,6 @@ import java.awt.EventQueue;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.util.*;
 
 public class RequestFormGUI extends JFrame implements ActionListener, MouseListener {
@@ -128,7 +127,7 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		} catch (NumberFormatException e) {
 			//if the exception is thrown, show an error popup, and clear the fields
 			JOptionPane.showMessageDialog(this,
-					"One or more of the values entered was either not a number or too big to be an Integer");
+					"One or more of the values entered was either not a number or too big to be an integer");
 			femaleInput.setText("");
 			maleInput.setText("");
 			over8Input.setText("");
