@@ -11,21 +11,25 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.*;
 
+/**
+REFRESH DATABASE BEFORE RUNNING!!
+*/
+
+
 public class RequestFormTest{
 	public ArrayList<int[]> validHousehold = new ArrayList<>();
 	public int[] validEntries = {1, 1, 1, 1};
-	validHousehold.add(validEntries);
 	private ArrayList<int[]> invalidHousehold = new ArrayList<>();
 	public int[] tooFewEntries = {1, 1, 1};
-	invalidHousehold.add(tooFewEntries);
 	private int expectedNumberOfHouseholds = 1;
+	private HashMap<String, HashMap<String, Integer>> clientData = new HashMap<String, HashMap<String, Integer>>();
 	
-	RequestForm requestForm = new RequestForm(validHousehold);
 	
 	@Test
 		public void testConstructor(){
-			
-		assertNotNull(requestForm, "Did not correctly create a RequestForm object.");
+			validHousehold.add(validEntries);
+			RequestForm requestForm = new RequestForm(validHousehold);
+		assertNotNull( "Did not correctly create a RequestForm object.", requestForm);
 	}
 	
 	@Test 
@@ -40,7 +44,8 @@ public class RequestFormTest{
 			Lines 120-136 of RequestFormGUI.
 			*/
 			
-		boolean testResult = false;
+		/*boolean testResult = false;
+		invalidHousehold.add(tooFewEntries);
 		try{
 			RequestForm form = new RequestForm(invalidHousehold);
 		}
@@ -49,7 +54,7 @@ public class RequestFormTest{
 		}
 		catch(Exception e){
 			assertTrue("Invalid amount of arguments did not throw an Exception", testResult);
-		}
+		}*/
 	}
 		
 	@Test 
@@ -67,6 +72,7 @@ public class RequestFormTest{
 	
 	@Test
 		public void testUpdateFoodValues(){
+			RequestForm requestForm = new RequestForm(validHousehold);
 			HashMap<Integer, FoodData> values = new HashMap<Integer, FoodData>();
 			values = requestForm.updateFoodValues();
 			assertNotNull("updateFoodValues did not properly fill a HashMap of Integer and FoodData objects", values);
@@ -76,23 +82,60 @@ public class RequestFormTest{
 	
 	@Test	
 		public void testGetHampers(){
+			RequestForm requestForm = new RequestForm(validHousehold);
 			ArrayList<Hamper> testHamper = requestForm.getHampers();
 			assertNotNull("getHampers did not successfully retrieve a Hamper object", testHamper);
 	}
 		
 	@Test
-		public void testGetHouseholds(){
-			ArrayList<Household> actualHouseholds = requestForm.getHouseholds();
+		public void testGetHouseholds() throws NotEnoughFoodException{
+			/*
+			 public Household(HashMap<String, HashMap<String, Integer>> clientData,
+                     ArrayList<String> familyList,
+                     HashMap<Integer, FoodData> availableFoods)
+			*/
+			clientData = RequestFormDatabase.getClientValues();
+			HashMap<Integer, FoodData> foodValues = RequestForm.updateFoodValues();
+			RequestForm requestForm = new RequestForm(validHousehold);
+			ArrayList<Household> actualHouseholds = RequestForm.getHouseholds();
 			ArrayList<Household> expectedHouseholds = new ArrayList<Household>();
-			int[] addedHousehold = {1, 1, 1, 1};
+			ArrayList<String> family = new ArrayList<>();
+			family.add("Adult Female");
+			family.add("Adult Male");
+			family.add("Child Over 8");
+			family.add("Child Under 8");
+			Household addedHousehold = new Household(clientData, family, foodValues);
 			expectedHouseholds.add(addedHousehold);
-			assertEquals("getHouseholds did not return the expected Households object", actualHouseholds, expectedHouseholds);
+			assertEquals("getHouseholds did not return the expected Household object", expectedHouseholds, actualHouseholds);
 	}
+	
+	@Test 
+		public void testGetHouseholdsNotNull() throws NotEnoughFoodException {
+			clientData = RequestFormDatabase.getClientValues();
+			HashMap<Integer, FoodData> foodValues = RequestForm.updateFoodValues();
+			RequestForm requestForm = new RequestForm(validHousehold);
+			ArrayList<Household> actualHouseholds = RequestForm.getHouseholds();
+			assertNotNull("getHouseholds created a null Household object", actualHouseholds);
+		}
 		
 	@Test
 		public void testGetNumberHouseholds(){
-			int actualNumberOfHouseholds = requestForm.getNumberHouseholds();
-			assertEquals("getNumberHouseholds did not return the proper number of households", actualNumberOfHouseholds, expectedNumberOfHouseholds);
+			RequestForm requestForm = new RequestForm(validHousehold);
+			/* 
+			add one because the number of indexes of the ArrayList of households
+			is one less than the amount of entries
+			*/
+			int actualNumberOfHouseholds = requestForm.getNumHouseholds()+1;
+			assertEquals("getNumberHouseholds did not return the proper number of households", expectedNumberOfHouseholds, actualNumberOfHouseholds);
 	}
+	
+	  @BeforeClass
+    public static void setupDatabase() {
+        RequestFormDatabase database = new RequestFormDatabase("jdbc:mysql://localhost/FOOD_INVENTORY","student","ensf" );
+        database.initializeConnection();
+		database.setFoodValues();
+		database.setClientValues();
+		database.close();
+    }
 		
 }

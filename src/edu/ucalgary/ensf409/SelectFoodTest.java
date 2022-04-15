@@ -11,14 +11,9 @@ import static org.junit.Assert.*;
 import java.util.*;
 
 public class SelectFoodTest{
-	
-	    private int[] calorieValues = {100, 200, 300, 400};
+		int[] calorieValues = {100, 200, 300, 400};
 	    HouseholdNeeds hn = new HouseholdNeeds();
-        hn.changeFvCalories(100);
-        hn.changeGrainCalories(100);
-        hn.changeProteinCalories(100);
-        hn.changeOtherCalories(100);
-        Hamper testHamper = new Hamper(calorieValues);
+       // Hamper testHamper = new Hamper(calorieValues);
         HashMap<Integer, FoodData> availableFood = updateFoodValues();
 		
 		@BeforeClass
@@ -45,7 +40,7 @@ public class SelectFoodTest{
 		HashMap<Integer, FoodData> availableFood = updateFoodValues();
 		boolean testResult = false;
 		try{
-			calculateFoods(availableFood, needs);
+			SelectFood.calculateFoods(availableFood, needs);
 		}
 		catch(NotEnoughFoodException e){
 			testResult = true;
@@ -62,9 +57,10 @@ public class SelectFoodTest{
 	*/
 	
 	@Test
-	public void testCalculateFoods(){
-		HashMap<Integer, FoodData> testMap = calculateFoods(availableFood, hn);
-		assertNotNull(testMap, "calculateFoods did not create a HashMap.");
+	public void testCalculateFoods() throws NotEnoughFoodException{
+		reset();
+		HashMap<Integer, FoodData> testMap = SelectFood.calculateFoods(availableFood, hn);
+		assertNotNull("calculateFoods did not create a HashMap.", testMap);
 	}
 	
 	@Test
@@ -80,12 +76,12 @@ public class SelectFoodTest{
 	}
 	
 	@Test
-	public void testCalculateWaste(){
+	public void testCalculateWaste() throws NotEnoughFoodException{
 		//Ensure it is indeed returning a HashMap of String and Integer Objects.
-		
-		HashMap<Integer, FoodData> foods = calculateFoods(availableFood, hn);
-		HashMap<String, Integer> testWaste = calculateWaste(foods, hn);
-		assertNotNull(testWaste, "calculateWaste did not correctly return a HashMap of String and Integer objects.");
+		reset();
+		HashMap<Integer, FoodData> foods = SelectFood.calculateFoods(availableFood, hn);
+		HashMap<String, Integer> testWaste = SelectFood.calculateWaste(foods, hn);
+		assertNotNull("calculateWaste did not correctly return a HashMap of String and Integer objects.", testWaste);
 	}
 	
 	/**
@@ -99,5 +95,12 @@ public class SelectFoodTest{
 
         return RequestFormDatabase.getFoodValues();
     }
+	private HouseholdNeeds reset(){
+		hn.changeFvCalories(100);
+        hn.changeGrainCalories(100);
+        hn.changeProteinCalories(100);
+        hn.changeOtherCalories(100);
+		return hn;
+	}
 	
 }

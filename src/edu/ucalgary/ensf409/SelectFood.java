@@ -24,7 +24,7 @@ public class SelectFood {
      * @return A hashmap that contains the foods' integer primary key
      * @throws NotEnoughFoodException if not enough food exists
      */
-    public HashMap<Integer, FoodData> calculateFoods(HashMap<Integer, FoodData> foods, HouseholdNeeds needs) throws NotEnoughFoodException {
+    public static HashMap<Integer, FoodData> calculateFoods(HashMap<Integer, FoodData> foods, HouseholdNeeds needs) throws NotEnoughFoodException {
         String[] foodTypes = {"fv", "grain", "protein", "other"};
         HashMap<Integer, FoodData> returnFoods = new HashMap<>();
         HouseholdNeeds wasteNeeds = new HouseholdNeeds();
@@ -118,7 +118,7 @@ public class SelectFood {
      * @return
      * @throws NotEnoughFoodException
      */
-    private FoodData mostEfficientFood(HashMap<Integer, FoodData> currentReturnFoods, HashMap<Integer, FoodData> foods,
+    private static FoodData mostEfficientFood(HashMap<Integer, FoodData> currentReturnFoods, HashMap<Integer, FoodData> foods,
                                   HouseholdNeeds needs, String currentlyWorkingOn) throws NotEnoughFoodException {
         int currentFoodCalories;
         ArrayList<FoodData> sortedFoods = new ArrayList<>(foods.values());
@@ -255,7 +255,7 @@ public class SelectFood {
      *              needs for an entire household.
      * @return
      */
-    public HashMap<String, Integer> calculateWaste(HashMap<Integer, FoodData> foods, HouseholdNeeds needs){
+    public static HashMap<String, Integer> calculateWaste(HashMap<Integer, FoodData> foods, HouseholdNeeds needs){
         int grains = 0;
         int protein = 0;
         int fv = 0;

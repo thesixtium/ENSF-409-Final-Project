@@ -1,0 +1,81 @@
+The Peanut Butter Scenario Food Bank
+Hamper Order Form
+
+Name:
+Date:
+
+Original Request:
+Household 1: 2 Adult Female, 3 Adult Male, 1 Child over 8, 5 Child under 8
+
+Hamper 1 items:
+128	Onions, net of 10
+131	Roasted seaweed, 250 g
+4	Apple, dozen
+5	Apple, dozen
+134	Salmon, 5 filets
+137	Roasted mixed nuts, 56 oz
+9	Broccoli, 3 bunches
+10	Broccoli, 3 bunches
+139	Pearl barley, 1 pound
+140	Plaintain, 4
+142	Whey powder, large jar
+14	Orange, dozen
+143	Oranges, bag
+15	Orange, dozen
+145	Raisins, 40 g
+146	Dates, container
+151	Peaches, crate
+152	Peaches, crate
+24	Cheddar cheese, pound
+153	Pumpkin, very large
+25	Cheddar cheese, pound
+28	Bananas, bunch
+157	Dried apricots, package
+159	Adzuki bean, medium package
+34	Avocado, dozen
+35	Avocado, dozen
+37	Pasta, dry, two pounds
+38	Pasta, dry, two pounds
+40	Peanut butter, 2 kg jar
+169	Black fungus, 200 g
+42	Nutella, 1 kg
+44	Meatballs, 1 kg
+47	Pancake mix, 1 kg
+50	Strawberries, 2 kg
+51	Cantaloupe, dozen
+53	Trail mix, 1 kg
+54	Soy protein, 1 kg
+55	Turkey, whole
+56	Mixed nuts, 1 kg
+57	Lentils, 1 kg
+59	Tofu, 1 kg
+61	Kidney beans, dozen cans
+62	Bacon, 1 kg
+64	Chocolate chip cookies, 500 g
+69	Banana, bunch 5
+70	Banana, bunch 6
+71	Banana, bunch 10
+72	Sweet potato, bag
+84	Wheaties, family size
+85	Whole wheat flour, 10 kg
+86	Eggs, 1 kg
+87	Avocado, 1 pound
+90	Avocado, 1 pound
+91	Parsnip, 1 kg
+92	Yam, 1 kg
+95	Lentils, 1 kg
+97	Protein shake, 10 cans
+98	Soy burger, 20
+102	Black beans, 1 kg
+103	Horse gram, 1 kg
+105	Teff flour, 2 kg
+106	Creamed spinach
+109	String cheese, pack of 20
+110	String cheese, pack of 20
+112	Brown rice, large bag
+115	Raisin bran, 1 box
+118	Frozen blueberries, 2100 g
+122	Dried figs, 500 g
+123	Dried figs, 500 g
+124	Tinned sardines, pack of 5
+125	Tinned sardines, pack of 5

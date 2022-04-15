@@ -12,7 +12,7 @@ import java.util.*;
 
 public class RequestForm {
     private int numHouseholds;
-    private final ArrayList<Household> HOUSEHOLDS;
+    private static ArrayList<Household> households;
 
     /**
      * Constructor for RequestForm object. Creates one or more families from values given
@@ -76,7 +76,7 @@ public class RequestForm {
             //add the new household to the list of households
         }
 
-        this.HOUSEHOLDS = temp;
+        this.households = temp;
     }
 
     /**
@@ -84,7 +84,7 @@ public class RequestForm {
      * Creates another database connection and gets the updated data from the table.
      * @return The food stored in the database as a HashMap of Integers and FoodData objects
      */
-    private HashMap<Integer, FoodData> updateFoodValues() {
+    public static HashMap<Integer, FoodData> updateFoodValues() {
         RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/FOOD_INVENTORY","student","ensf" );
 		requestForm.initializeConnection();
 		requestForm.setFoodValues();
@@ -102,7 +102,7 @@ public class RequestForm {
     public ArrayList<Hamper> getHampers() {
         ArrayList<Hamper> result = new ArrayList<>();
 
-        for(Household each: this.HOUSEHOLDS) {
+        for(Household each: this.households) {
             result.add(each.getFamilyHamper());
             //add the hamper from each family to the result
         }
@@ -114,8 +114,8 @@ public class RequestForm {
      * Getter method for Households in RequestForm.
      * @return An ArrayList of Households.
      */
-    public ArrayList<Household> getHouseholds() {
-        return this.HOUSEHOLDS;
+    public static ArrayList<Household> getHouseholds() {
+        return households;
     }
 
     /**
