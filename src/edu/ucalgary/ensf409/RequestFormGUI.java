@@ -2,7 +2,7 @@
  * @author Aleksander Berezowski
  * @author Danielle Jourdain
  * @author Philippa Madill
- * @version 1.7
+ * @version 1.32
  * @since 1.0
  */
 
