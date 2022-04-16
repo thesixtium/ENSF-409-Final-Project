@@ -22,8 +22,6 @@ public class HouseholdTest {
         HashMap<String, Integer> clientValues = new HashMap<>();
         ArrayList<String> familyList = new ArrayList<>();
         HashMap<Integer, FoodData> availableFoods = new HashMap<>();
-        FoodData temp = new FoodData("temp",
-                100, 100, 100, 100);
 
         clientValues.put("calories", 10);
         clientValues.put("fv", 10);
@@ -40,9 +38,13 @@ public class HouseholdTest {
         familyList.add("Adult Male");
         familyList.add("Adult Female");
 
-        availableFoods.put(1, temp);
-        availableFoods.put(2, temp);
-        availableFoods.put(3, temp);
+        availableFoods.put(1, new FoodData("temp1", 400, 1600, 10, 100));
+        availableFoods.put(2, new FoodData("temp2", // suffer <3
+                300, 100, 100, 1010));
+        availableFoods.put(3, new FoodData("temp3",0, 1, 0, 0));
+        availableFoods.put(4, new FoodData("temp4",0, 0, 1, 0));
+        availableFoods.put(5, new FoodData("temp5",0, 0, 0, 1));
+        availableFoods.put(6, new FoodData("temp5",1, 0, 0, 0));
 
         boolean flag = true;
 
@@ -60,12 +62,10 @@ public class HouseholdTest {
     public void testErrorConstructor() {
         HashMap<String, HashMap<String, Integer>> clientData = new HashMap<>();
         HashMap<String, Integer> clientValues = new HashMap<>();
-        HashMap<Integer, FoodData> availableFoods = new HashMap<>();
         ArrayList<String> familyList = new ArrayList<>();
-        FoodData temp = new FoodData("temp",
-                1, 1, 1, 1);
+        HashMap<Integer, FoodData> availableFoods = new HashMap<>();
 
-        clientValues.put("calories", 1000);
+        clientValues.put("calories", 10);
         clientValues.put("fv", 10);
         clientValues.put("grain", 20);
         clientValues.put("protein", 30);
@@ -80,9 +80,7 @@ public class HouseholdTest {
         familyList.add("Adult Male");
         familyList.add("Adult Female");
 
-        availableFoods.put(1, temp);
-        availableFoods.put(2, temp);
-        availableFoods.put(3, temp);
+        availableFoods.put(1, new FoodData("temp1", 400, 1600, 10, 100));
 
         Household testObj;
 
@@ -103,8 +101,6 @@ public class HouseholdTest {
         HashMap<String, Integer> clientValues = new HashMap<>();
         ArrayList<String> familyList = new ArrayList<>();
         HashMap<Integer, FoodData> availableFoods = new HashMap<>();
-        FoodData temp = new FoodData("temp",
-                100, 100, 100, 100);
 
         clientValues.put("calories", 10);
         clientValues.put("fv", 10);
@@ -121,9 +117,13 @@ public class HouseholdTest {
         familyList.add("Adult Male");
         familyList.add("Adult Female");
 
-        availableFoods.put(1, temp);
-        availableFoods.put(2, temp);
-        availableFoods.put(3, temp);
+        availableFoods.put(1, new FoodData("temp1", 400, 1600, 10, 100));
+        availableFoods.put(2, new FoodData("temp2", // suffer <3
+                300, 100, 100, 1010));
+        availableFoods.put(3, new FoodData("temp3",0, 1, 0, 0));
+        availableFoods.put(4, new FoodData("temp4",0, 0, 1, 0));
+        availableFoods.put(5, new FoodData("temp5",0, 0, 0, 1));
+        availableFoods.put(6, new FoodData("temp5",1, 0, 0, 0));
 
         boolean flag = true;
         Household testObj;
@@ -145,12 +145,10 @@ public class HouseholdTest {
     public void testGetHamperWithErrorConstructor() {
         HashMap<String, HashMap<String, Integer>> clientData = new HashMap<>();
         HashMap<String, Integer> clientValues = new HashMap<>();
-        HashMap<Integer, FoodData> availableFoods = new HashMap<>();
         ArrayList<String> familyList = new ArrayList<>();
-        FoodData temp = new FoodData("temp",
-                1, 1, 1, 1);
+        HashMap<Integer, FoodData> availableFoods = new HashMap<>();
 
-        clientValues.put("calories", 1000);
+        clientValues.put("calories", 10);
         clientValues.put("fv", 10);
         clientValues.put("grain", 20);
         clientValues.put("protein", 30);
@@ -165,9 +163,13 @@ public class HouseholdTest {
         familyList.add("Adult Male");
         familyList.add("Adult Female");
 
-        availableFoods.put(1, temp);
-        availableFoods.put(2, temp);
-        availableFoods.put(3, temp);
+        availableFoods.put(1, new FoodData("temp1", 400, 1600, 10, 100));
+        availableFoods.put(2, new FoodData("temp2", // suffer <3
+                300, 100, 100, 1010));
+        availableFoods.put(3, new FoodData("temp3",0, 1, 0, 0));
+        availableFoods.put(4, new FoodData("temp4",0, 0, 1, 0));
+        availableFoods.put(5, new FoodData("temp5",0, 0, 0, 1));
+        availableFoods.put(6, new FoodData("temp5",1, 0, 0, 0));
 
         Household testObj;
 

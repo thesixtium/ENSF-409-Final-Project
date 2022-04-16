@@ -85,11 +85,6 @@ public class SelectFood {
                     flag = false;
         }*/
 
-        System.out.println("GR Waste" + calculateWaste(returnFoods, wasteNeeds).get("grain"));
-        System.out.println("PR Waste" + calculateWaste(returnFoods, wasteNeeds).get("protein"));
-        System.out.println("FV Waste" + calculateWaste(returnFoods, wasteNeeds).get("fv"));
-        System.out.println("OT Waste" + calculateWaste(returnFoods, wasteNeeds).get("other"));
-
         return returnFoods;
     }
 
@@ -142,9 +137,13 @@ public class SelectFood {
             // add
             while(sortedFoods.get(returnValue).getFv() > currentFoodCalories){
                 returnValue++;
-                if (sortedFoods.get(returnValue).getFv() == 0){
-                    returnValue--;
-                    break;
+                try {
+                    if (sortedFoods.get(returnValue).getFv() == 0) {
+                        returnValue--;
+                        break;
+                    }
+                } catch (Exception e){
+                    throw new NotEnoughFoodException("fv", currentFoodCalories);
                 }
             }
         } else if(currentlyWorkingOn.equals("grain")){
@@ -169,9 +168,13 @@ public class SelectFood {
             // add
             while(sortedFoods.get(returnValue).getGrain() > currentFoodCalories){
                 returnValue++;
-                if (sortedFoods.get(returnValue).getGrain() == 0){
-                    returnValue--;
-                    break;
+                try {
+                    if (sortedFoods.get(returnValue).getGrain() == 0) {
+                        returnValue--;
+                        break;
+                    }
+                } catch (Exception e){
+                    throw new NotEnoughFoodException("grain", currentFoodCalories);
                 }
             }
         } else if(currentlyWorkingOn.equals("protein")){
@@ -196,9 +199,13 @@ public class SelectFood {
             // add
             while(sortedFoods.get(returnValue).getProtein() > currentFoodCalories){
                 returnValue++;
-                if (sortedFoods.get(returnValue).getProtein() == 0){
-                    returnValue--;
-                    break;
+                try {
+                    if (sortedFoods.get(returnValue).getProtein() == 0) {
+                        returnValue--;
+                        break;
+                    }
+                } catch (Exception e){
+                    throw new NotEnoughFoodException("protein", currentFoodCalories);
                 }
             }
         } else {
@@ -223,9 +230,13 @@ public class SelectFood {
             // add
             while(sortedFoods.get(returnValue).getOther() > currentFoodCalories){
                 returnValue++;
-                if (sortedFoods.get(returnValue).getOther() == 0){
-                    returnValue--;
-                    break;
+                try {
+                    if (sortedFoods.get(returnValue).getOther() == 0) {
+                        returnValue--;
+                        break;
+                    }
+                } catch (Exception e){
+                    throw new NotEnoughFoodException("other", currentFoodCalories);
                 }
             }
         }
