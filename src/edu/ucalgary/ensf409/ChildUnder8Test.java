@@ -13,8 +13,11 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class ChildUnder8Test {
-
-    // Test constructor initializes correctly
+    /**
+     * Test constructor initializes correctly. All values should be initialized to 0.
+     * Note this test may fail even if the constructor works as inteded if the 
+     * getter methods are faulty.
+     */
     @Test
     public void testConstructor() {
         int expectedFV = 0;
@@ -26,6 +29,7 @@ public class ChildUnder8Test {
         int actualGrain = ChildUnder8.getGrainCalories();
         int actualProtein = ChildUnder8.getProteinCalories();
         int actualOther = ChildUnder8.getOtherCalories();
+        //get all values
 
         assertEquals("expectedFV and actualFV are not equal", expectedFV, actualFV);
         assertEquals("expectedGrain and actualGrain are not equal", expectedGrain, actualGrain);
@@ -33,13 +37,16 @@ public class ChildUnder8Test {
         assertEquals("expectedOther and actualOther are not equal", expectedOther, actualOther);
     }
 
-    // Test getters with all 0's
+    /**
+     * Test the getter methods when all values have been set to 0.
+     */
     @Test
     public void testZerosGetters() {
         int actualFV = ChildUnder8.getFvCalories();
         int actualGrain = ChildUnder8.getGrainCalories();
         int actualProtein = ChildUnder8.getProteinCalories();
         int actualOther = ChildUnder8.getOtherCalories();
+        //get all values
 
         assertEquals("expectedFV and actualFV are not equal", 0, actualFV);
         assertEquals("expectedGrain and actualGrain are not equal", 0, actualGrain);
@@ -47,7 +54,9 @@ public class ChildUnder8Test {
         assertEquals("expectedOther and actualOther are not equal", 0, actualOther);
     }
 
-    // Test all setters and getters
+    /**
+     * Test getter methods when all values are NOT 0.
+     */
     @Test
     public void testSettersGetters() {
         ChildUnder8.setTotalCalories(100);
@@ -69,6 +78,7 @@ public class ChildUnder8Test {
         int actualGrain = ChildUnder8.getGrainCalories();
         int actualProtein = ChildUnder8.getProteinCalories();
         int actualOther = ChildUnder8.getOtherCalories();
+        //get all values
 
         assertEquals("expectedFV and actualFV are not equal", expectedFV, actualFV);
         assertEquals("expectedGrain and actualGrain are not equal", expectedGrain, actualGrain);
@@ -76,7 +86,9 @@ public class ChildUnder8Test {
         assertEquals("expectedOther and actualOther are not equal", expectedOther, actualOther);
     }
 
-    // Test all setters and getters again with different numbers
+    /**
+     * Test getter methods a second time with different values a second time.
+     */
     @Test
     public void testSettersGetters2() {
         ChildUnder8.setTotalCalories(200);
@@ -98,6 +110,7 @@ public class ChildUnder8Test {
         int actualGrain = ChildUnder8.getGrainCalories();
         int actualProtein = ChildUnder8.getProteinCalories();
         int actualOther = ChildUnder8.getOtherCalories();
+        //get all values
 
         assertEquals("expectedFV and actualFV are not equal", expectedFV, actualFV);
         assertEquals("expectedGrain and actualGrain are not equal", expectedGrain, actualGrain);
@@ -105,7 +118,10 @@ public class ChildUnder8Test {
         assertEquals("expectedOther and actualOther are not equal", expectedOther, actualOther);
     }
 
-    // Test isSatisfied
+    /**
+     * Test if the isSatisfied method returns the correct result when the needs 
+     * are not satidfied
+     */
     @Test
     public void testIsSatisfied() {
         ChildUnder8.setTotalCalories(100);
@@ -128,7 +144,10 @@ public class ChildUnder8Test {
         assertEquals("expectedValue and actualValue are not equal", expectedValue, actualValue);
     }
 
-    // Test isSatisfied again with different numbers
+    /**
+     * Test if the isSatisfied method returns the correct result when the needs
+     * are satisfied
+     */
     @Test
     public void testIsSatisfied2() {
         ChildUnder8.setTotalCalories(0);
@@ -144,8 +163,7 @@ public class ChildUnder8Test {
     }
 
     /**
-     * setup method to reset all values before a test. 
-     * especially important for the test checking the getters with all values 0
+     * Helper method to reset values before each test. Sets all values to 0 before every test
      */
     @Before
     public void resetValues() {
