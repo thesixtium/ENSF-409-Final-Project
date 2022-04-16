@@ -1,7 +1,15 @@
+/**
+ * @author Aleksander Berezowski
+ * @author Danielle Jourdain
+ * @author Philippa Madill
+ * @version 1.2
+ * @since 1.0
+ */
+
 package edu.ucalgary.ensf409;
 
+import org.junit.*;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 
 public class AdultFemaleTest {
@@ -57,7 +65,7 @@ public class AdultFemaleTest {
         int expectedProtein = 30;
         int expectedOther = 40;
 
-        int actualFV = AdultFemale.getProteinCalories();
+        int actualFV = AdultFemale.getFvCalories();
         int actualGrain = AdultFemale.getGrainCalories();
         int actualProtein = AdultFemale.getProteinCalories();
         int actualOther = AdultFemale.getOtherCalories();
@@ -86,7 +94,7 @@ public class AdultFemaleTest {
         int expectedProtein = 60;
         int expectedOther = 80;
 
-        int actualFV = AdultFemale.getProteinCalories();
+        int actualFV = AdultFemale.getFvCalories();
         int actualGrain = AdultFemale.getGrainCalories();
         int actualProtein = AdultFemale.getProteinCalories();
         int actualOther = AdultFemale.getOtherCalories();
@@ -110,6 +118,10 @@ public class AdultFemaleTest {
         AdultFemale.setProteinPercent(30);
         AdultFemale.setOtherPercent(40);
 
+        AdultFemale.getFvCalories();
+        //call one of the getters to indirectly call the calculateCalories method and ensure
+        //all values are correct
+
         boolean expectedValue = false;
         boolean actualValue = AdultFemale.isSatisfied();
 
@@ -121,9 +133,26 @@ public class AdultFemaleTest {
     public void testIsSatisfied2() {
         AdultFemale.setTotalCalories(0);
 
+        AdultFemale.getFvCalories();
+        //call one of the getters to indirectly call the calculateCalories method and ensure
+        //all values are correct
+
         boolean expectedValue = true;
         boolean actualValue = AdultFemale.isSatisfied();
 
         assertEquals("expectedValue and actualValue are not equal", expectedValue, actualValue);
+    }
+
+    /**
+     * setup method to reset all values before a test. 
+     * especially important for the test checking the getters with all values 0
+     */
+    @Before
+    public void resetValues() {
+        FoodNeeds.setFvPercent(0);
+        FoodNeeds.setGrainPercent(0);
+        FoodNeeds.setOtherPercent(0);
+        FoodNeeds.setProteinPercent(0);
+        FoodNeeds.setTotalCalories(0);
     }
 }

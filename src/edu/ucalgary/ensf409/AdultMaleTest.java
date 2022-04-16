@@ -1,7 +1,15 @@
+/**
+ * @author Aleksander Berezowski
+ * @author Danielle Jourdain
+ * @author Philippa Madill
+ * @version 1.2
+ * @since 1.0
+ */
+
 package edu.ucalgary.ensf409;
 
+import org.junit.*;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 
 public class AdultMaleTest {
@@ -14,7 +22,7 @@ public class AdultMaleTest {
         int expectedProtein = 0;
         int expectedOther = 0;
 
-        int actualFV = AdultMale.getProteinCalories();
+        int actualFV = AdultMale.getFvCalories();
         int actualGrain = AdultMale.getGrainCalories();
         int actualProtein = AdultMale.getProteinCalories();
         int actualOther = AdultMale.getOtherCalories();
@@ -28,7 +36,7 @@ public class AdultMaleTest {
     // Test getters with all 0's
     @Test
     public void testZerosGetters() {
-        int actualFV = AdultMale.getProteinCalories();
+        int actualFV = AdultMale.getFvCalories();
         int actualGrain = AdultMale.getGrainCalories();
         int actualProtein = AdultMale.getProteinCalories();
         int actualOther = AdultMale.getOtherCalories();
@@ -57,7 +65,7 @@ public class AdultMaleTest {
         int expectedProtein = 30;
         int expectedOther = 40;
 
-        int actualFV = AdultMale.getProteinCalories();
+        int actualFV = AdultMale.getFvCalories();
         int actualGrain = AdultMale.getGrainCalories();
         int actualProtein = AdultMale.getProteinCalories();
         int actualOther = AdultMale.getOtherCalories();
@@ -86,7 +94,7 @@ public class AdultMaleTest {
         int expectedProtein = 60;
         int expectedOther = 80;
 
-        int actualFV = AdultMale.getProteinCalories();
+        int actualFV = AdultMale.getFvCalories();
         int actualGrain = AdultMale.getGrainCalories();
         int actualProtein = AdultMale.getProteinCalories();
         int actualOther = AdultMale.getOtherCalories();
@@ -110,6 +118,10 @@ public class AdultMaleTest {
         AdultMale.setProteinPercent(30);
         AdultMale.setOtherPercent(40);
 
+        AdultMale.getFvCalories();
+        //call one of the getters to indirectly call the calculateCalories method and ensure
+        //all values are correct
+
         boolean expectedValue = false;
         boolean actualValue = AdultMale.isSatisfied();
 
@@ -121,9 +133,26 @@ public class AdultMaleTest {
     public void testIsSatisfied2() {
         AdultMale.setTotalCalories(0);
 
+        AdultMale.getFvCalories();
+        //call one of the getters to indirectly call the calculateCalories method and ensure
+        //all values are correct
+
         boolean expectedValue = true;
         boolean actualValue = AdultMale.isSatisfied();
 
         assertEquals("expectedValue and actualValue are not equal", expectedValue, actualValue);
+    }
+
+    /**
+     * setup method to reset all values before a test. 
+     * especially important for the test checking the getters with all values 0
+     */
+    @Before
+    public void resetValues() {
+        FoodNeeds.setFvPercent(0);
+        FoodNeeds.setGrainPercent(0);
+        FoodNeeds.setOtherPercent(0);
+        FoodNeeds.setProteinPercent(0);
+        FoodNeeds.setTotalCalories(0);
     }
 }

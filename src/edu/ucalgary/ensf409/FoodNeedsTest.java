@@ -1,7 +1,7 @@
 package edu.ucalgary.ensf409;
 
+import org.junit.*;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 
 public class FoodNeedsTest {
@@ -57,7 +57,7 @@ public class FoodNeedsTest {
         int expectedProtein = 30;
         int expectedOther = 40;
 
-        int actualFV = FoodNeeds.getProteinCalories();
+        int actualFV = FoodNeeds.getFvCalories();
         int actualGrain = FoodNeeds.getGrainCalories();
         int actualProtein = FoodNeeds.getProteinCalories();
         int actualOther = FoodNeeds.getOtherCalories();
@@ -86,7 +86,7 @@ public class FoodNeedsTest {
         int expectedProtein = 60;
         int expectedOther = 80;
 
-        int actualFV = FoodNeeds.getProteinCalories();
+        int actualFV = FoodNeeds.getFvCalories();
         int actualGrain = FoodNeeds.getGrainCalories();
         int actualProtein = FoodNeeds.getProteinCalories();
         int actualOther = FoodNeeds.getOtherCalories();
@@ -110,6 +110,10 @@ public class FoodNeedsTest {
         FoodNeeds.setProteinPercent(30);
         FoodNeeds.setOtherPercent(40);
 
+        FoodNeeds.getFvCalories();
+        //call one of the getters to indirectly call the calculateCalories method and ensure
+        //all values are correct
+
         boolean expectedValue = false;
         boolean actualValue = FoodNeeds.isSatisfied();
 
@@ -120,10 +124,26 @@ public class FoodNeedsTest {
     @Test
     public void testIsSatisfied2() {
         FoodNeeds.setTotalCalories(0);
+        FoodNeeds.getFvCalories();
+        //call one of the getters to indirectly call the calculateCalories method and ensure
+        //all values are correct
 
         boolean expectedValue = true;
         boolean actualValue = FoodNeeds.isSatisfied();
 
         assertEquals("expectedValue and actualValue are not equal", expectedValue, actualValue);
+    }
+
+    /**
+     * setup method to reset all values before a test. 
+     * especially important for the test checking the getters with all values 0
+     */
+    @Before
+    public void resetValues() {
+        FoodNeeds.setFvPercent(0);
+        FoodNeeds.setGrainPercent(0);
+        FoodNeeds.setOtherPercent(0);
+        FoodNeeds.setProteinPercent(0);
+        FoodNeeds.setTotalCalories(10);
     }
 }

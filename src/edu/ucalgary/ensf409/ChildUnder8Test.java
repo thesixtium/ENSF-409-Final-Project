@@ -1,7 +1,15 @@
+/**
+ * @author Aleksander Berezowski
+ * @author Danielle Jourdain
+ * @author Philippa Madill
+ * @version 1.2
+ * @since 1.0
+ */
+
 package edu.ucalgary.ensf409;
 
+import org.junit.*;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 
 public class ChildUnder8Test {
@@ -14,7 +22,7 @@ public class ChildUnder8Test {
         int expectedProtein = 0;
         int expectedOther = 0;
 
-        int actualFV = ChildUnder8.getProteinCalories();
+        int actualFV = ChildUnder8.getFvCalories();
         int actualGrain = ChildUnder8.getGrainCalories();
         int actualProtein = ChildUnder8.getProteinCalories();
         int actualOther = ChildUnder8.getOtherCalories();
@@ -28,7 +36,7 @@ public class ChildUnder8Test {
     // Test getters with all 0's
     @Test
     public void testZerosGetters() {
-        int actualFV = ChildUnder8.getProteinCalories();
+        int actualFV = ChildUnder8.getFvCalories();
         int actualGrain = ChildUnder8.getGrainCalories();
         int actualProtein = ChildUnder8.getProteinCalories();
         int actualOther = ChildUnder8.getOtherCalories();
@@ -57,7 +65,7 @@ public class ChildUnder8Test {
         int expectedProtein = 30;
         int expectedOther = 40;
 
-        int actualFV = ChildUnder8.getProteinCalories();
+        int actualFV = ChildUnder8.getFvCalories();
         int actualGrain = ChildUnder8.getGrainCalories();
         int actualProtein = ChildUnder8.getProteinCalories();
         int actualOther = ChildUnder8.getOtherCalories();
@@ -86,7 +94,7 @@ public class ChildUnder8Test {
         int expectedProtein = 60;
         int expectedOther = 80;
 
-        int actualFV = ChildUnder8.getProteinCalories();
+        int actualFV = ChildUnder8.getFvCalories();
         int actualGrain = ChildUnder8.getGrainCalories();
         int actualProtein = ChildUnder8.getProteinCalories();
         int actualOther = ChildUnder8.getOtherCalories();
@@ -110,6 +118,10 @@ public class ChildUnder8Test {
         ChildUnder8.setProteinPercent(30);
         ChildUnder8.setOtherPercent(40);
 
+        ChildUnder8.getFvCalories();
+        //call one of the getters to indirectly call the calculateCalories method and ensure
+        //all values are correct
+
         boolean expectedValue = false;
         boolean actualValue = ChildUnder8.isSatisfied();
 
@@ -121,9 +133,26 @@ public class ChildUnder8Test {
     public void testIsSatisfied2() {
         ChildUnder8.setTotalCalories(0);
 
+        ChildUnder8.getFvCalories();
+        //call one of the getters to indirectly call the calculateCalories method and ensure
+        //all values are correct
+
         boolean expectedValue = true;
         boolean actualValue = ChildUnder8.isSatisfied();
 
         assertEquals("expectedValue and actualValue are not equal", expectedValue, actualValue);
+    }
+
+    /**
+     * setup method to reset all values before a test. 
+     * especially important for the test checking the getters with all values 0
+     */
+    @Before
+    public void resetValues() {
+        FoodNeeds.setFvPercent(0);
+        FoodNeeds.setGrainPercent(0);
+        FoodNeeds.setOtherPercent(0);
+        FoodNeeds.setProteinPercent(0);
+        FoodNeeds.setTotalCalories(0);
     }
 }
