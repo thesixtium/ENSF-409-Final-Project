@@ -85,6 +85,14 @@ public class SelectFood {
             if(!flag)
                 break;
         }
+
+        System.out.println("Waste: ");
+        System.out.println("\t - FV: " + calculateWaste(returnFoods, wasteNeeds).get("fv"));
+        System.out.println("\t - GR: " + calculateWaste(returnFoods, wasteNeeds).get("grain"));
+        System.out.println("\t - PR: " + calculateWaste(returnFoods, wasteNeeds).get("protein"));
+        System.out.println("\t - OT: " + calculateWaste(returnFoods, wasteNeeds).get("other"));
+        System.out.println();
+
         return returnFoods;
     }
 

@@ -34,7 +34,9 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	private JButton addHousehold;
 	
 	
-	
+	/**
+	 * Constructor for RequestFormGUI. Sets up the panel and a setup method.
+	 */
 	public RequestFormGUI(){
 		super("Welcome to the Peanut Butter Scenario Foodbank!");
 		setupGUI();
@@ -42,12 +44,12 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.households = new ArrayList<>();
 	}
+
 	/**
-		Make the GUI to accept the amount of clients 
-		can create multiple households by hitting the "Add household" button
-		or create an order form by hitting the "Create order form" button
-		*/
-	
+	 * Make the GUI to accept the amount of clients 
+	 * can create multiple households by hitting the "Add household" button
+	 * or create an order form by hitting the "Create order form" button
+	 */
 	public void setupGUI(){
 		
 		instructions = new JLabel("Enter quantity of each type of client. Enter '0' if unapplicable.");
@@ -113,7 +115,6 @@ public class RequestFormGUI extends JFrame implements ActionListener, MouseListe
 	@param event	A button was pushed; either "Create order form" or "Add household".
 					There are different outcomes depending on the source of the event.
 	*/
-	
 	public void actionPerformed(ActionEvent event){
 		int[] tempHousehold = new int[4];
 
