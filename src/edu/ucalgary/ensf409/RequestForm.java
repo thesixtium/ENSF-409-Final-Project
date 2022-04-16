@@ -12,7 +12,7 @@ import java.util.*;
 
 public class RequestForm {
     private int numHouseholds;
-    private ArrayList<Household> households;
+    private final ArrayList<Household> HOUSEHOLDS;
 
     /**
      * Constructor for RequestForm object. Creates one or more families from values given
@@ -74,7 +74,7 @@ public class RequestForm {
             //add the new household to the list of households
         }
 
-        households = temp;
+        HOUSEHOLDS = temp;
     }
 
     /**
@@ -100,7 +100,7 @@ public class RequestForm {
     public ArrayList<Hamper> getHampers() {
         ArrayList<Hamper> result = new ArrayList<>();
 
-        for(Household each: this.households) {
+        for(Household each: this.HOUSEHOLDS) {
             result.add(each.getFamilyHamper());
             //add the hamper from each family to the result
         }
@@ -113,7 +113,7 @@ public class RequestForm {
      * @return An ArrayList of Households.
      */
     public ArrayList<Household> getHouseholds() {
-        return this.households;
+        return this.HOUSEHOLDS;
     }
 
     /**

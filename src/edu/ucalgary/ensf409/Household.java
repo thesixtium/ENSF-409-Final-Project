@@ -55,8 +55,6 @@ public class Household {
      *                   (ie. other) and the value being the integer value.
      */
     private void initializeClients(HashMap<String, HashMap<String, Integer>> clientData){
-        System.out.println(clientData.keySet());
-
         HashMap<String, Integer> client = clientData.get("Adult Male");
 
         AdultMale.setTotalCalories(client.get("calories"));

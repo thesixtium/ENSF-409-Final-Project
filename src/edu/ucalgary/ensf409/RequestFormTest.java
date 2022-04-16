@@ -96,6 +96,8 @@ public class RequestFormTest{
 			*/
 			clientData = RequestFormDatabase.getClientValues();
 			HashMap<Integer, FoodData> foodValues = RequestForm.updateFoodValues();
+			validHousehold.add(validEntries);
+
 			RequestForm requestForm = new RequestForm(validHousehold);
 			ArrayList<Household> expectedHouseholds = new ArrayList<>();
 			ArrayList<String> family = new ArrayList<>();
@@ -103,14 +105,17 @@ public class RequestFormTest{
 			family.add("Adult Male");
 			family.add("Child Over 8");
 			family.add("Child Under 8");
+
 			Household addedHousehold = new Household(clientData, family, foodValues);
 			expectedHouseholds.add(addedHousehold);
 			ArrayList<Household> actualHouseholds = requestForm.getHouseholds();
-			if(actualHouseholds.isEmpty())
-				System.out.println("Empty");
-			else
-				System.out.println("Not empty");
-			assertEquals("getHouseholds did not return the expected Household object", expectedHouseholds, actualHouseholds);
+
+			assertEquals("Number of households is incorrect", 1, requestForm.getNumHouseholds());
+			//make sure the number of households is correct before continuing
+
+			Household expected = expectedHouseholds.get(0);
+			Household actual = actualHouseholds.get(0);
+			assertArrayEquals("Families contained in households are not the same", expected.getFamilyList(), actual.getFamilyList());
 	}
 	
 	@Test 
