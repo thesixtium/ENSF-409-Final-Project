@@ -15,6 +15,13 @@ public class Household {
     private String[] familyList; // Stores the list of family members in a given household
     private Hamper familyHamper; // The hamper that goes to that specific household
 
+    /**
+     * Backup Constructor for Household class
+     * @param exception Is the error
+     * @param familyList Is an array of Strings specifying the family. The possible
+     *                   Strings that can be included in this array is "Adult Male",
+     *                   "Adult Female", "Child Under 8", and "Child Over 8".
+     */
     public Household(NotEnoughFoodException exception, ArrayList<String> familyList){
         this.familyList = familyList.toArray(new String[0]);
         this.familyHamper = new Hamper(exception);

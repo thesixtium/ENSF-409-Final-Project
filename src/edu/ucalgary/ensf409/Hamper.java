@@ -17,14 +17,14 @@ public class Hamper extends SelectFood{
     private HashMap<Integer, FoodData> hamperFoods;
     private HashMap<Integer, FoodData> availableFoods = new HashMap<>();
     private boolean enoughFood = true;
-    NotEnoughFoodException exception;
+    private NotEnoughFoodException exception;
 
+    /**
+     * Backup Constructor for Household class
+     * @param exception Is the error
+     */
     public Hamper(NotEnoughFoodException exception){
         this.exception = exception;
-    }
-
-    public NotEnoughFoodException getException() {
-        return this.exception;
     }
 
     /**
@@ -121,4 +121,13 @@ public class Hamper extends SelectFood{
     public HashMap<Integer, FoodData> getAvailableFoods() {
         return availableFoods;
     }
+
+    /**
+     This method retrieves the exception.
+     */
+    public NotEnoughFoodException getException() {
+        return this.exception;
+    }
+
+
 }
