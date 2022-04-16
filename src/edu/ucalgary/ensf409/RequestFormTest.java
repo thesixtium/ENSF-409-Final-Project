@@ -106,6 +106,10 @@ public class RequestFormTest{
 			Household addedHousehold = new Household(clientData, family, foodValues);
 			expectedHouseholds.add(addedHousehold);
 			ArrayList<Household> actualHouseholds = requestForm.getHouseholds();
+			if(actualHouseholds.isEmpty())
+				System.out.println("Empty");
+			else
+				System.out.println("Not empty");
 			assertEquals("getHouseholds did not return the expected Household object", expectedHouseholds, actualHouseholds);
 	}
 	

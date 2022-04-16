@@ -85,6 +85,11 @@ public class SelectFood {
                     flag = false;
         }*/
 
+        System.out.println("GR Waste" + calculateWaste(returnFoods, wasteNeeds).get("grain"));
+        System.out.println("PR Waste" + calculateWaste(returnFoods, wasteNeeds).get("protein"));
+        System.out.println("FV Waste" + calculateWaste(returnFoods, wasteNeeds).get("fv"));
+        System.out.println("OT Waste" + calculateWaste(returnFoods, wasteNeeds).get("other"));
+
         return returnFoods;
     }
 
