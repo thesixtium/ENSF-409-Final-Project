@@ -114,7 +114,10 @@ public class Hamper extends SelectFood{
     public FoodData getShortBy() {
         return this.shortBy;
     }
-
+	
+	/**
+	This method retrieves the foods available for selection by a hamper.
+	*/
     public HashMap<Integer, FoodData> getAvailableFoods() {
         return availableFoods;
     }

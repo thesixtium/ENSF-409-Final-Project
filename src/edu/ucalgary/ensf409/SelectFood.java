@@ -2,7 +2,7 @@
  * @author Aleksander Berezowski
  * @author Danielle Jourdain
  * @author Philippa Madill
- * @version 1.6
+ * @version 1.48
  * @since 1.0
  */
 
@@ -47,7 +47,7 @@ public class SelectFood {
                     continue;
 
                 // Figure out the best food to add to the hamper
-                FoodData foodToAdd = mostEfficientFood(returnFoods, foods, needs, type);
+                FoodData foodToAdd = mostEfficientFood(foods, needs, type);
                 Integer key = 0;
                 for(Integer i: foods.keySet())
                     if(foods.get(i) == foodToAdd)
@@ -67,30 +67,29 @@ public class SelectFood {
             }
         }
 
-        /*boolean flag = true;
-        while(flag){
-            Integer remove = -1;
+        // Remove waste food
+        while(true){
+            HashMap<Integer, FoodData> returnFoods2 = new HashMap<>(returnFoods);
             HashMap<String, Integer> waste = calculateWaste(returnFoods, wasteNeeds);
-            for(Integer i : returnFoods.keySet()) {
+            boolean flag = false;
+            for(Integer i : returnFoods2.keySet()) {
                 if (returnFoods.get(i).getFv() > waste.get("fv") &&
                         returnFoods.get(i).getGrain() > waste.get("grain") &&
                         returnFoods.get(i).getProtein() > waste.get("protein") &&
                         returnFoods.get(i).getOther() > waste.get("other")) {
-                    remove = i;
+                    returnFoods.remove(i);
+                    flag = true;
+                    break;
                 }
             }
-                if(remove != -1){
-                    returnFoods.remove(remove);
-                } else
-                    flag = false;
-        }*/
-
+            if(!flag)
+                break;
+        }
         return returnFoods;
     }
 
     /**
      * Helper method to find the most efficient food to add to the hamper
-     * @param currentReturnFoods
      * @param foods Is a hashmap with a key of the identifying integer of
      *              a food (this should be the primary key from the initial
      *              SQL table) and the value is a FoodData object, which
@@ -98,11 +97,13 @@ public class SelectFood {
      *              specific food.
      * @param needs Is a HouseholdNeeds object that contains the calorie
      *              needs for an entire household.
-     * @param currentlyWorkingOn
-     * @return
+     * @param currentlyWorkingOn The food type to find the most efficient
+     *                           food of, can be a string of "fv", "grain",
+     *                           "protein", or "other".
+     * @return The FoodData of the mostEfficientFood
      * @throws NotEnoughFoodException
      */
-    private static FoodData mostEfficientFood(HashMap<Integer, FoodData> currentReturnFoods, HashMap<Integer, FoodData> foods,
+    private static FoodData mostEfficientFood(HashMap<Integer, FoodData> foods,
                                   HouseholdNeeds needs, String currentlyWorkingOn) throws NotEnoughFoodException {
         int currentFoodCalories;
         ArrayList<FoodData> sortedFoods = new ArrayList<>(foods.values());
@@ -146,6 +147,7 @@ public class SelectFood {
                     throw new NotEnoughFoodException("fv", currentFoodCalories);
                 }
             }
+            // This repeats 3 more times, just switching fv with other values
         } else if(currentlyWorkingOn.equals("grain")){
             currentFoodCalories = needs.getGrainCalories();
             sortedFoods.sort(new Comparator<FoodData>() {
@@ -253,7 +255,7 @@ public class SelectFood {
      *              specific food.
      * @param needs Is a HouseholdNeeds object that contains the calorie
      *              needs for an entire household.
-     * @return
+     * @return The waste values in a hashmap
      */
     public static HashMap<String, Integer> calculateWaste(HashMap<Integer, FoodData> foods, HouseholdNeeds needs){
         int grains = 0;
