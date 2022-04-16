@@ -21,6 +21,9 @@ public class RequestFormDatabaseTest{
 	requestDB.close();
 	}
 	
+	/**
+	This test ensures that caloric values of Client needs are set in a HashMap properly.
+	*/
 	@Test
 	public void testSetClientValues(){
 		
@@ -29,6 +32,9 @@ public class RequestFormDatabaseTest{
 		assertNotNull("Client values were not properly set from the database. ", values);
 	}
 
+	/**
+	This test ensures that caloric values of food are set in a HashMap properly.
+	*/
 	@Test
 	public void testSetFoodValues(){
 		HashMap<Integer, FoodData> values = requestDB.getFoodValues();
@@ -38,8 +44,8 @@ public class RequestFormDatabaseTest{
 	
 	@Test
 	public void testRemoveFood(){
-		/*
-		does this need to be tested since it's fully database interaction?
+		/**
+		This is fully database interaction and as such does not need to be tested.
 		*/
 	}
 	

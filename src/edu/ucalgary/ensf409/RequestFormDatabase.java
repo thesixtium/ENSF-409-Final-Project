@@ -104,7 +104,6 @@ public class RequestFormDatabase{
 	*/
 	public void setFoodValues(){
 		foodValues = new HashMap<Integer, FoodData>();
-		//FoodData temp = new FoodData<>();
 		try{
 			Statement myStmt = dbConnect.createStatement();
 			results = myStmt.executeQuery("SELECT * FROM AVAILABLE_FOOD");
