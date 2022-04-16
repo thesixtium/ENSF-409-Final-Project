@@ -9,14 +9,13 @@
 package edu.ucalgary.ensf409;
 
 public class HouseholdNeeds {
-    private int fvCalories, grainCalories, proteinCalories, otherCalories, totalCalories;
+    private int fvCalories, grainCalories, proteinCalories, otherCalories;
 
     public HouseholdNeeds(){
         fvCalories = 0;
         grainCalories = 0;
         proteinCalories = 0;
         otherCalories = 0;
-        totalCalories = 0;
     }
 	/**
 	This method changes the amount of calories from fruit and 
