@@ -15,15 +15,22 @@ public class NotEnoughFoodException extends Exception{
         this.type = type.toLowerCase();
         this.amount = amount;
     }
-
+	/**
+	This method retrieves the type of calories that is resulting in the exception.
+	*/
     public String getType() {
         return type;
     }
-
+	/**
+	This method returns the amount of calories of the type that the food inventory 
+	is short of.
+	*/
     public int getAmount() {
         return amount;
     }
-
+	/**
+	This method converts the type supplied to English with proper grammatical structure.
+	*/
     public String getGoodType(){
         if (type.equals("fv"))
             return "Fruits and Veggies";

@@ -13,7 +13,6 @@ import java.util.*;
 public class SelectFoodTest{
 		int[] calorieValues = {100, 200, 300, 400};
 	    HouseholdNeeds hn = new HouseholdNeeds();
-       // Hamper testHamper = new Hamper(calorieValues);
         HashMap<Integer, FoodData> availableFood = updateFoodValues();
 		
 		@BeforeClass
@@ -65,12 +64,8 @@ public class SelectFoodTest{
 	
 	@Test
 	public void testMostEfficientFood(){
-		//This is my own shortcoming but I have no idea how to test this.
-		
-		//the SelectFood object.mostEfficientFood assertNotNull basically
-		/*int testEfficiency = mostEfficientFood();
-		assertNotNull(testEfficiency, "mostEfficientFood did not return an integer.");
-		^^This is the old version of the test for this method.
+		/*
+		Does not need to be tested as mostly database interaction.
 		*/
 		
 	}
@@ -85,7 +80,7 @@ public class SelectFoodTest{
 	}
 	
 	/**
-	helper method to make everything slightly less horrednous.
+	helper method to make accessing food values easier..
 	*/
 	private HashMap<Integer, FoodData> updateFoodValues() {
         RequestFormDatabase requestForm = new RequestFormDatabase("jdbc:mysql://localhost/FOOD_INVENTORY","student","ensf" );

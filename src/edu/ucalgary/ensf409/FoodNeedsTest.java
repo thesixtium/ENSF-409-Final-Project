@@ -43,10 +43,6 @@ public class FoodNeedsTest {
     @Test
     public void testSettersGetters() {
         FoodNeeds.setTotalCalories(100);
-        // 10% FV
-        // 20% Grain
-        // 30% Protein
-        // 40% Other
         FoodNeeds.setFvPercent(10);
         FoodNeeds.setGrainPercent(20);
         FoodNeeds.setProteinPercent(30);
@@ -72,10 +68,6 @@ public class FoodNeedsTest {
     @Test
     public void testSettersGetters2() {
         FoodNeeds.setTotalCalories(200);
-        // 10% FV
-        // 20% Grain
-        // 30% Protein
-        // 40% Other
         FoodNeeds.setFvPercent(10);
         FoodNeeds.setGrainPercent(20);
         FoodNeeds.setProteinPercent(30);
@@ -101,18 +93,16 @@ public class FoodNeedsTest {
     @Test
     public void testIsSatisfied() {
         FoodNeeds.setTotalCalories(100);
-        // 10% FV
-        // 20% Grain
-        // 30% Protein
-        // 40% Other
         FoodNeeds.setFvPercent(10);
         FoodNeeds.setGrainPercent(20);
         FoodNeeds.setProteinPercent(30);
         FoodNeeds.setOtherPercent(40);
 
         FoodNeeds.getFvCalories();
-        //call one of the getters to indirectly call the calculateCalories method and ensure
-        //all values are correct
+        /*
+		call one of the getters to indirectly call the calculateCalories method and ensure
+        all values are correct
+		*/
 
         boolean expectedValue = false;
         boolean actualValue = FoodNeeds.isSatisfied();
@@ -125,8 +115,10 @@ public class FoodNeedsTest {
     public void testIsSatisfied2() {
         FoodNeeds.setTotalCalories(0);
         FoodNeeds.getFvCalories();
-        //call one of the getters to indirectly call the calculateCalories method and ensure
-        //all values are correct
+        /*
+		call one of the getters to indirectly call the calculateCalories method and ensure
+        all values are correct
+		*/
 
         boolean expectedValue = true;
         boolean actualValue = FoodNeeds.isSatisfied();

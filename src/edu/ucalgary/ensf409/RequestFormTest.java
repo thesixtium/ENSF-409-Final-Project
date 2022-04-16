@@ -44,17 +44,6 @@ public class RequestFormTest{
 			Lines 120-136 of RequestFormGUI.
 			*/
 			
-		/*boolean testResult = false;
-		invalidHousehold.add(tooFewEntries);
-		try{
-			RequestForm form = new RequestForm(invalidHousehold);
-		}
-		catch(IllegalArgumentException e){
-			testResult = true;
-		}
-		catch(Exception e){
-			assertTrue("Invalid amount of arguments did not throw an Exception", testResult);
-		}*/
 	}
 		
 	@Test 
@@ -69,7 +58,10 @@ public class RequestFormTest{
 		
 	}
 		
-	
+	/**
+	This test ensures that updateFoodValues fills a HashMap of
+	Integer and FoodData objects.
+	*/
 	@Test
 		public void testUpdateFoodValues(){
 			RequestForm requestForm = new RequestForm(validHousehold);
@@ -78,22 +70,22 @@ public class RequestFormTest{
 			assertNotNull("updateFoodValues did not properly fill a HashMap of Integer and FoodData objects", values);
 		}
     
-
-	
+	/**
+	This test ensures the getHampers method returns a Hamper object.
+	*/
 	@Test	
 		public void testGetHampers(){
 			RequestForm requestForm = new RequestForm(validHousehold);
 			ArrayList<Hamper> testHamper = requestForm.getHampers();
 			assertNotNull("getHampers did not successfully retrieve a Hamper object", testHamper);
 	}
-		
+	
+	/**
+	This test ensures that the getHouseholds method works correctly.
+	*/
 	@Test
 		public void testGetHouseholds() throws NotEnoughFoodException{
-			/*
-			 public Household(HashMap<String, HashMap<String, Integer>> clientData,
-                     ArrayList<String> familyList,
-                     HashMap<Integer, FoodData> availableFoods)
-			*/
+			
 			clientData = RequestFormDatabase.getClientValues();
 			HashMap<Integer, FoodData> foodValues = RequestForm.updateFoodValues();
 			validHousehold.add(validEntries);

@@ -39,8 +39,7 @@ public class HouseholdTest {
         familyList.add("Adult Female");
 
         availableFoods.put(1, new FoodData("temp1", 400, 1600, 10, 100));
-        availableFoods.put(2, new FoodData("temp2", // suffer <3
-                300, 100, 100, 1010));
+        availableFoods.put(2, new FoodData("temp2", 300, 100, 100, 1010));
         availableFoods.put(3, new FoodData("temp3",0, 1, 0, 0));
         availableFoods.put(4, new FoodData("temp4",0, 0, 1, 0));
         availableFoods.put(5, new FoodData("temp5",0, 0, 0, 1));
@@ -164,8 +163,7 @@ public class HouseholdTest {
         familyList.add("Adult Female");
 
         availableFoods.put(1, new FoodData("temp1", 400, 1600, 10, 100));
-        availableFoods.put(2, new FoodData("temp2", // suffer <3
-                300, 100, 100, 1010));
+        availableFoods.put(2, new FoodData("temp2", 300, 100, 100, 1010));
         availableFoods.put(3, new FoodData("temp3",0, 1, 0, 0));
         availableFoods.put(4, new FoodData("temp4",0, 0, 1, 0));
         availableFoods.put(5, new FoodData("temp5",0, 0, 0, 1));
