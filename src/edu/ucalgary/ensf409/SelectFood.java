@@ -36,12 +36,6 @@ public class SelectFood {
         // Main algorithm, iterates through food types while checking the best food for that
         // specific food group. Finishes when the needs are satisfied
         while(!needs.isSatisfied()){
-            System.out.println();
-            System.out.println("Needs:");
-            System.out.println("\tFV:\t"+needs.getFvCalories());
-            System.out.println("\tGrain:\t"+needs.getGrainCalories());
-            System.out.println("\tProtein:\t"+needs.getProteinCalories());
-            System.out.println("\tOther:\t"+needs.getOtherCalories());
             for (String type : foodTypes){
                 if(needs.getFvCalories() <= 0 && type.equals("fv"))
                     continue;
@@ -62,21 +56,11 @@ public class SelectFood {
                 // Add food to return foods that are in the hamper
                 returnFoods.put(key, foodToAdd);
 
-
-
-                System.out.println("food:\t"+foodToAdd);
-
                 // Update household needs
                 needs.changeFvCalories(-1 * foodToAdd.getFv());
                 needs.changeGrainCalories(-1 * foodToAdd.getGrain());
                 needs.changeProteinCalories(-1 * foodToAdd.getProtein());
                 needs.changeOtherCalories(-1 * foodToAdd.getOther());
-
-                System.out.println("Needs:");
-                System.out.println("\tFV:\t"+needs.getFvCalories());
-                System.out.println("\tGrain:\t"+needs.getGrainCalories());
-                System.out.println("\tProtein:\t"+needs.getProteinCalories());
-                System.out.println("\tOther:\t"+needs.getOtherCalories());
 
                 // Remove food from available foods
                 foods.remove(key);
