@@ -106,6 +106,7 @@ public class RequestFormTest{
 			Household addedHousehold = new Household(clientData, family, foodValues);
 			expectedHouseholds.add(addedHousehold);
 			ArrayList<Household> actualHouseholds = requestForm.getHouseholds();
+			assertEquals("pls work", 1, actualHouseholds.size());
 			assertEquals("getHouseholds did not return the expected Household object", expectedHouseholds, actualHouseholds);
 	}
 	
