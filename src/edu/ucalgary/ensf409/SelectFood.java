@@ -147,6 +147,7 @@ public class SelectFood {
                     throw new NotEnoughFoodException("fv", currentFoodCalories);
                 }
             }
+            // This repeats 3 more times, just switching fv with other values
         } else if(currentlyWorkingOn.equals("grain")){
             currentFoodCalories = needs.getGrainCalories();
             sortedFoods.sort(new Comparator<FoodData>() {
