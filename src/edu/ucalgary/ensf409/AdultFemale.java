@@ -9,5 +9,6 @@
 package edu.ucalgary.ensf409;
 
 public class AdultFemale extends FoodNeeds {
-
+    //classes are separated into client type to ensure static variables are
+    //separated for different types of people
 }
