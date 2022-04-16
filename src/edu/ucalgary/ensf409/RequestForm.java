@@ -12,7 +12,7 @@ import java.util.*;
 
 public class RequestForm {
     private int numHouseholds;
-    private static ArrayList<Household> households;
+    private ArrayList<Household> households;
 
     /**
      * Constructor for RequestForm object. Creates one or more families from values given
@@ -112,8 +112,8 @@ public class RequestForm {
      * Getter method for Households in RequestForm.
      * @return An ArrayList of Households.
      */
-    public static ArrayList<Household> getHouseholds() {
-        return households;
+    public ArrayList<Household> getHouseholds() {
+        return this.households;
     }
 
     /**

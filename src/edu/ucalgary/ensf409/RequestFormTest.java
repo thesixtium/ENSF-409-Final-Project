@@ -97,7 +97,7 @@ public class RequestFormTest{
 			clientData = RequestFormDatabase.getClientValues();
 			HashMap<Integer, FoodData> foodValues = RequestForm.updateFoodValues();
 			RequestForm requestForm = new RequestForm(validHousehold);
-			ArrayList<Household> expectedHouseholds = new ArrayList<Household>();
+			ArrayList<Household> expectedHouseholds = new ArrayList<>();
 			ArrayList<String> family = new ArrayList<>();
 			family.add("Adult Female");
 			family.add("Adult Male");
@@ -105,7 +105,7 @@ public class RequestFormTest{
 			family.add("Child Under 8");
 			Household addedHousehold = new Household(clientData, family, foodValues);
 			expectedHouseholds.add(addedHousehold);
-			ArrayList<Household> actualHouseholds = RequestForm.getHouseholds();
+			ArrayList<Household> actualHouseholds = requestForm.getHouseholds();
 			assertEquals("getHouseholds did not return the expected Household object", expectedHouseholds, actualHouseholds);
 	}
 	
@@ -114,7 +114,7 @@ public class RequestFormTest{
 			clientData = RequestFormDatabase.getClientValues();
 			HashMap<Integer, FoodData> foodValues = RequestForm.updateFoodValues();
 			RequestForm requestForm = new RequestForm(validHousehold);
-			ArrayList<Household> actualHouseholds = RequestForm.getHouseholds();
+			ArrayList<Household> actualHouseholds = requestForm.getHouseholds();
 			assertNotNull("getHouseholds created a null Household object", actualHouseholds);
 		}
 		
