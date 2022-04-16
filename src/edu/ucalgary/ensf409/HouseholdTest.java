@@ -1,7 +1,14 @@
+/**
+ * @author Aleksander Berezowski
+ * @author Danielle Jourdain
+ * @author Philippa Madill
+ * @version 1.0
+ * @since 1.0
+ */
+
 package edu.ucalgary.ensf409;
 
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,8 +33,8 @@ public class HouseholdTest {
 
         clientData.put("Adult Male", clientValues);
         clientData.put("Adult Female", clientValues);
-        clientData.put("Child Under 8", clientValues);
-        clientData.put("Child Over 8", clientValues);
+        clientData.put("Child under 8", clientValues);
+        clientData.put("Child over 8", clientValues);
 
         familyList.add("Adult Male");
         familyList.add("Adult Male");
@@ -66,8 +73,8 @@ public class HouseholdTest {
 
         clientData.put("Adult Male", clientValues);
         clientData.put("Adult Female", clientValues);
-        clientData.put("Child Under 8", clientValues);
-        clientData.put("Child Over 8", clientValues);
+        clientData.put("Child under 8", clientValues);
+        clientData.put("Child over 8", clientValues);
 
         familyList.add("Adult Male");
         familyList.add("Adult Male");
@@ -86,8 +93,7 @@ public class HouseholdTest {
         }
 
         assertNotEquals("Household object didn't initialize correctly",
-                testObj.getFamilyHamper().getException(),
-                null);
+                testObj.getFamilyHamper().getException(), null);
     }
 
     // Test get Family hamper from primary constructor
@@ -108,8 +114,8 @@ public class HouseholdTest {
 
         clientData.put("Adult Male", clientValues);
         clientData.put("Adult Female", clientValues);
-        clientData.put("Child Under 8", clientValues);
-        clientData.put("Child Over 8", clientValues);
+        clientData.put("Child under 8", clientValues);
+        clientData.put("Child over 8", clientValues);
 
         familyList.add("Adult Male");
         familyList.add("Adult Male");
@@ -131,8 +137,7 @@ public class HouseholdTest {
 
         assertTrue("Household object didn't initialize correctly", flag);
         assertNotEquals("Household object didn't initialize correctly",
-                testObj.getFamilyHamper(),
-                null);
+                testObj.getFamilyHamper(), null);
     }
 
     // Test get Family hamper from error constructor
@@ -153,8 +158,8 @@ public class HouseholdTest {
 
         clientData.put("Adult Male", clientValues);
         clientData.put("Adult Female", clientValues);
-        clientData.put("Child Under 8", clientValues);
-        clientData.put("Child Over 8", clientValues);
+        clientData.put("Child under 8", clientValues);
+        clientData.put("Child over 8", clientValues);
 
         familyList.add("Adult Male");
         familyList.add("Adult Male");
@@ -173,7 +178,6 @@ public class HouseholdTest {
         }
 
         assertNotEquals("Household object didn't initialize correctly",
-                testObj.getFamilyHamper(),
-                null);
+                testObj.getFamilyHamper(), null);
     }
 }

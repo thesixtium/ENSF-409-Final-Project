@@ -61,9 +61,7 @@ public class RequestForm {
 
             HashMap<String, HashMap<String, Integer>> clientData = RequestFormDatabase.getClientValues();
             HashMap<Integer, FoodData> foodValues = updateFoodValues();
-            for(Integer i: foodValues.keySet()) {
-                System.out.println(i + "\t" + foodValues.get(i));
-            }
+
             Household newHouse;
             try {
                 newHouse = new Household(clientData, family, foodValues);
@@ -76,7 +74,7 @@ public class RequestForm {
             //add the new household to the list of households
         }
 
-        this.households = temp;
+        households = temp;
     }
 
     /**
