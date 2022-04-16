@@ -1,6 +1,6 @@
 /**
  * @author Philippa Madill
- * @version 1.3
+ * @version 1.6
  * @since 1.0
  */
 

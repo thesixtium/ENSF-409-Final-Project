@@ -1,6 +1,8 @@
 /**
+ * @author Aleksander Berezowski
+ * @author Danielle Jourdain
  * @author Philippa Madill
- * @version 1.3
+ * @version 1.7
  * @since 1.0
  */
 

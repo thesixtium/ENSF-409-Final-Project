@@ -1,9 +1,12 @@
 /**
- * @author Aleksander
- * @version 1.3
+
+ * @author Aleksander Berezowski
+ * @author Danielle Jourdain
+ * @author Philippa Madill
+ * @version 1.0
  * @since 1.0
  */
-
+ 
 package edu.ucalgary.ensf409;
 
 import org.junit.*;
